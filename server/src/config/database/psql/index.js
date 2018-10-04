@@ -2,7 +2,7 @@ require('dotenv').config();
 
 import { Pool } from 'pg';
 import Promise from 'bluebird';
-import { success } from '../../lib/logs';
+import { success } from '../../../lib/logger';
 
 const config = {
   user: process.env.NODE_ENV === 'production' ? process.env.AWS_USER : process.env.LOCAL_USER,
