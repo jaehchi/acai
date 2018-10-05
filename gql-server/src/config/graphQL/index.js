@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import { json, urlencoded } from 'body-parser';
 import { resolve } from 'path';
 
+// import resolvers from './resolvers';
+
 const middleware = [
   helmet(),
   cors({
