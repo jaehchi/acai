@@ -1,10 +1,11 @@
 {
-  "name": "server",
+  "name": "gql-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon bin/entry.js"
+    "start": "nodemon bin/entry.js",
+    "db:setup": "babel-node src/config/db/psql/setup.js"
   },
   "keywords": [],
   "author": "",

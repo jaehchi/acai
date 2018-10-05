@@ -4,12 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:gql-server": "cd gql-server && npm run start",
+    "setup:gql-server": "cd gql-server && npm install",
+    "db:setup:gql-server" : "cd gql-server && npm run db:setup",
+    "start": "npm-run-all -p start:gql-server",
     "buildEnv": "node bin/buildEnv.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "npm-run-all": "^4.1.3"
   }
 }

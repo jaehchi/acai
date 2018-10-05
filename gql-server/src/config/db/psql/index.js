@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 import { Pool } from 'pg';
-import Promise from 'bluebird';
+import { promisifyAll } from 'bluebird';
 import { success } from '../../../lib/logger';
 
 const config = {
@@ -23,6 +23,6 @@ db.connect(err => {
   }
 });
 
-Promise.promisifyAll(db);
+promisifyAll(db);
 
 export default db;
