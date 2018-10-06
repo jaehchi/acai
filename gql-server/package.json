@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon bin/entry.js",
-    "db:setup": "babel-node src/config/db/psql/setup.js"
+    "db:setup": "babel-node src/config/db/psql/setup.js",
+    "prisma:deploy": "cd src/config/graphQL/prismaLayer && prisma deploy"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "babel-preset-stage-2": "^6.24.1",
     "bluebird": "^3.5.2",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
@@ -19,7 +21,8 @@
     "dotenv": "^6.0.0",
     "graphql-yoga": "^1.16.2",
     "helmet": "^3.13.0",
-    "pg": "^7.5.0"
+    "pg": "^7.5.0",
+    "prisma-binding": "^2.1.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

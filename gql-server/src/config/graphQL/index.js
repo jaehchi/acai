@@ -1,10 +1,11 @@
 import { GraphQLServer } from 'graphql-yoga';
+import { Prisma } from 'prisma-binding';
 import cors from 'cors';
 import helmet from 'helmet';
 import { json, urlencoded } from 'body-parser';
 import { resolve } from 'path';
 
-// import resolvers from './resolvers';
+import resolvers from './resolvers';
 
 const middleware = [
   helmet(),
@@ -14,25 +15,25 @@ const middleware = [
   }),
   json(),
   urlencoded( { extended: true } ),
-]
-
-const typeDefs = `
-  type Query {
-    info: String!
-  }
-`
-
-const resolvers = {
-  Query: {
-    info: () => `Simple GraphQL API`
-  }
-}
+];
 
 class App {
   constructor () {
     this.server = new GraphQLServer({
-      typeDefs,
+      typeDefs: './src/config/graphQL/schema/index.graphql',
       resolvers,
+      context: req => ({
+          ...req,
+          db: new Prisma({
+          typeDefs: './src/config/graphQL/schema/generated/prisma.graphql', // the generated Prisma DB schema
+          endpoint: 'http://localhost:4466',          // the endpoint of the Prisma DB service
+          secret: 'mysecret123',                    // specified in database/prisma.yml
+          debug: true,                              // log all GraphQL queries & mutations
+        }),
+      }),
+      resolverValidationOptions: {
+        requireResolversForResolveType: false
+      }
     });
 
     this.mountMiddleWare();
@@ -42,7 +43,23 @@ class App {
     this.server.express.use(...middleware);
   }
 }
-// 3
 
 export default new App().server;
 
+
+// const server = new GraphQLServer({
+//   typeDefs: './src/schema/schema.graphql',
+//   resolvers,
+//   context: req => ({
+//     ...req,
+//     db: new Prisma({
+//       typeDefs: 'src/generated/prisma.graphql', // the generated Prisma DB schema
+//       endpoint: 'https://us1.prisma.sh/jae-chi/demo/ym',          // the endpoint of the Prisma DB service
+//       secret: 'mysecret123',                    // specified in database/prisma.yml
+//       debug: true,                              // log all GraphQL queries & mutations
+//     }),
+//   }),
+//   resolverValidationOptions: {
+//     requireResolversForResolveType: false
+//   }
+//})
