@@ -1,5 +1,9 @@
+// EXAMPLE
 // import all queries
+import posts from "./postsQueries";
+import post from './postQueries';
 
 export default {
-  //imports queries
-}
+  post,
+  posts,
+};

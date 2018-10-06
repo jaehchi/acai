@@ -1,5 +1,11 @@
 // import all mutations
+// EXAMPLE
+import createDraft from './createDraft';
+import deletePost from './deletePost';
+import publish from './publish';
 
 export default {
-  //imports mutations
-}
+  createDraft,
+  deletePost,
+  publish,
+};
