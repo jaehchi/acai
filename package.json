@@ -6,7 +6,7 @@
   "scripts": {
     "start:gql-server": "cd gql-server && npm run start",
     "setup:gql-server": "cd gql-server && npm install",
-    "db:setup:gql-server" : "cd gql-server && npm run db:setup",
+    "db:setup:gql-server": "cd gql-server && npm run db:setup",
     "start": "npm-run-all -p start:gql-server",
     "buildEnv": "node bin/buildEnv.js"
   },

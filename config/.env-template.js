@@ -1,5 +1,5 @@
 const envBuild = {
-  'server': [
+  'gql-server': [
     'DEBUG=TRUE',
     'NODE_ENV=development',
     'PORT=4000',

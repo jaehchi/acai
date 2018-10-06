@@ -24,9 +24,10 @@ Install and Setup: Prisma
 Environment Setup
 
 ```
-1. npm run buildEnv
-2. npm run setup:gql-server
-3. npm run db:setup:gql-server
+1. npm i 
+2. npm run buildEnv
+3. npm run setup:gql-server
+4. npm run db:setup:gql-server
 ```
 
 Start Server
