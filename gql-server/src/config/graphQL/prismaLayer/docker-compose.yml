@@ -13,18 +13,20 @@ services:
         databases:
           default:
             connector: postgres
-            host: localhost
+            host: host.docker.internal
+            database: acai
             port: 5432
+            schema: public
             user: ym
-            password: 
-            migrations: true
-            rawAccess: true
+            password: ym
+            migrations: false
+            # rawAccess: true
   postgres:
     image: postgres
     restart: always
     environment:
       POSTGRES_USER: ym
-      POSTGRES_PASSWORD: 
+      POSTGRES_PASSWORD: ym
     volumes:
       - postgres:/var/lib/postgresql/data
 volumes:

@@ -1,12 +1,5 @@
-type Post {
+type Users @pgTable(name: "users") {
   id: ID! @unique
-  title: String!
-  content: String!
-  published: Boolean! @default(value: "false")
-}
-
-type User {
-  id: ID! @unique
-  username: String!
-  email: String!
+  email: String! @unique
+  username: String! @unique
 }
