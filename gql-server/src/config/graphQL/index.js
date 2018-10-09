@@ -45,21 +45,3 @@ class App {
 }
 
 export default new App().server;
-
-
-// const server = new GraphQLServer({
-//   typeDefs: './src/schema/schema.graphql',
-//   resolvers,
-//   context: req => ({
-//     ...req,
-//     db: new Prisma({
-//       typeDefs: 'src/generated/prisma.graphql', // the generated Prisma DB schema
-//       endpoint: 'https://us1.prisma.sh/jae-chi/demo/ym',          // the endpoint of the Prisma DB service
-//       secret: 'mysecret123',                    // specified in database/prisma.yml
-//       debug: true,                              // log all GraphQL queries & mutations
-//     }),
-//   }),
-//   resolverValidationOptions: {
-//     requireResolversForResolveType: false
-//   }
-//})
