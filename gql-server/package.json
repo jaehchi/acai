@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon bin/entry.js",
-    "db:setup": "babel-node src/config/db/psql/setup.js",
+    "db:setup": "babel-node src/lib/postgres/setup",
     "prisma:deploy": "cd src/config/graphQL/prismaLayer && prisma deploy"
   },
   "keywords": [],
