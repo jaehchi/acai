@@ -9,14 +9,14 @@ export const createChannelTable = async () => {
       (
         channel_id VARCHAR(200) UNIQUE NOT NULL,
         channelname VARCHAR(200) NOT NULL,
-        guild_id VARCHAR(200) UNIQUE NOT NULL,
+        guild_id VARCHAR(200) NOT NULL,
         owner_id VARCHAR(200) UNIQUE NOT NULL,
         type INT NOT NULL,
 
         CONSTRAINT channels_pk 
           PRIMARY key(channel_id),
         CONSTRAINT fk_guilds_owner_id
-          FOREIGN KEY(owner_id) REFERENCES users(user_id)
+          FOREIGN KEY(owner_id) REFERENCES users(id)
       )
       `
     );

@@ -14,7 +14,7 @@ export const createGuildTable = async () => {
         CONSTRAINT guilds_pk 
           PRIMARY key(guild_id),
         CONSTRAINT fk_guilds_owner_id
-          FOREIGN KEY(owner_id) REFERENCES users(user_id)
+          FOREIGN KEY(owner_id) REFERENCES users(id)
       )
       `
     );

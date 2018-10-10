@@ -7,11 +7,11 @@ export const createUserTable = async () => {
       `
       CREATE TABLE IF NOT EXISTS users
         (
-          user_id VARCHAR(200) UNIQUE NOT NULL,
+          id VARCHAR(200) UNIQUE NOT NULL,
           username VARCHAR(200) UNIQUE NOT NULL,
           email VARCHAR(600) UNIQUE NOT NULL,
           CONSTRAINT users_pk
-            PRIMARY KEY(user_id)
+            PRIMARY KEY(id)
         )
       `
     );
