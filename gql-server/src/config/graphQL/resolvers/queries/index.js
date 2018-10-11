@@ -1,5 +1,5 @@
-// import all queries
-import user from './userQueries';
+import user from './users/user';
+import users from './users/users';
 
 export default {
   user,

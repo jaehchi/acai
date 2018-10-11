@@ -1,11 +1,12 @@
 # source: http://localhost:4000
-# timestamp: Tue Oct 09 2018 21:55:37 GMT-0700 (Pacific Daylight Time)
+# timestamp: Wed Oct 10 2018 19:14:35 GMT-0700 (Pacific Daylight Time)
 
 type Channels implements Node {
   id: ID!
   channelname: String!
   guild_channels(where: Guild_channelsWhereInput, orderBy: Guild_channelsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guild_channels!]
   guild_id: String!
+  messages(where: MessagesWhereInput, orderBy: MessagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Messages!]
   owner(where: UsersWhereInput): Users
   type: Int!
 }
@@ -175,6 +176,9 @@ input ChannelsWhereInput {
   guild_channels_every: Guild_channelsWhereInput
   guild_channels_some: Guild_channelsWhereInput
   guild_channels_none: Guild_channelsWhereInput
+  messages_every: MessagesWhereInput
+  messages_some: MessagesWhereInput
+  messages_none: MessagesWhereInput
   owner: UsersWhereInput
 }
 
@@ -347,11 +351,76 @@ input Guild_channelsWhereInput {
   guild: GuildsWhereInput
 }
 
+type Guild_members implements Node {
+  id: ID!
+  guild(where: GuildsWhereInput): Guilds
+  user(where: UsersWhereInput): Users
+}
+
+enum Guild_membersOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+input Guild_membersWhereInput {
+  """Logical AND on all given filters."""
+  AND: [Guild_membersWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [Guild_membersWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [Guild_membersWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  guild: GuildsWhereInput
+  user: UsersWhereInput
+}
+
 type Guilds implements Node {
   id: ID!
-  guild_channels(where: Guild_channelsWhereInput, orderBy: Guild_channelsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guild_channels!]
   guildname: String!
   owner(where: UsersWhereInput): Users
+  guild_channels(where: Guild_channelsWhereInput, orderBy: Guild_channelsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guild_channels!]
+  guild_members(where: Guild_membersWhereInput, orderBy: Guild_membersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guild_members!]
 }
 
 enum GuildsOrderByInput {
@@ -450,24 +519,25 @@ input GuildsWhereInput {
 
   """All values not ending with the given string."""
   guildname_not_ends_with: String
+  owner: UsersWhereInput
   guild_channels_every: Guild_channelsWhereInput
   guild_channels_some: Guild_channelsWhereInput
   guild_channels_none: Guild_channelsWhereInput
-  owner: UsersWhereInput
+  guild_members_every: Guild_membersWhereInput
+  guild_members_some: Guild_membersWhereInput
+  guild_members_none: Guild_membersWhereInput
 }
 
 type Messages implements Node {
   id: ID!
-  author(where: UsersWhereInput): Users
-  channel_id: String!
   content: String!
+  author(where: UsersWhereInput): Users
+  channel(where: ChannelsWhereInput): Channels
 }
 
 enum MessagesOrderByInput {
   id_ASC
   id_DESC
-  channel_id_ASC
-  channel_id_DESC
   content_ASC
   content_DESC
 }
@@ -521,46 +591,6 @@ input MessagesWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  channel_id: String
-
-  """All values that are not equal to given value."""
-  channel_id_not: String
-
-  """All values that are contained in given list."""
-  channel_id_in: [String!]
-
-  """All values that are not contained in given list."""
-  channel_id_not_in: [String!]
-
-  """All values less than the given value."""
-  channel_id_lt: String
-
-  """All values less than or equal the given value."""
-  channel_id_lte: String
-
-  """All values greater than the given value."""
-  channel_id_gt: String
-
-  """All values greater than or equal the given value."""
-  channel_id_gte: String
-
-  """All values containing the given string."""
-  channel_id_contains: String
-
-  """All values not containing the given string."""
-  channel_id_not_contains: String
-
-  """All values starting with the given string."""
-  channel_id_starts_with: String
-
-  """All values not starting with the given string."""
-  channel_id_not_starts_with: String
-
-  """All values ending with the given string."""
-  channel_id_ends_with: String
-
-  """All values not ending with the given string."""
-  channel_id_not_ends_with: String
   content: String
 
   """All values that are not equal to given value."""
@@ -602,10 +632,12 @@ input MessagesWhereInput {
   """All values not ending with the given string."""
   content_not_ends_with: String
   author: UsersWhereInput
+  channel: ChannelsWhereInput
 }
 
 type Mutation {
   createUsers(username: String!, email: String!): Users
+  createGuilds(guildname: String!, owner: String!): Guilds
 }
 
 """An object with an ID"""
@@ -616,16 +648,18 @@ interface Node {
 
 type Query {
   user(id: ID!): Users
+  users: [Users!]!
 }
 
 type Users implements Node {
   id: ID!
+  username: String!
+  email: String!
   channels(where: ChannelsWhereInput, orderBy: ChannelsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Channels!]
   credentials(where: CredentialsWhereInput, orderBy: CredentialsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Credentials!]
-  email: String!
+  guild_members(where: Guild_membersWhereInput, orderBy: Guild_membersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guild_members!]
   guilds(where: GuildsWhereInput, orderBy: GuildsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guilds!]
   messages(where: MessagesWhereInput, orderBy: MessagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Messages!]
-  username: String!
 }
 
 input UsersWhereInput {
@@ -677,46 +711,6 @@ input UsersWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  email: String
-
-  """All values that are not equal to given value."""
-  email_not: String
-
-  """All values that are contained in given list."""
-  email_in: [String!]
-
-  """All values that are not contained in given list."""
-  email_not_in: [String!]
-
-  """All values less than the given value."""
-  email_lt: String
-
-  """All values less than or equal the given value."""
-  email_lte: String
-
-  """All values greater than the given value."""
-  email_gt: String
-
-  """All values greater than or equal the given value."""
-  email_gte: String
-
-  """All values containing the given string."""
-  email_contains: String
-
-  """All values not containing the given string."""
-  email_not_contains: String
-
-  """All values starting with the given string."""
-  email_starts_with: String
-
-  """All values not starting with the given string."""
-  email_not_starts_with: String
-
-  """All values ending with the given string."""
-  email_ends_with: String
-
-  """All values not ending with the given string."""
-  email_not_ends_with: String
   username: String
 
   """All values that are not equal to given value."""
@@ -757,12 +751,55 @@ input UsersWhereInput {
 
   """All values not ending with the given string."""
   username_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
   channels_every: ChannelsWhereInput
   channels_some: ChannelsWhereInput
   channels_none: ChannelsWhereInput
   credentials_every: CredentialsWhereInput
   credentials_some: CredentialsWhereInput
   credentials_none: CredentialsWhereInput
+  guild_members_every: Guild_membersWhereInput
+  guild_members_some: Guild_membersWhereInput
+  guild_members_none: Guild_membersWhereInput
   guilds_every: GuildsWhereInput
   guilds_some: GuildsWhereInput
   guilds_none: GuildsWhereInput

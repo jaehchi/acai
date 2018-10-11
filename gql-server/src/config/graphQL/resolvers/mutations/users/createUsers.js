@@ -4,7 +4,5 @@ export default (parent, { username, email }, ctx, info) => {
       username,
       email,
     }
-  },
-    info,
-  );
+  }, info );
 };

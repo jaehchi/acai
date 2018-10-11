@@ -1,13 +1,11 @@
-
-type Users @pgTable(name: "users") {
-  id: ID! @unique
-  username: String! @unique
-  email: String! @unique
-
-  channels: [Channels!]!
-  credentials: [Credentials!]!
-  guilds: [Guilds!]!
+type Channels @pgTable(name: "channels") {
+  id: ID! @unique @pgColumn(name: "channel_id")
+  channelname: String!
+  guild_channels: [Guild_channels!]!
+  guild_id: String!
   messages: [Messages!]!
+  owner: Users @pgRelation(column: "owner_id")
+  type: Int!
 }
 
 type Credentials @pgTable(name: "credentials") {
@@ -16,23 +14,40 @@ type Credentials @pgTable(name: "credentials") {
   user: Users @pgRelation(column: "user_id")
 }
 
-type Guilds @pgTable(name: "guilds") {
-  id: ID! @unique @pgColumn(name: "guild_id")
-  guildname: String! @unique
-  owner: Users @pgRelation(column: "owner_id")
+type Guild_channels @pgTable(name: "guild_channels") {
+  id: ID! @unique @pgColumn(name: "guild_channels_id")
+  channel: Channels @pgRelation(column: "channel_id")
+  guild: Guilds @pgRelation(column: "guild_id")
 }
 
-type Channels @pgTable(name: "channels") {
-  id: ID! @unique @pgColumn(name: "channel_id")
-  channelname: String!
-  guild_id: String!
-  type: Int!
-  owner: Users @pgRelation(column: "owner_id")
+type Guild_members @pgTable(name: "guild_members") {
+  id: ID! @unique @pgColumn(name: "guild_members_id")
+  guild: Guilds @pgRelation(column: "guild_id")
+  user: Users @pgRelation(column: "user_id")
+}
+
+type Guilds @pgTable(name: "guilds") {
+  id: ID! @unique @pgColumn(name: "guild_id")
+  guild_channels: [Guild_channels!]!
+  guild_members: [Guild_members!]!
+  guildname: String!
+  owner: String!
 }
 
 type Messages @pgTable(name: "messages") {
   id: ID! @unique @pgColumn(name: "message_id")
   author: Users @pgRelation(column: "author")
-  channel_id: String!
+  channel: Channels @pgRelation(column: "channel_id")
   content: String!
+}
+
+type Users @pgTable(name: "users") {
+  id: ID! @unique
+  channels: [Channels!]!
+  credentials: [Credentials!]!
+  email: String! @unique
+  guild_members: [Guild_members!]!
+  guilds: [Guilds!]!
+  messages: [Messages!]!
+  username: String! @unique
 }
