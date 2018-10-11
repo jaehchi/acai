@@ -6,12 +6,14 @@ import { createCredentialTable, dropCredentialTable } from "./tables/credentials
 import { createMessageTable, dropMessageTable } from './tables/messages';
 import { createGuildMemberTable, dropGuildMemberTable } from './tables/guild_members';
 import { createGuildChannelTable, dropGuildChannelTable } from "./tables/guild_channels";
+import { createGuildOwnerTable, dropGuildOwnerTable } from './tables/guild_owners';
 
 const setup = async (err) => {
   // await dropDatabase();
   await dropMessageTable();
   await dropGuildChannelTable();
   await dropGuildMemberTable();
+  await dropGuildOwnerTable();
   await dropChannelTable();
   await dropGuildTable();
   await dropCredentialTable();
@@ -21,13 +23,14 @@ const setup = async (err) => {
   await createUserTable();
   await createCredentialTable();
   await createGuildTable();
+  await createGuildOwnerTable();
   await createGuildMemberTable();
   await createChannelTable();
   await createGuildChannelTable();
   await createMessageTable();
   
   if (err) {
-    console.log('setup err' , err)
+    throw new Error(err);
   }
   process.exit();
 }
