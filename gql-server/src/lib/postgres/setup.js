@@ -4,12 +4,14 @@ import { createGuildTable, dropGuildTable } from "./tables/guilds";
 import { createChannelTable, dropChannelTable } from "./tables/channels";
 import { createCredentialTable, dropCredentialTable } from "./tables/credentials";
 import { createMessageTable, dropMessageTable } from './tables/messages';
-// import { createGuildChannelTable, dropGuildChannelTable } from "./tables/guild_channels";
+import { createGuildMemberTable, dropGuildMemberTable } from './tables/guild_members';
+import { createGuildChannelTable, dropGuildChannelTable } from "./tables/guild_channels";
 
 const setup = async (err) => {
   // await dropDatabase();
   await dropMessageTable();
-  // await dropGuildChannelTable();
+  await dropGuildChannelTable();
+  await dropGuildMemberTable();
   await dropChannelTable();
   await dropGuildTable();
   await dropCredentialTable();
@@ -19,8 +21,9 @@ const setup = async (err) => {
   await createUserTable();
   await createCredentialTable();
   await createGuildTable();
+  await createGuildMemberTable();
   await createChannelTable();
-  // await createGuildChannelTable();
+  await createGuildChannelTable();
   await createMessageTable();
   
   if (err) {
