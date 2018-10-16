@@ -1,7 +1,9 @@
-import createUsers from './users/createUsers';
-import createGuilds from './guilds/createGuilds';
+import createUser from './users/createUser';
+import createGuild from './guilds/createGuild';
+import joinGuild from './guilds/joinGuild'
 
 export default {
-  createUsers,
-  createGuilds,
+  createUser,
+  createGuild,
+  joinGuild,
 };

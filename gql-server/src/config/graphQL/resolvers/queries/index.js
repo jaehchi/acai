@@ -3,4 +3,5 @@ import users from './users/users';
 
 export default {
   user,
+  users,
 };
