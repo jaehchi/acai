@@ -7,12 +7,12 @@ export const createGuildTable = async () => {
       `
       CREATE TABLE IF NOT EXISTS guilds 
       (
-        guild_id VARCHAR(200) UNIQUE NOT NULL,
+        id VARCHAR(200) UNIQUE NOT NULL,
         guildname VARCHAR(200) NOT NULL,
-        owner VARCHAR(200) NOT NULL,
+        owner VARCHAR(200),
 
         CONSTRAINT guilds_pk 
-          PRIMARY key(guild_id),
+          PRIMARY key(id),
         CONSTRAINT fk_guilds_owner
           FOREIGN KEY(owner) REFERENCES users(id)
       )

@@ -10,24 +10,24 @@ import { createGuildOwnerTable, dropGuildOwnerTable } from './tables/guild_owner
 
 const setup = async (err) => {
   // await dropDatabase();
-  await dropMessageTable();
-  await dropGuildChannelTable();
+  // await dropMessageTable();
+  // await dropGuildChannelTable();
   await dropGuildMemberTable();
-  await dropGuildOwnerTable();
-  await dropChannelTable();
+  // await dropGuildOwnerTable();
+  // await dropChannelTable();
+  // await dropCredentialTable();
   await dropGuildTable();
-  await dropCredentialTable();
   await dropUserTable();
 
   // await createDatabase();
   await createUserTable();
-  await createCredentialTable();
   await createGuildTable();
-  await createGuildOwnerTable();
+  // await createCredentialTable();
+  // await createGuildOwnerTable();
   await createGuildMemberTable();
-  await createChannelTable();
-  await createGuildChannelTable();
-  await createMessageTable();
+  // await createChannelTable();
+  // await createGuildChannelTable();
+  // await createMessageTable();
   
   if (err) {
     throw new Error(err);

@@ -7,16 +7,16 @@ export const createGuildMemberTable = async () => {
       `
       CREATE TABLE IF NOT EXISTS guild_members
       (
-        guild_members_id VARCHAR(200) UNIQUE NOT NULL,
-        user_id VARCHAR(200) NOT NULL,
-        guild_id VARCHAR(200) NOT NULL,
+        id VARCHAR(200) UNIQUE NOT NULL,
+        user_id VARCHAR(200),
+        guild_id VARCHAR(200),
 
         CONSTRAINT guild_members_pk 
-          PRIMARY key(guild_members_id),
+          PRIMARY key(id),
         CONSTRAINT fk_guild_members_user_id
           FOREIGN KEY(user_id) REFERENCES users(id),
         CONSTRAINT fk_guild_members_guild_id
-          FOREIGN KEY(guild_id) REFERENCES guilds(guild_id)
+          FOREIGN KEY(guild_id) REFERENCES guilds(id)
       )
       `
     );
