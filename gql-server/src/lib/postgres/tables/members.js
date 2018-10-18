@@ -1,40 +1,40 @@
 import db from '../../../config/db/psql';
 import { success, error, warning } from '../../logger';
 
-export const createGuildMemberTable = async () => {
+export const createMemberTable = async () => {
   try {
     await db.queryAsync(
       `
-      CREATE TABLE IF NOT EXISTS guild_members
+      CREATE TABLE IF NOT EXISTS members
       (
         id VARCHAR(200) UNIQUE NOT NULL,
         user_id VARCHAR(200),
         guild_id VARCHAR(200),
 
-        CONSTRAINT guild_members_pk 
+        CONSTRAINT members_pk 
           PRIMARY key(id),
-        CONSTRAINT fk_guild_members_user_id
+        CONSTRAINT fk_members_user_id
           FOREIGN KEY(user_id) REFERENCES users(id),
-        CONSTRAINT fk_guild_members_guild_id
+        CONSTRAINT fk_members_guild_id
           FOREIGN KEY(guild_id) REFERENCES guilds(id)
       )
       `
     );
-    success('created guild-members table');
+    success('created members table');
   } catch (err) {
-    error('failed to drop guild-members table -', err);
+    error('failed to drop members table -', err);
   }
 };
 
-export const dropGuildMemberTable = async () => {
+export const dropMemberTable = async () => {
   try {
     await db.queryAsync(
       `
-      DROP TABLE IF EXISTS guild_members
+      DROP TABLE IF EXISTS members
       `
       );
-      warning('dropped guild-member table');
+      warning('dropped members table');
   } catch (err) {
-    error('failed to drop guild-member table -', err);
+    error('failed to drop members table -', err);
   }
 };
