@@ -1,34 +1,29 @@
-
 type Channels @pgTable(name: "channels") {
   id: ID! @unique
   channelname: String!
-  belongsTo: Guilds @pgRelation(column: "guild_id")
+  guild: Guilds @pgRelation(column: "guild_id")
   type: Int!
 }
 
 type Guilds @pgTable(name: "guilds") {
   id: ID! @unique
-  guildname: String!
-  owner: Users @pgRelation(column: "owner")
-  
   channels: [Channels!]!
+  guildname: String!
   members: [Members!]!
+  owner: Users @pgRelation(column: "owner")
 }
 
 type Members @pgTable(name: "members") {
   id: ID! @unique
-  
-  guilds: Guilds @pgRelation(column: "guild_id")
-  users: Users @pgRelation(column: "user_id")
+  guild: Guilds @pgRelation(column: "guild_id")
+  user: Users @pgRelation(column: "user_id")
 }
 
 type Users @pgTable(name: "users") {
   id: ID! @unique
   email: String! @unique
-  username: String! @unique
+  guilds: [Guilds!]!
+  members: [Members!]!
   password: String!
-  
-  ownerOf: [Guilds!]!
-  memberOf: [Members!]!
+  username: String! @unique
 }
-

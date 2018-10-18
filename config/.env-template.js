@@ -13,7 +13,9 @@ const envBuild = {
     'AWS_DATABASE=',
     'AWS_PASSWORD=',
     'AWS_PORT=',
+    'SALT_ROUNDS=10',
+    'TOKEN_SECRET_KEY=acaiapi',
   ],
 };
 
-module.exports = envBuild;
+module.exports = envBuild;s

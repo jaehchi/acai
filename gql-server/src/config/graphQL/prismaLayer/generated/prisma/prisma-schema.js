@@ -602,6 +602,7 @@ type Users {
   id: ID!
   email: String!
   username: String!
+  password: String!
   ownerOf(where: GuildsWhereInput, orderBy: GuildsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guilds!]
   memberOf(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Members!]
 }
@@ -615,6 +616,7 @@ type UsersConnection {
 input UsersCreateInput {
   email: String!
   username: String!
+  password: String!
   ownerOf: GuildsCreateManyWithoutOwnerInput
   memberOf: MembersCreateManyWithoutUsersInput
 }
@@ -632,12 +634,14 @@ input UsersCreateOneWithoutOwnerOfInput {
 input UsersCreateWithoutMemberOfInput {
   email: String!
   username: String!
+  password: String!
   ownerOf: GuildsCreateManyWithoutOwnerInput
 }
 
 input UsersCreateWithoutOwnerOfInput {
   email: String!
   username: String!
+  password: String!
   memberOf: MembersCreateManyWithoutUsersInput
 }
 
@@ -653,6 +657,8 @@ enum UsersOrderByInput {
   email_DESC
   username_ASC
   username_DESC
+  password_ASC
+  password_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -663,6 +669,7 @@ type UsersPreviousValues {
   id: ID!
   email: String!
   username: String!
+  password: String!
 }
 
 type UsersSubscriptionPayload {
@@ -686,6 +693,7 @@ input UsersSubscriptionWhereInput {
 input UsersUpdateInput {
   email: String
   username: String
+  password: String
   ownerOf: GuildsUpdateManyWithoutOwnerInput
   memberOf: MembersUpdateManyWithoutUsersInput
 }
@@ -711,12 +719,14 @@ input UsersUpdateOneWithoutOwnerOfInput {
 input UsersUpdateWithoutMemberOfDataInput {
   email: String
   username: String
+  password: String
   ownerOf: GuildsUpdateManyWithoutOwnerInput
 }
 
 input UsersUpdateWithoutOwnerOfDataInput {
   email: String
   username: String
+  password: String
   memberOf: MembersUpdateManyWithoutUsersInput
 }
 
@@ -773,6 +783,20 @@ input UsersWhereInput {
   username_not_starts_with: String
   username_ends_with: String
   username_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
   ownerOf_every: GuildsWhereInput
   ownerOf_some: GuildsWhereInput
   ownerOf_none: GuildsWhereInput

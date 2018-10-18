@@ -267,6 +267,8 @@ export type UsersOrderByInput =
   | "email_DESC"
   | "username_ASC"
   | "username_DESC"
+  | "password_ASC"
+  | "password_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -336,6 +338,20 @@ export interface UsersWhereInput {
   username_not_starts_with?: String;
   username_ends_with?: String;
   username_not_ends_with?: String;
+  password?: String;
+  password_not?: String;
+  password_in?: String[] | String;
+  password_not_in?: String[] | String;
+  password_lt?: String;
+  password_lte?: String;
+  password_gt?: String;
+  password_gte?: String;
+  password_contains?: String;
+  password_not_contains?: String;
+  password_starts_with?: String;
+  password_not_starts_with?: String;
+  password_ends_with?: String;
+  password_not_ends_with?: String;
   ownerOf_every?: GuildsWhereInput;
   ownerOf_some?: GuildsWhereInput;
   ownerOf_none?: GuildsWhereInput;
@@ -350,6 +366,7 @@ export interface UsersWhereInput {
 export interface UsersUpdateWithoutOwnerOfDataInput {
   email?: String;
   username?: String;
+  password?: String;
   memberOf?: MembersUpdateManyWithoutUsersInput;
 }
 
@@ -525,6 +542,7 @@ export interface MembersUpdateInput {
 export interface UsersCreateWithoutMemberOfInput {
   email: String;
   username: String;
+  password: String;
   ownerOf?: GuildsCreateManyWithoutOwnerInput;
 }
 
@@ -637,12 +655,14 @@ export interface GuildsUpdateManyWithoutOwnerInput {
 export interface UsersCreateWithoutOwnerOfInput {
   email: String;
   username: String;
+  password: String;
   memberOf?: MembersCreateManyWithoutUsersInput;
 }
 
 export interface UsersUpdateWithoutMemberOfDataInput {
   email?: String;
   username?: String;
+  password?: String;
   ownerOf?: GuildsUpdateManyWithoutOwnerInput;
 }
 
@@ -677,6 +697,7 @@ export interface MembersUpdateWithoutUsersDataInput {
 export interface UsersUpdateInput {
   email?: String;
   username?: String;
+  password?: String;
   ownerOf?: GuildsUpdateManyWithoutOwnerInput;
   memberOf?: MembersUpdateManyWithoutUsersInput;
 }
@@ -819,6 +840,7 @@ export interface MembersUpsertWithWhereUniqueWithoutGuildsInput {
 export interface UsersCreateInput {
   email: String;
   username: String;
+  password: String;
   ownerOf?: GuildsCreateManyWithoutOwnerInput;
   memberOf?: MembersCreateManyWithoutUsersInput;
 }
@@ -836,6 +858,7 @@ export interface UsersPreviousValuesNode {
   id: ID_Output;
   email: String;
   username: String;
+  password: String;
 }
 
 export interface UsersPreviousValues
@@ -844,6 +867,7 @@ export interface UsersPreviousValues
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   username: () => Promise<String>;
+  password: () => Promise<String>;
 }
 
 export interface UsersPreviousValuesSubscription
@@ -852,6 +876,7 @@ export interface UsersPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
   username: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
 }
 
 export interface GuildsConnectionNode {}
@@ -1193,12 +1218,14 @@ export interface UsersNode {
   id: ID_Output;
   email: String;
   username: String;
+  password: String;
 }
 
 export interface Users extends Promise<UsersNode>, Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
   username: () => Promise<String>;
+  password: () => Promise<String>;
   ownerOf: <T = FragmentableArray<GuildsNode>>(
     args?: {
       where?: GuildsWhereInput;
@@ -1229,6 +1256,7 @@ export interface UsersSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
   username: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
   ownerOf: <T = Promise<AsyncIterator<GuildsSubscription>>>(
     args?: {
       where?: GuildsWhereInput;

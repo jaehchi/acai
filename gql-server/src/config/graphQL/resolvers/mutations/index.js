@@ -1,9 +1,10 @@
-import { createUser } from './users';
+import { signup, login } from './users';
 import { createGuild, joinGuild } from './guilds';
 
 
 export default {
-  createUser,
+  signup,
+  login,
   createGuild,
   joinGuild,
 };
