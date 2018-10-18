@@ -1,6 +1,6 @@
-import createUser from './users/createUser';
-import createGuild from './guilds/createGuild';
-import joinGuild from './guilds/joinGuild'
+import { createUser } from './users';
+import { createGuild, joinGuild } from './guilds';
+
 
 export default {
   createUser,

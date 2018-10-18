@@ -1,7 +1,9 @@
-import user from './users/user';
-import users from './users/users';
+import user from './user';
+import users from './users';
+import allMembers from './allMembers';
 
 export default {
   user,
   users,
+  allMembers,
 };

@@ -1,11 +1,11 @@
 # source: http://localhost:4466
-# timestamp: Tue Oct 16 2018 16:47:07 GMT-0700 (Pacific Daylight Time)
+# timestamp: Wed Oct 17 2018 16:48:35 GMT-0700 (Pacific Daylight Time)
 
-type AggregateGuild_members {
+type AggregateGuilds {
   count: Int!
 }
 
-type AggregateGuilds {
+type AggregateMembers {
   count: Int!
 }
 
@@ -18,217 +18,11 @@ type BatchPayload {
   count: Long!
 }
 
-type Guild_members implements Node {
-  id: ID!
-  guild(where: GuildsWhereInput): Guilds
-  user(where: UsersWhereInput): Users
-}
-
-"""A connection to a list of items."""
-type Guild_membersConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [Guild_membersEdge]!
-  aggregate: AggregateGuild_members!
-}
-
-input Guild_membersCreateInput {
-  guild: GuildsCreateOneWithoutGuild_membersInput
-  user: UsersCreateOneWithoutGuild_membersInput
-}
-
-input Guild_membersCreateManyWithoutGuildInput {
-  create: [Guild_membersCreateWithoutGuildInput!]
-  connect: [Guild_membersWhereUniqueInput!]
-}
-
-input Guild_membersCreateManyWithoutUserInput {
-  create: [Guild_membersCreateWithoutUserInput!]
-  connect: [Guild_membersWhereUniqueInput!]
-}
-
-input Guild_membersCreateWithoutGuildInput {
-  user: UsersCreateOneWithoutGuild_membersInput
-}
-
-input Guild_membersCreateWithoutUserInput {
-  guild: GuildsCreateOneWithoutGuild_membersInput
-}
-
-"""An edge in a connection."""
-type Guild_membersEdge {
-  """The item at the end of the edge."""
-  node: Guild_members!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum Guild_membersOrderByInput {
-  id_ASC
-  id_DESC
-}
-
-type Guild_membersPreviousValues {
-  id: ID!
-}
-
-type Guild_membersSubscriptionPayload {
-  mutation: MutationType!
-  node: Guild_members
-  updatedFields: [String!]
-  previousValues: Guild_membersPreviousValues
-}
-
-input Guild_membersSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [Guild_membersSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [Guild_membersSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [Guild_membersSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: Guild_membersWhereInput
-}
-
-input Guild_membersUpdateInput {
-  guild: GuildsUpdateOneWithoutGuild_membersInput
-  user: UsersUpdateOneWithoutGuild_membersInput
-}
-
-input Guild_membersUpdateManyWithoutGuildInput {
-  create: [Guild_membersCreateWithoutGuildInput!]
-  connect: [Guild_membersWhereUniqueInput!]
-  disconnect: [Guild_membersWhereUniqueInput!]
-  delete: [Guild_membersWhereUniqueInput!]
-  update: [Guild_membersUpdateWithWhereUniqueWithoutGuildInput!]
-  upsert: [Guild_membersUpsertWithWhereUniqueWithoutGuildInput!]
-}
-
-input Guild_membersUpdateManyWithoutUserInput {
-  create: [Guild_membersCreateWithoutUserInput!]
-  connect: [Guild_membersWhereUniqueInput!]
-  disconnect: [Guild_membersWhereUniqueInput!]
-  delete: [Guild_membersWhereUniqueInput!]
-  update: [Guild_membersUpdateWithWhereUniqueWithoutUserInput!]
-  upsert: [Guild_membersUpsertWithWhereUniqueWithoutUserInput!]
-}
-
-input Guild_membersUpdateWithoutGuildDataInput {
-  user: UsersUpdateOneWithoutGuild_membersInput
-}
-
-input Guild_membersUpdateWithoutUserDataInput {
-  guild: GuildsUpdateOneWithoutGuild_membersInput
-}
-
-input Guild_membersUpdateWithWhereUniqueWithoutGuildInput {
-  where: Guild_membersWhereUniqueInput!
-  data: Guild_membersUpdateWithoutGuildDataInput!
-}
-
-input Guild_membersUpdateWithWhereUniqueWithoutUserInput {
-  where: Guild_membersWhereUniqueInput!
-  data: Guild_membersUpdateWithoutUserDataInput!
-}
-
-input Guild_membersUpsertWithWhereUniqueWithoutGuildInput {
-  where: Guild_membersWhereUniqueInput!
-  update: Guild_membersUpdateWithoutGuildDataInput!
-  create: Guild_membersCreateWithoutGuildInput!
-}
-
-input Guild_membersUpsertWithWhereUniqueWithoutUserInput {
-  where: Guild_membersWhereUniqueInput!
-  update: Guild_membersUpdateWithoutUserDataInput!
-  create: Guild_membersCreateWithoutUserInput!
-}
-
-input Guild_membersWhereInput {
-  """Logical AND on all given filters."""
-  AND: [Guild_membersWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [Guild_membersWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [Guild_membersWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  guild: GuildsWhereInput
-  user: UsersWhereInput
-}
-
-input Guild_membersWhereUniqueInput {
-  id: ID
-}
-
 type Guilds implements Node {
   id: ID!
-  guild_members(where: Guild_membersWhereInput, orderBy: Guild_membersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guild_members!]
   guildname: String!
   owner(where: UsersWhereInput): Users
+  members(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Members!]
 }
 
 """A connection to a list of items."""
@@ -243,8 +37,8 @@ type GuildsConnection {
 
 input GuildsCreateInput {
   guildname: String!
-  guild_members: Guild_membersCreateManyWithoutGuildInput
-  owner: UsersCreateOneWithoutGuildsInput
+  owner: UsersCreateOneWithoutOwnerOfInput
+  members: MembersCreateManyWithoutGuildsInput
 }
 
 input GuildsCreateManyWithoutOwnerInput {
@@ -252,19 +46,19 @@ input GuildsCreateManyWithoutOwnerInput {
   connect: [GuildsWhereUniqueInput!]
 }
 
-input GuildsCreateOneWithoutGuild_membersInput {
-  create: GuildsCreateWithoutGuild_membersInput
+input GuildsCreateOneWithoutMembersInput {
+  create: GuildsCreateWithoutMembersInput
   connect: GuildsWhereUniqueInput
 }
 
-input GuildsCreateWithoutGuild_membersInput {
+input GuildsCreateWithoutMembersInput {
   guildname: String!
-  owner: UsersCreateOneWithoutGuildsInput
+  owner: UsersCreateOneWithoutOwnerOfInput
 }
 
 input GuildsCreateWithoutOwnerInput {
   guildname: String!
-  guild_members: Guild_membersCreateManyWithoutGuildInput
+  members: MembersCreateManyWithoutGuildsInput
 }
 
 """An edge in a connection."""
@@ -329,8 +123,8 @@ input GuildsSubscriptionWhereInput {
 
 input GuildsUpdateInput {
   guildname: String
-  guild_members: Guild_membersUpdateManyWithoutGuildInput
-  owner: UsersUpdateOneWithoutGuildsInput
+  owner: UsersUpdateOneWithoutOwnerOfInput
+  members: MembersUpdateManyWithoutGuildsInput
 }
 
 input GuildsUpdateManyWithoutOwnerInput {
@@ -342,23 +136,23 @@ input GuildsUpdateManyWithoutOwnerInput {
   upsert: [GuildsUpsertWithWhereUniqueWithoutOwnerInput!]
 }
 
-input GuildsUpdateOneWithoutGuild_membersInput {
-  create: GuildsCreateWithoutGuild_membersInput
+input GuildsUpdateOneWithoutMembersInput {
+  create: GuildsCreateWithoutMembersInput
   connect: GuildsWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: GuildsUpdateWithoutGuild_membersDataInput
-  upsert: GuildsUpsertWithoutGuild_membersInput
+  update: GuildsUpdateWithoutMembersDataInput
+  upsert: GuildsUpsertWithoutMembersInput
 }
 
-input GuildsUpdateWithoutGuild_membersDataInput {
+input GuildsUpdateWithoutMembersDataInput {
   guildname: String
-  owner: UsersUpdateOneWithoutGuildsInput
+  owner: UsersUpdateOneWithoutOwnerOfInput
 }
 
 input GuildsUpdateWithoutOwnerDataInput {
   guildname: String
-  guild_members: Guild_membersUpdateManyWithoutGuildInput
+  members: MembersUpdateManyWithoutGuildsInput
 }
 
 input GuildsUpdateWithWhereUniqueWithoutOwnerInput {
@@ -366,9 +160,9 @@ input GuildsUpdateWithWhereUniqueWithoutOwnerInput {
   data: GuildsUpdateWithoutOwnerDataInput!
 }
 
-input GuildsUpsertWithoutGuild_membersInput {
-  update: GuildsUpdateWithoutGuild_membersDataInput!
-  create: GuildsCreateWithoutGuild_membersInput!
+input GuildsUpsertWithoutMembersInput {
+  update: GuildsUpdateWithoutMembersDataInput!
+  create: GuildsCreateWithoutMembersInput!
 }
 
 input GuildsUpsertWithWhereUniqueWithoutOwnerInput {
@@ -466,10 +260,10 @@ input GuildsWhereInput {
 
   """All values not ending with the given string."""
   guildname_not_ends_with: String
-  guild_members_every: Guild_membersWhereInput
-  guild_members_some: Guild_membersWhereInput
-  guild_members_none: Guild_membersWhereInput
   owner: UsersWhereInput
+  members_every: MembersWhereInput
+  members_some: MembersWhereInput
+  members_none: MembersWhereInput
 }
 
 input GuildsWhereUniqueInput {
@@ -482,24 +276,230 @@ Long can represent values between -(2^63) and 2^63 - 1.
 """
 scalar Long
 
+type Members implements Node {
+  id: ID!
+  guilds(where: GuildsWhereInput): Guilds
+  users(where: UsersWhereInput): Users
+}
+
+"""A connection to a list of items."""
+type MembersConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MembersEdge]!
+  aggregate: AggregateMembers!
+}
+
+input MembersCreateInput {
+  guilds: GuildsCreateOneWithoutMembersInput
+  users: UsersCreateOneWithoutMemberOfInput
+}
+
+input MembersCreateManyWithoutGuildsInput {
+  create: [MembersCreateWithoutGuildsInput!]
+  connect: [MembersWhereUniqueInput!]
+}
+
+input MembersCreateManyWithoutUsersInput {
+  create: [MembersCreateWithoutUsersInput!]
+  connect: [MembersWhereUniqueInput!]
+}
+
+input MembersCreateWithoutGuildsInput {
+  users: UsersCreateOneWithoutMemberOfInput
+}
+
+input MembersCreateWithoutUsersInput {
+  guilds: GuildsCreateOneWithoutMembersInput
+}
+
+"""An edge in a connection."""
+type MembersEdge {
+  """The item at the end of the edge."""
+  node: Members!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MembersOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type MembersPreviousValues {
+  id: ID!
+}
+
+type MembersSubscriptionPayload {
+  mutation: MutationType!
+  node: Members
+  updatedFields: [String!]
+  previousValues: MembersPreviousValues
+}
+
+input MembersSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MembersSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MembersSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MembersSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MembersWhereInput
+}
+
+input MembersUpdateInput {
+  guilds: GuildsUpdateOneWithoutMembersInput
+  users: UsersUpdateOneWithoutMemberOfInput
+}
+
+input MembersUpdateManyWithoutGuildsInput {
+  create: [MembersCreateWithoutGuildsInput!]
+  connect: [MembersWhereUniqueInput!]
+  disconnect: [MembersWhereUniqueInput!]
+  delete: [MembersWhereUniqueInput!]
+  update: [MembersUpdateWithWhereUniqueWithoutGuildsInput!]
+  upsert: [MembersUpsertWithWhereUniqueWithoutGuildsInput!]
+}
+
+input MembersUpdateManyWithoutUsersInput {
+  create: [MembersCreateWithoutUsersInput!]
+  connect: [MembersWhereUniqueInput!]
+  disconnect: [MembersWhereUniqueInput!]
+  delete: [MembersWhereUniqueInput!]
+  update: [MembersUpdateWithWhereUniqueWithoutUsersInput!]
+  upsert: [MembersUpsertWithWhereUniqueWithoutUsersInput!]
+}
+
+input MembersUpdateWithoutGuildsDataInput {
+  users: UsersUpdateOneWithoutMemberOfInput
+}
+
+input MembersUpdateWithoutUsersDataInput {
+  guilds: GuildsUpdateOneWithoutMembersInput
+}
+
+input MembersUpdateWithWhereUniqueWithoutGuildsInput {
+  where: MembersWhereUniqueInput!
+  data: MembersUpdateWithoutGuildsDataInput!
+}
+
+input MembersUpdateWithWhereUniqueWithoutUsersInput {
+  where: MembersWhereUniqueInput!
+  data: MembersUpdateWithoutUsersDataInput!
+}
+
+input MembersUpsertWithWhereUniqueWithoutGuildsInput {
+  where: MembersWhereUniqueInput!
+  update: MembersUpdateWithoutGuildsDataInput!
+  create: MembersCreateWithoutGuildsInput!
+}
+
+input MembersUpsertWithWhereUniqueWithoutUsersInput {
+  where: MembersWhereUniqueInput!
+  update: MembersUpdateWithoutUsersDataInput!
+  create: MembersCreateWithoutUsersInput!
+}
+
+input MembersWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MembersWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MembersWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MembersWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  guilds: GuildsWhereInput
+  users: UsersWhereInput
+}
+
+input MembersWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
-  createGuild_members(data: Guild_membersCreateInput!): Guild_members!
   createGuilds(data: GuildsCreateInput!): Guilds!
+  createMembers(data: MembersCreateInput!): Members!
   createUsers(data: UsersCreateInput!): Users!
-  updateGuild_members(data: Guild_membersUpdateInput!, where: Guild_membersWhereUniqueInput!): Guild_members
   updateGuilds(data: GuildsUpdateInput!, where: GuildsWhereUniqueInput!): Guilds
+  updateMembers(data: MembersUpdateInput!, where: MembersWhereUniqueInput!): Members
   updateUsers(data: UsersUpdateInput!, where: UsersWhereUniqueInput!): Users
-  deleteGuild_members(where: Guild_membersWhereUniqueInput!): Guild_members
   deleteGuilds(where: GuildsWhereUniqueInput!): Guilds
+  deleteMembers(where: MembersWhereUniqueInput!): Members
   deleteUsers(where: UsersWhereUniqueInput!): Users
-  upsertGuild_members(where: Guild_membersWhereUniqueInput!, create: Guild_membersCreateInput!, update: Guild_membersUpdateInput!): Guild_members!
   upsertGuilds(where: GuildsWhereUniqueInput!, create: GuildsCreateInput!, update: GuildsUpdateInput!): Guilds!
+  upsertMembers(where: MembersWhereUniqueInput!, create: MembersCreateInput!, update: MembersUpdateInput!): Members!
   upsertUsers(where: UsersWhereUniqueInput!, create: UsersCreateInput!, update: UsersUpdateInput!): Users!
-  updateManyGuild_memberses(data: Guild_membersUpdateInput!, where: Guild_membersWhereInput): BatchPayload!
   updateManyGuildses(data: GuildsUpdateInput!, where: GuildsWhereInput): BatchPayload!
+  updateManyMemberses(data: MembersUpdateInput!, where: MembersWhereInput): BatchPayload!
   updateManyUserses(data: UsersUpdateInput!, where: UsersWhereInput): BatchPayload!
-  deleteManyGuild_memberses(where: Guild_membersWhereInput): BatchPayload!
   deleteManyGuildses(where: GuildsWhereInput): BatchPayload!
+  deleteManyMemberses(where: MembersWhereInput): BatchPayload!
   deleteManyUserses(where: UsersWhereInput): BatchPayload!
 }
 
@@ -531,29 +531,29 @@ type PageInfo {
 }
 
 type Query {
-  guild_memberses(where: Guild_membersWhereInput, orderBy: Guild_membersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guild_members]!
   guildses(where: GuildsWhereInput, orderBy: GuildsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guilds]!
+  memberses(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Members]!
   userses(where: UsersWhereInput, orderBy: UsersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Users]!
-  guild_members(where: Guild_membersWhereUniqueInput!): Guild_members
   guilds(where: GuildsWhereUniqueInput!): Guilds
+  members(where: MembersWhereUniqueInput!): Members
   users(where: UsersWhereUniqueInput!): Users
-  guild_membersesConnection(where: Guild_membersWhereInput, orderBy: Guild_membersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): Guild_membersConnection!
   guildsesConnection(where: GuildsWhereInput, orderBy: GuildsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GuildsConnection!
+  membersesConnection(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MembersConnection!
   usersesConnection(where: UsersWhereInput, orderBy: UsersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UsersConnection!
 }
 
 type Subscription {
-  guild_members(where: Guild_membersSubscriptionWhereInput): Guild_membersSubscriptionPayload
   guilds(where: GuildsSubscriptionWhereInput): GuildsSubscriptionPayload
+  members(where: MembersSubscriptionWhereInput): MembersSubscriptionPayload
   users(where: UsersSubscriptionWhereInput): UsersSubscriptionPayload
 }
 
 type Users implements Node {
   id: ID!
   email: String!
-  guild_members(where: Guild_membersWhereInput, orderBy: Guild_membersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guild_members!]
-  guilds(where: GuildsWhereInput, orderBy: GuildsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guilds!]
   username: String!
+  ownerOf(where: GuildsWhereInput, orderBy: GuildsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guilds!]
+  memberOf(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Members!]
 }
 
 """A connection to a list of items."""
@@ -569,30 +569,30 @@ type UsersConnection {
 input UsersCreateInput {
   email: String!
   username: String!
-  guild_members: Guild_membersCreateManyWithoutUserInput
-  guilds: GuildsCreateManyWithoutOwnerInput
+  ownerOf: GuildsCreateManyWithoutOwnerInput
+  memberOf: MembersCreateManyWithoutUsersInput
 }
 
-input UsersCreateOneWithoutGuild_membersInput {
-  create: UsersCreateWithoutGuild_membersInput
+input UsersCreateOneWithoutMemberOfInput {
+  create: UsersCreateWithoutMemberOfInput
   connect: UsersWhereUniqueInput
 }
 
-input UsersCreateOneWithoutGuildsInput {
-  create: UsersCreateWithoutGuildsInput
+input UsersCreateOneWithoutOwnerOfInput {
+  create: UsersCreateWithoutOwnerOfInput
   connect: UsersWhereUniqueInput
 }
 
-input UsersCreateWithoutGuild_membersInput {
+input UsersCreateWithoutMemberOfInput {
   email: String!
   username: String!
-  guilds: GuildsCreateManyWithoutOwnerInput
+  ownerOf: GuildsCreateManyWithoutOwnerInput
 }
 
-input UsersCreateWithoutGuildsInput {
+input UsersCreateWithoutOwnerOfInput {
   email: String!
   username: String!
-  guild_members: Guild_membersCreateManyWithoutUserInput
+  memberOf: MembersCreateManyWithoutUsersInput
 }
 
 """An edge in a connection."""
@@ -661,48 +661,48 @@ input UsersSubscriptionWhereInput {
 input UsersUpdateInput {
   email: String
   username: String
-  guild_members: Guild_membersUpdateManyWithoutUserInput
-  guilds: GuildsUpdateManyWithoutOwnerInput
+  ownerOf: GuildsUpdateManyWithoutOwnerInput
+  memberOf: MembersUpdateManyWithoutUsersInput
 }
 
-input UsersUpdateOneWithoutGuild_membersInput {
-  create: UsersCreateWithoutGuild_membersInput
+input UsersUpdateOneWithoutMemberOfInput {
+  create: UsersCreateWithoutMemberOfInput
   connect: UsersWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: UsersUpdateWithoutGuild_membersDataInput
-  upsert: UsersUpsertWithoutGuild_membersInput
+  update: UsersUpdateWithoutMemberOfDataInput
+  upsert: UsersUpsertWithoutMemberOfInput
 }
 
-input UsersUpdateOneWithoutGuildsInput {
-  create: UsersCreateWithoutGuildsInput
+input UsersUpdateOneWithoutOwnerOfInput {
+  create: UsersCreateWithoutOwnerOfInput
   connect: UsersWhereUniqueInput
   disconnect: Boolean
   delete: Boolean
-  update: UsersUpdateWithoutGuildsDataInput
-  upsert: UsersUpsertWithoutGuildsInput
+  update: UsersUpdateWithoutOwnerOfDataInput
+  upsert: UsersUpsertWithoutOwnerOfInput
 }
 
-input UsersUpdateWithoutGuild_membersDataInput {
+input UsersUpdateWithoutMemberOfDataInput {
   email: String
   username: String
-  guilds: GuildsUpdateManyWithoutOwnerInput
+  ownerOf: GuildsUpdateManyWithoutOwnerInput
 }
 
-input UsersUpdateWithoutGuildsDataInput {
+input UsersUpdateWithoutOwnerOfDataInput {
   email: String
   username: String
-  guild_members: Guild_membersUpdateManyWithoutUserInput
+  memberOf: MembersUpdateManyWithoutUsersInput
 }
 
-input UsersUpsertWithoutGuild_membersInput {
-  update: UsersUpdateWithoutGuild_membersDataInput!
-  create: UsersCreateWithoutGuild_membersInput!
+input UsersUpsertWithoutMemberOfInput {
+  update: UsersUpdateWithoutMemberOfDataInput!
+  create: UsersCreateWithoutMemberOfInput!
 }
 
-input UsersUpsertWithoutGuildsInput {
-  update: UsersUpdateWithoutGuildsDataInput!
-  create: UsersCreateWithoutGuildsInput!
+input UsersUpsertWithoutOwnerOfInput {
+  update: UsersUpdateWithoutOwnerOfDataInput!
+  create: UsersCreateWithoutOwnerOfInput!
 }
 
 input UsersWhereInput {
@@ -834,12 +834,12 @@ input UsersWhereInput {
 
   """All values not ending with the given string."""
   username_not_ends_with: String
-  guild_members_every: Guild_membersWhereInput
-  guild_members_some: Guild_membersWhereInput
-  guild_members_none: Guild_membersWhereInput
-  guilds_every: GuildsWhereInput
-  guilds_some: GuildsWhereInput
-  guilds_none: GuildsWhereInput
+  ownerOf_every: GuildsWhereInput
+  ownerOf_some: GuildsWhereInput
+  ownerOf_none: GuildsWhereInput
+  memberOf_every: MembersWhereInput
+  memberOf_some: MembersWhereInput
+  memberOf_none: MembersWhereInput
 }
 
 input UsersWhereUniqueInput {

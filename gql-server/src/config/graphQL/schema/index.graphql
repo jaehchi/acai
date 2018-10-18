@@ -3,10 +3,11 @@
 type Mutation {
   createUser(username: String!, email: String!): Users
   createGuild(guildname: String!, owner: String!): Guilds
-  joinGuild(guild_id: String!, user_id: String!): Guild_members
+  joinGuild(guildID: String!, userID: String!): Members
 }
 
 type Query {
   user(id: ID!): Users
   users: [Users!]!
+  allMembers(id: ID!) : Guilds
 }

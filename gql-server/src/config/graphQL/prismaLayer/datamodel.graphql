@@ -1,20 +1,23 @@
-type Guild_members @pgTable(name: "guild_members") {
-  id: ID! @unique
-  guild: Guilds @pgRelation(column: "guild_id")
-  user: Users @pgRelation(column: "user_id")
-}
-
 type Guilds @pgTable(name: "guilds") {
   id: ID! @unique
-  guild_members: [Guild_members!]!
   guildname: String!
   owner: Users @pgRelation(column: "owner")
+  
+  members: [Members!]!
+}
+
+type Members @pgTable(name: "members") {
+  id: ID! @unique
+  
+  guilds: Guilds @pgRelation(column: "guild_id")
+  users: Users @pgRelation(column: "user_id")
 }
 
 type Users @pgTable(name: "users") {
   id: ID! @unique
   email: String! @unique
-  guild_members: [Guild_members!]!
-  guilds: [Guilds!]!
   username: String! @unique
+
+  ownerOf: [Guilds!]!
+  memberOf: [Members!]!
 }
