@@ -12,14 +12,14 @@ export const generateToken = async (id) => {
   return token;
 };
 
-export const getUserID = async (context) => {
+export const getUserID = async (req) => {
   
-  const isAuthenticated = context.request.get('Authorization');
+  const isAuthenticated = req.get('Authorization');
 
   if (isAuthenticated) {
     const token = isAuthenticated.replace('Bearer ', '');
-    const { userId } = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
-    return userId;
+    const { userID } = verify(token, process.env.TOKEN_SECRET_KEY);
+    return userID;
   }
 
   throw new Error('Not authenticated');

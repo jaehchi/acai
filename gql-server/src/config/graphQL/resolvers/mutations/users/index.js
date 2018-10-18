@@ -2,7 +2,7 @@ import { hashPassword, comparePasswords } from '../../../../utils/bcrypt';
 import { generateToken } from '../../../../utils/jwt';
 
 export const signup = async (parent, args, ctx, info) => {
-  console.log(args)
+
   const password = await hashPassword(args.password);
   
   const user = await ctx.db.mutation.createUsers({
@@ -10,7 +10,7 @@ export const signup = async (parent, args, ctx, info) => {
       ...args,
       password
     }
-  }, `{ id }`);
+  }, `{ id email username}`);
   
   const token = await generateToken(user.id);
 
@@ -20,26 +20,25 @@ export const signup = async (parent, args, ctx, info) => {
   }
 };
 
-export const login = async (parent, args, ctx, info) => {
-  const user = await context.db.query.users({
+export const login = async (parent, { email, password }, ctx, info) => {
+  const user = await ctx.db.query.users({
     where: {
-      email: args.email 
+      email,
     } 
   }, ` { id password } `);
 
   if (!user) {
-    throw new Error('No user found')
+    throw new Error('No user found');
   }
 
-  // 2
-  const valid = await comparePasswords(args.password, user.password)
-  if (!valid) {
-    throw new Error('Invalid password')
+  const isValid = await comparePasswords(password, user.password);
+
+  if (!isValid) {
+    throw new Error('Invalid password');
   }
 
   const token = await generateToken(user.id);
 
-  // 3
   return {
     token,
     user,

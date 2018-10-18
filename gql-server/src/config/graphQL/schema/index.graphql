@@ -17,13 +17,13 @@ type Users {
 type Mutation {
   signup(email: String!, password: String!, username: String!) : AuthPayload
   login(email: String!, password: String!): AuthPayload
-  
-  createGuild(guildname: String!, owner: String!): Guilds
+
+  createGuild(guildname: String!): Guilds
   joinGuild(guildID: String!, userID: String!): Members
 }
 
 type Query {
-  user(id: ID!): Users
+  user(id: ID): Users
   users: [Users!]!
   allMembers(id: ID!) : Guilds
 }
