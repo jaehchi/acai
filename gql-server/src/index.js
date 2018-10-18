@@ -4,8 +4,15 @@ import { success } from './lib/logger'
 
 const PORT = process.env.PORT || 4000;
 
-server.start( () =>  {
-  success(`Server is running on http://localhost:${PORT}`);
+const options = {
+  port: PORT,
+  endpoint: '/graphql',
+  subscriptions: '/subscriptions',
+  playground: '/playground',
+}
+
+server.start(options, ({ port }) =>  {
+  success(`Server is running on http://localhost:${port}`);
 });
 
 export default server;

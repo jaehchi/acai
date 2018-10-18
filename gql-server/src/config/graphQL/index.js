@@ -4,6 +4,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { json, urlencoded } from 'body-parser';
 import { resolve } from 'path';
+import { static as statics } from 'express';
+
 
 import resolvers from './resolvers';
 
@@ -15,6 +17,7 @@ const middleware = [
   }),
   json(),
   urlencoded( { extended: true } ),
+  statics( resolve( __dirname, '../../../../client/public') ) 
 ];
 
 class App {
