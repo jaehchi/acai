@@ -18,4 +18,4 @@ const envBuild = {
   ],
 };
 
-module.exports = envBuild;s
+module.exports = envBuild;
