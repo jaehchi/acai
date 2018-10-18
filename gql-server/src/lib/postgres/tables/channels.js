@@ -7,16 +7,15 @@ export const createChannelTable = async () => {
       `
       CREATE TABLE IF NOT EXISTS channels 
       (
-        channel_id VARCHAR(200) UNIQUE NOT NULL,
-        channelname VARCHAR(200) NOT NULL,
-        guild_id VARCHAR(200) NOT NULL,
-        owner_id VARCHAR(200) UNIQUE NOT NULL,
+        id VARCHAR(25) UNIQUE NOT NULL,
         type INT NOT NULL,
+        channelname VARCHAR(60) NOT NULL,
+        guild_id VARCHAR(25),
 
         CONSTRAINT channels_pk 
-          PRIMARY key(channel_id),
-        CONSTRAINT fk_guilds_owner_id
-          FOREIGN KEY(owner_id) REFERENCES users(id)
+          PRIMARY key(id),
+        CONSTRAINT fk_channels_guild_id
+          FOREIGN KEY(guild_id) REFERENCES guilds(id)
       )
       `
     );
