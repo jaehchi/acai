@@ -37,6 +37,9 @@ type Users @pgTable(name: "users") {
   username: String! @unique
   password: String!
   
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  
   ownerOf: [Guilds!]!
   memberOf: [Members!]!
   messages: [Messages!]!

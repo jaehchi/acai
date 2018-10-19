@@ -211,6 +211,8 @@ input ChannelsWhereUniqueInput {
   id: ID
 }
 
+scalar DateTime
+
 type Guilds {
   id: ID!
   guildname: String!
@@ -830,6 +832,8 @@ type Users {
   email: String!
   username: String!
   password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   ownerOf(where: GuildsWhereInput, orderBy: GuildsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guilds!]
   memberOf(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Members!]
   messages(where: MessagesWhereInput, orderBy: MessagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Messages!]
@@ -914,6 +918,8 @@ type UsersPreviousValues {
   email: String!
   username: String!
   password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UsersSubscriptionPayload {
@@ -1066,6 +1072,22 @@ input UsersWhereInput {
   password_not_starts_with: String
   password_ends_with: String
   password_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   ownerOf_every: GuildsWhereInput
   ownerOf_some: GuildsWhereInput
   ownerOf_none: GuildsWhereInput

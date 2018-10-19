@@ -9,9 +9,13 @@ type Users {
   id: ID!
   email: String!
   username: String!
-
+  
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  
   ownerOf: [Guilds!]!
   memberOf: [Members!]!
+  messages: [Messages!]!
 }
 
 type Mutation {
