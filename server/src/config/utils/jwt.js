@@ -13,7 +13,6 @@ export const generateToken = async (id) => {
 };
 
 export const getUserID = async (req) => {
-  
   const isAuthenticated = req.get('Authorization');
 
   if (isAuthenticated) {

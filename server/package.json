@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon bin/entry.js",
     "db:setup": "babel-node src/lib/postgres/setup",
-    "prisma:deploy": "cd src/config/graphQL/prismaLayer && prisma deploy"
+    "prisma:deploy": "cd src/config/graphQL/prismaLayer && prisma deploy",
+    "get-schema": "cd src/config/graphQl && graphql get-schema"
   },
   "keywords": [],
   "author": "",
