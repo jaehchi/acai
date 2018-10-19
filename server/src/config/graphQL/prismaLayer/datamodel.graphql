@@ -1,16 +1,17 @@
-
 type Channels @pgTable(name: "channels") {
   id: ID! @unique
-  channelname: String!
-  belongsTo: Guilds @pgRelation(column: "guild_id")
   type: Int!
+  channelname: String!
+
+  belongsTo: Guilds @pgRelation(column: "guild_id")
+  messages: [Messages!]!
 }
 
 type Guilds @pgTable(name: "guilds") {
   id: ID! @unique
   guildname: String!
   owner: Users @pgRelation(column: "owner")
-  
+
   channels: [Channels!]!
   members: [Members!]!
 }
@@ -22,6 +23,14 @@ type Members @pgTable(name: "members") {
   users: Users @pgRelation(column: "user_id")
 }
 
+type Messages @pgTable(name: "messages") {
+  id: ID! @unique
+  content: String!
+  author: Users @pgRelation(column: "author")
+
+  channel: Channels @pgRelation(column: "channel")
+}
+
 type Users @pgTable(name: "users") {
   id: ID! @unique
   email: String! @unique
@@ -30,5 +39,5 @@ type Users @pgTable(name: "users") {
   
   ownerOf: [Guilds!]!
   memberOf: [Members!]!
+  messages: [Messages!]!
 }
-

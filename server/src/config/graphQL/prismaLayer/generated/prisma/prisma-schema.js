@@ -11,6 +11,10 @@ type AggregateMembers {
   count: Int!
 }
 
+type AggregateMessages {
+  count: Int!
+}
+
 type AggregateUsers {
   count: Int!
 }
@@ -21,9 +25,10 @@ type BatchPayload {
 
 type Channels {
   id: ID!
+  type: Int!
   channelname: String!
   belongsTo: Guilds
-  type: Int!
+  messages(where: MessagesWhereInput, orderBy: MessagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Messages!]
 }
 
 type ChannelsConnection {
@@ -33,9 +38,10 @@ type ChannelsConnection {
 }
 
 input ChannelsCreateInput {
+  type: Int!
   channelname: String!
   belongsTo: GuildsCreateOneWithoutChannelsInput
-  type: Int!
+  messages: MessagesCreateManyWithoutChannelInput
 }
 
 input ChannelsCreateManyWithoutBelongsToInput {
@@ -43,9 +49,21 @@ input ChannelsCreateManyWithoutBelongsToInput {
   connect: [ChannelsWhereUniqueInput!]
 }
 
+input ChannelsCreateOneWithoutMessagesInput {
+  create: ChannelsCreateWithoutMessagesInput
+  connect: ChannelsWhereUniqueInput
+}
+
 input ChannelsCreateWithoutBelongsToInput {
-  channelname: String!
   type: Int!
+  channelname: String!
+  messages: MessagesCreateManyWithoutChannelInput
+}
+
+input ChannelsCreateWithoutMessagesInput {
+  type: Int!
+  channelname: String!
+  belongsTo: GuildsCreateOneWithoutChannelsInput
 }
 
 type ChannelsEdge {
@@ -56,10 +74,10 @@ type ChannelsEdge {
 enum ChannelsOrderByInput {
   id_ASC
   id_DESC
-  channelname_ASC
-  channelname_DESC
   type_ASC
   type_DESC
+  channelname_ASC
+  channelname_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -68,8 +86,8 @@ enum ChannelsOrderByInput {
 
 type ChannelsPreviousValues {
   id: ID!
-  channelname: String!
   type: Int!
+  channelname: String!
 }
 
 type ChannelsSubscriptionPayload {
@@ -91,9 +109,10 @@ input ChannelsSubscriptionWhereInput {
 }
 
 input ChannelsUpdateInput {
+  type: Int
   channelname: String
   belongsTo: GuildsUpdateOneWithoutChannelsInput
-  type: Int
+  messages: MessagesUpdateManyWithoutChannelInput
 }
 
 input ChannelsUpdateManyWithoutBelongsToInput {
@@ -105,14 +124,35 @@ input ChannelsUpdateManyWithoutBelongsToInput {
   upsert: [ChannelsUpsertWithWhereUniqueWithoutBelongsToInput!]
 }
 
+input ChannelsUpdateOneWithoutMessagesInput {
+  create: ChannelsCreateWithoutMessagesInput
+  update: ChannelsUpdateWithoutMessagesDataInput
+  upsert: ChannelsUpsertWithoutMessagesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ChannelsWhereUniqueInput
+}
+
 input ChannelsUpdateWithoutBelongsToDataInput {
-  channelname: String
   type: Int
+  channelname: String
+  messages: MessagesUpdateManyWithoutChannelInput
+}
+
+input ChannelsUpdateWithoutMessagesDataInput {
+  type: Int
+  channelname: String
+  belongsTo: GuildsUpdateOneWithoutChannelsInput
 }
 
 input ChannelsUpdateWithWhereUniqueWithoutBelongsToInput {
   where: ChannelsWhereUniqueInput!
   data: ChannelsUpdateWithoutBelongsToDataInput!
+}
+
+input ChannelsUpsertWithoutMessagesInput {
+  update: ChannelsUpdateWithoutMessagesDataInput!
+  create: ChannelsCreateWithoutMessagesInput!
 }
 
 input ChannelsUpsertWithWhereUniqueWithoutBelongsToInput {
@@ -136,6 +176,14 @@ input ChannelsWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  type: Int
+  type_not: Int
+  type_in: [Int!]
+  type_not_in: [Int!]
+  type_lt: Int
+  type_lte: Int
+  type_gt: Int
+  type_gte: Int
   channelname: String
   channelname_not: String
   channelname_in: [String!]
@@ -151,14 +199,9 @@ input ChannelsWhereInput {
   channelname_ends_with: String
   channelname_not_ends_with: String
   belongsTo: GuildsWhereInput
-  type: Int
-  type_not: Int
-  type_in: [Int!]
-  type_not_in: [Int!]
-  type_lt: Int
-  type_lte: Int
-  type_gt: Int
-  type_gte: Int
+  messages_every: MessagesWhereInput
+  messages_some: MessagesWhereInput
+  messages_none: MessagesWhereInput
   AND: [ChannelsWhereInput!]
   OR: [ChannelsWhereInput!]
   NOT: [ChannelsWhereInput!]
@@ -531,6 +574,180 @@ input MembersWhereUniqueInput {
   id: ID
 }
 
+type Messages {
+  id: ID!
+  content: String!
+  author: Users
+  channel: Channels
+}
+
+type MessagesConnection {
+  pageInfo: PageInfo!
+  edges: [MessagesEdge]!
+  aggregate: AggregateMessages!
+}
+
+input MessagesCreateInput {
+  content: String!
+  author: UsersCreateOneWithoutMessagesInput
+  channel: ChannelsCreateOneWithoutMessagesInput
+}
+
+input MessagesCreateManyWithoutAuthorInput {
+  create: [MessagesCreateWithoutAuthorInput!]
+  connect: [MessagesWhereUniqueInput!]
+}
+
+input MessagesCreateManyWithoutChannelInput {
+  create: [MessagesCreateWithoutChannelInput!]
+  connect: [MessagesWhereUniqueInput!]
+}
+
+input MessagesCreateWithoutAuthorInput {
+  content: String!
+  channel: ChannelsCreateOneWithoutMessagesInput
+}
+
+input MessagesCreateWithoutChannelInput {
+  content: String!
+  author: UsersCreateOneWithoutMessagesInput
+}
+
+type MessagesEdge {
+  node: Messages!
+  cursor: String!
+}
+
+enum MessagesOrderByInput {
+  id_ASC
+  id_DESC
+  content_ASC
+  content_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type MessagesPreviousValues {
+  id: ID!
+  content: String!
+}
+
+type MessagesSubscriptionPayload {
+  mutation: MutationType!
+  node: Messages
+  updatedFields: [String!]
+  previousValues: MessagesPreviousValues
+}
+
+input MessagesSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: MessagesWhereInput
+  AND: [MessagesSubscriptionWhereInput!]
+  OR: [MessagesSubscriptionWhereInput!]
+  NOT: [MessagesSubscriptionWhereInput!]
+}
+
+input MessagesUpdateInput {
+  content: String
+  author: UsersUpdateOneWithoutMessagesInput
+  channel: ChannelsUpdateOneWithoutMessagesInput
+}
+
+input MessagesUpdateManyWithoutAuthorInput {
+  create: [MessagesCreateWithoutAuthorInput!]
+  delete: [MessagesWhereUniqueInput!]
+  connect: [MessagesWhereUniqueInput!]
+  disconnect: [MessagesWhereUniqueInput!]
+  update: [MessagesUpdateWithWhereUniqueWithoutAuthorInput!]
+  upsert: [MessagesUpsertWithWhereUniqueWithoutAuthorInput!]
+}
+
+input MessagesUpdateManyWithoutChannelInput {
+  create: [MessagesCreateWithoutChannelInput!]
+  delete: [MessagesWhereUniqueInput!]
+  connect: [MessagesWhereUniqueInput!]
+  disconnect: [MessagesWhereUniqueInput!]
+  update: [MessagesUpdateWithWhereUniqueWithoutChannelInput!]
+  upsert: [MessagesUpsertWithWhereUniqueWithoutChannelInput!]
+}
+
+input MessagesUpdateWithoutAuthorDataInput {
+  content: String
+  channel: ChannelsUpdateOneWithoutMessagesInput
+}
+
+input MessagesUpdateWithoutChannelDataInput {
+  content: String
+  author: UsersUpdateOneWithoutMessagesInput
+}
+
+input MessagesUpdateWithWhereUniqueWithoutAuthorInput {
+  where: MessagesWhereUniqueInput!
+  data: MessagesUpdateWithoutAuthorDataInput!
+}
+
+input MessagesUpdateWithWhereUniqueWithoutChannelInput {
+  where: MessagesWhereUniqueInput!
+  data: MessagesUpdateWithoutChannelDataInput!
+}
+
+input MessagesUpsertWithWhereUniqueWithoutAuthorInput {
+  where: MessagesWhereUniqueInput!
+  update: MessagesUpdateWithoutAuthorDataInput!
+  create: MessagesCreateWithoutAuthorInput!
+}
+
+input MessagesUpsertWithWhereUniqueWithoutChannelInput {
+  where: MessagesWhereUniqueInput!
+  update: MessagesUpdateWithoutChannelDataInput!
+  create: MessagesCreateWithoutChannelInput!
+}
+
+input MessagesWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  author: UsersWhereInput
+  channel: ChannelsWhereInput
+  AND: [MessagesWhereInput!]
+  OR: [MessagesWhereInput!]
+  NOT: [MessagesWhereInput!]
+}
+
+input MessagesWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
   createChannels(data: ChannelsCreateInput!): Channels!
   updateChannels(data: ChannelsUpdateInput!, where: ChannelsWhereUniqueInput!): Channels
@@ -550,6 +767,12 @@ type Mutation {
   upsertMembers(where: MembersWhereUniqueInput!, create: MembersCreateInput!, update: MembersUpdateInput!): Members!
   deleteMembers(where: MembersWhereUniqueInput!): Members
   deleteManyMemberses(where: MembersWhereInput): BatchPayload!
+  createMessages(data: MessagesCreateInput!): Messages!
+  updateMessages(data: MessagesUpdateInput!, where: MessagesWhereUniqueInput!): Messages
+  updateManyMessageses(data: MessagesUpdateInput!, where: MessagesWhereInput): BatchPayload!
+  upsertMessages(where: MessagesWhereUniqueInput!, create: MessagesCreateInput!, update: MessagesUpdateInput!): Messages!
+  deleteMessages(where: MessagesWhereUniqueInput!): Messages
+  deleteManyMessageses(where: MessagesWhereInput): BatchPayload!
   createUsers(data: UsersCreateInput!): Users!
   updateUsers(data: UsersUpdateInput!, where: UsersWhereUniqueInput!): Users
   updateManyUserses(data: UsersUpdateInput!, where: UsersWhereInput): BatchPayload!
@@ -585,6 +808,9 @@ type Query {
   members(where: MembersWhereUniqueInput!): Members
   memberses(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Members]!
   membersesConnection(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MembersConnection!
+  messages(where: MessagesWhereUniqueInput!): Messages
+  messageses(where: MessagesWhereInput, orderBy: MessagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Messages]!
+  messagesesConnection(where: MessagesWhereInput, orderBy: MessagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MessagesConnection!
   users(where: UsersWhereUniqueInput!): Users
   userses(where: UsersWhereInput, orderBy: UsersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Users]!
   usersesConnection(where: UsersWhereInput, orderBy: UsersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UsersConnection!
@@ -595,6 +821,7 @@ type Subscription {
   channels(where: ChannelsSubscriptionWhereInput): ChannelsSubscriptionPayload
   guilds(where: GuildsSubscriptionWhereInput): GuildsSubscriptionPayload
   members(where: MembersSubscriptionWhereInput): MembersSubscriptionPayload
+  messages(where: MessagesSubscriptionWhereInput): MessagesSubscriptionPayload
   users(where: UsersSubscriptionWhereInput): UsersSubscriptionPayload
 }
 
@@ -605,6 +832,7 @@ type Users {
   password: String!
   ownerOf(where: GuildsWhereInput, orderBy: GuildsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guilds!]
   memberOf(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Members!]
+  messages(where: MessagesWhereInput, orderBy: MessagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Messages!]
 }
 
 type UsersConnection {
@@ -619,10 +847,16 @@ input UsersCreateInput {
   password: String!
   ownerOf: GuildsCreateManyWithoutOwnerInput
   memberOf: MembersCreateManyWithoutUsersInput
+  messages: MessagesCreateManyWithoutAuthorInput
 }
 
 input UsersCreateOneWithoutMemberOfInput {
   create: UsersCreateWithoutMemberOfInput
+  connect: UsersWhereUniqueInput
+}
+
+input UsersCreateOneWithoutMessagesInput {
+  create: UsersCreateWithoutMessagesInput
   connect: UsersWhereUniqueInput
 }
 
@@ -636,6 +870,15 @@ input UsersCreateWithoutMemberOfInput {
   username: String!
   password: String!
   ownerOf: GuildsCreateManyWithoutOwnerInput
+  messages: MessagesCreateManyWithoutAuthorInput
+}
+
+input UsersCreateWithoutMessagesInput {
+  email: String!
+  username: String!
+  password: String!
+  ownerOf: GuildsCreateManyWithoutOwnerInput
+  memberOf: MembersCreateManyWithoutUsersInput
 }
 
 input UsersCreateWithoutOwnerOfInput {
@@ -643,6 +886,7 @@ input UsersCreateWithoutOwnerOfInput {
   username: String!
   password: String!
   memberOf: MembersCreateManyWithoutUsersInput
+  messages: MessagesCreateManyWithoutAuthorInput
 }
 
 type UsersEdge {
@@ -696,12 +940,22 @@ input UsersUpdateInput {
   password: String
   ownerOf: GuildsUpdateManyWithoutOwnerInput
   memberOf: MembersUpdateManyWithoutUsersInput
+  messages: MessagesUpdateManyWithoutAuthorInput
 }
 
 input UsersUpdateOneWithoutMemberOfInput {
   create: UsersCreateWithoutMemberOfInput
   update: UsersUpdateWithoutMemberOfDataInput
   upsert: UsersUpsertWithoutMemberOfInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UsersWhereUniqueInput
+}
+
+input UsersUpdateOneWithoutMessagesInput {
+  create: UsersCreateWithoutMessagesInput
+  update: UsersUpdateWithoutMessagesDataInput
+  upsert: UsersUpsertWithoutMessagesInput
   delete: Boolean
   disconnect: Boolean
   connect: UsersWhereUniqueInput
@@ -721,6 +975,15 @@ input UsersUpdateWithoutMemberOfDataInput {
   username: String
   password: String
   ownerOf: GuildsUpdateManyWithoutOwnerInput
+  messages: MessagesUpdateManyWithoutAuthorInput
+}
+
+input UsersUpdateWithoutMessagesDataInput {
+  email: String
+  username: String
+  password: String
+  ownerOf: GuildsUpdateManyWithoutOwnerInput
+  memberOf: MembersUpdateManyWithoutUsersInput
 }
 
 input UsersUpdateWithoutOwnerOfDataInput {
@@ -728,11 +991,17 @@ input UsersUpdateWithoutOwnerOfDataInput {
   username: String
   password: String
   memberOf: MembersUpdateManyWithoutUsersInput
+  messages: MessagesUpdateManyWithoutAuthorInput
 }
 
 input UsersUpsertWithoutMemberOfInput {
   update: UsersUpdateWithoutMemberOfDataInput!
   create: UsersCreateWithoutMemberOfInput!
+}
+
+input UsersUpsertWithoutMessagesInput {
+  update: UsersUpdateWithoutMessagesDataInput!
+  create: UsersCreateWithoutMessagesInput!
 }
 
 input UsersUpsertWithoutOwnerOfInput {
@@ -803,6 +1072,9 @@ input UsersWhereInput {
   memberOf_every: MembersWhereInput
   memberOf_some: MembersWhereInput
   memberOf_none: MembersWhereInput
+  messages_every: MessagesWhereInput
+  messages_some: MessagesWhereInput
+  messages_none: MessagesWhereInput
   AND: [UsersWhereInput!]
   OR: [UsersWhereInput!]
   NOT: [UsersWhereInput!]

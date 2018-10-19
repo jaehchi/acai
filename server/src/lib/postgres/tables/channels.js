@@ -11,7 +11,7 @@ export const createChannelTable = async () => {
         type INT NOT NULL,
         channelname VARCHAR(60) NOT NULL,
         guild_id VARCHAR(25),
-
+  
         CONSTRAINT channels_pk 
           PRIMARY key(id),
         CONSTRAINT fk_channels_guild_id

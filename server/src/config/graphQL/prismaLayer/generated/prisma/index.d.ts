@@ -14,6 +14,7 @@ export interface Exists {
   channels: (where?: ChannelsWhereInput) => Promise<boolean>;
   guilds: (where?: GuildsWhereInput) => Promise<boolean>;
   members: (where?: MembersWhereInput) => Promise<boolean>;
+  messages: (where?: MessagesWhereInput) => Promise<boolean>;
   users: (where?: UsersWhereInput) => Promise<boolean>;
 }
 
@@ -106,6 +107,29 @@ export interface Prisma {
       last?: Int;
     }
   ) => MembersConnection;
+  messages: (where: MessagesWhereUniqueInput) => Messages;
+  messageses: (
+    args?: {
+      where?: MessagesWhereInput;
+      orderBy?: MessagesOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => FragmentableArray<MessagesNode>;
+  messagesesConnection: (
+    args?: {
+      where?: MessagesWhereInput;
+      orderBy?: MessagesOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => MessagesConnection;
   users: (where: UsersWhereUniqueInput) => Users;
   userses: (
     args?: {
@@ -183,6 +207,22 @@ export interface Prisma {
   ) => Members;
   deleteMembers: (where: MembersWhereUniqueInput) => Members;
   deleteManyMemberses: (where?: MembersWhereInput) => BatchPayload;
+  createMessages: (data: MessagesCreateInput) => Messages;
+  updateMessages: (
+    args: { data: MessagesUpdateInput; where: MessagesWhereUniqueInput }
+  ) => Messages;
+  updateManyMessageses: (
+    args: { data: MessagesUpdateInput; where?: MessagesWhereInput }
+  ) => BatchPayload;
+  upsertMessages: (
+    args: {
+      where: MessagesWhereUniqueInput;
+      create: MessagesCreateInput;
+      update: MessagesUpdateInput;
+    }
+  ) => Messages;
+  deleteMessages: (where: MessagesWhereUniqueInput) => Messages;
+  deleteManyMessageses: (where?: MessagesWhereInput) => BatchPayload;
   createUsers: (data: UsersCreateInput) => Users;
   updateUsers: (
     args: { data: UsersUpdateInput; where: UsersWhereUniqueInput }
@@ -217,6 +257,9 @@ export interface Subscription {
   members: (
     where?: MembersSubscriptionWhereInput
   ) => MembersSubscriptionPayloadSubscription;
+  messages: (
+    where?: MessagesSubscriptionWhereInput
+  ) => MessagesSubscriptionPayloadSubscription;
   users: (
     where?: UsersSubscriptionWhereInput
   ) => UsersSubscriptionPayloadSubscription;
@@ -248,13 +291,23 @@ export type MembersOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
+export type MessagesOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "content_ASC"
+  | "content_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type ChannelsOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "channelname_ASC"
-  | "channelname_DESC"
   | "type_ASC"
   | "type_DESC"
+  | "channelname_ASC"
+  | "channelname_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -276,23 +329,30 @@ export type UsersOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface GuildsCreateWithoutOwnerInput {
-  guildname: String;
-  channels?: ChannelsCreateManyWithoutBelongsToInput;
-  members?: MembersCreateManyWithoutGuildsInput;
+export interface GuildsUpdateOneWithoutChannelsInput {
+  create?: GuildsCreateWithoutChannelsInput;
+  update?: GuildsUpdateWithoutChannelsDataInput;
+  upsert?: GuildsUpsertWithoutChannelsInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: GuildsWhereUniqueInput;
 }
 
 export type ChannelsWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface UsersUpdateOneWithoutOwnerOfInput {
-  create?: UsersCreateWithoutOwnerOfInput;
-  update?: UsersUpdateWithoutOwnerOfDataInput;
-  upsert?: UsersUpsertWithoutOwnerOfInput;
-  delete?: Boolean;
-  disconnect?: Boolean;
-  connect?: UsersWhereUniqueInput;
+export interface MembersUpdateManyWithoutUsersInput {
+  create?: MembersCreateWithoutUsersInput[] | MembersCreateWithoutUsersInput;
+  delete?: MembersWhereUniqueInput[] | MembersWhereUniqueInput;
+  connect?: MembersWhereUniqueInput[] | MembersWhereUniqueInput;
+  disconnect?: MembersWhereUniqueInput[] | MembersWhereUniqueInput;
+  update?:
+    | MembersUpdateWithWhereUniqueWithoutUsersInput[]
+    | MembersUpdateWithWhereUniqueWithoutUsersInput;
+  upsert?:
+    | MembersUpsertWithWhereUniqueWithoutUsersInput[]
+    | MembersUpsertWithWhereUniqueWithoutUsersInput;
 }
 
 export interface UsersWhereInput {
@@ -358,19 +418,20 @@ export interface UsersWhereInput {
   memberOf_every?: MembersWhereInput;
   memberOf_some?: MembersWhereInput;
   memberOf_none?: MembersWhereInput;
+  messages_every?: MessagesWhereInput;
+  messages_some?: MessagesWhereInput;
+  messages_none?: MessagesWhereInput;
   AND?: UsersWhereInput[] | UsersWhereInput;
   OR?: UsersWhereInput[] | UsersWhereInput;
   NOT?: UsersWhereInput[] | UsersWhereInput;
 }
 
-export interface UsersUpdateWithoutOwnerOfDataInput {
-  email?: String;
-  username?: String;
-  password?: String;
-  memberOf?: MembersUpdateManyWithoutUsersInput;
+export interface MembersUpdateWithWhereUniqueWithoutUsersInput {
+  where: MembersWhereUniqueInput;
+  data: MembersUpdateWithoutUsersDataInput;
 }
 
-export interface ChannelsWhereInput {
+export interface MessagesWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
   id_in?: ID_Input[] | ID_Input;
@@ -385,45 +446,29 @@ export interface ChannelsWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  channelname?: String;
-  channelname_not?: String;
-  channelname_in?: String[] | String;
-  channelname_not_in?: String[] | String;
-  channelname_lt?: String;
-  channelname_lte?: String;
-  channelname_gt?: String;
-  channelname_gte?: String;
-  channelname_contains?: String;
-  channelname_not_contains?: String;
-  channelname_starts_with?: String;
-  channelname_not_starts_with?: String;
-  channelname_ends_with?: String;
-  channelname_not_ends_with?: String;
-  belongsTo?: GuildsWhereInput;
-  type?: Int;
-  type_not?: Int;
-  type_in?: Int[] | Int;
-  type_not_in?: Int[] | Int;
-  type_lt?: Int;
-  type_lte?: Int;
-  type_gt?: Int;
-  type_gte?: Int;
-  AND?: ChannelsWhereInput[] | ChannelsWhereInput;
-  OR?: ChannelsWhereInput[] | ChannelsWhereInput;
-  NOT?: ChannelsWhereInput[] | ChannelsWhereInput;
+  content?: String;
+  content_not?: String;
+  content_in?: String[] | String;
+  content_not_in?: String[] | String;
+  content_lt?: String;
+  content_lte?: String;
+  content_gt?: String;
+  content_gte?: String;
+  content_contains?: String;
+  content_not_contains?: String;
+  content_starts_with?: String;
+  content_not_starts_with?: String;
+  content_ends_with?: String;
+  content_not_ends_with?: String;
+  author?: UsersWhereInput;
+  channel?: ChannelsWhereInput;
+  AND?: MessagesWhereInput[] | MessagesWhereInput;
+  OR?: MessagesWhereInput[] | MessagesWhereInput;
+  NOT?: MessagesWhereInput[] | MessagesWhereInput;
 }
 
-export interface MembersUpdateManyWithoutUsersInput {
-  create?: MembersCreateWithoutUsersInput[] | MembersCreateWithoutUsersInput;
-  delete?: MembersWhereUniqueInput[] | MembersWhereUniqueInput;
-  connect?: MembersWhereUniqueInput[] | MembersWhereUniqueInput;
-  disconnect?: MembersWhereUniqueInput[] | MembersWhereUniqueInput;
-  update?:
-    | MembersUpdateWithWhereUniqueWithoutUsersInput[]
-    | MembersUpdateWithWhereUniqueWithoutUsersInput;
-  upsert?:
-    | MembersUpsertWithWhereUniqueWithoutUsersInput[]
-    | MembersUpsertWithWhereUniqueWithoutUsersInput;
+export interface MembersUpdateWithoutUsersDataInput {
+  guilds?: GuildsUpdateOneWithoutMembersInput;
 }
 
 export interface GuildsWhereInput {
@@ -467,42 +512,16 @@ export interface GuildsWhereInput {
   NOT?: GuildsWhereInput[] | GuildsWhereInput;
 }
 
-export interface GuildsCreateWithoutMembersInput {
+export interface GuildsCreateWithoutOwnerInput {
   guildname: String;
-  owner?: UsersCreateOneWithoutOwnerOfInput;
   channels?: ChannelsCreateManyWithoutBelongsToInput;
+  members?: MembersCreateManyWithoutGuildsInput;
 }
 
-export interface MembersUpdateWithoutGuildsDataInput {
-  users?: UsersUpdateOneWithoutMemberOfInput;
-}
-
-export interface ChannelsCreateManyWithoutBelongsToInput {
-  create?:
-    | ChannelsCreateWithoutBelongsToInput[]
-    | ChannelsCreateWithoutBelongsToInput;
-  connect?: ChannelsWhereUniqueInput[] | ChannelsWhereUniqueInput;
-}
-
-export interface MembersUpdateWithWhereUniqueWithoutUsersInput {
-  where: MembersWhereUniqueInput;
-  data: MembersUpdateWithoutUsersDataInput;
-}
-
-export interface ChannelsCreateWithoutBelongsToInput {
-  channelname: String;
-  type: Int;
-}
-
-export interface MembersSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: MembersWhereInput;
-  AND?: MembersSubscriptionWhereInput[] | MembersSubscriptionWhereInput;
-  OR?: MembersSubscriptionWhereInput[] | MembersSubscriptionWhereInput;
-  NOT?: MembersSubscriptionWhereInput[] | MembersSubscriptionWhereInput;
+export interface MessagesUpsertWithWhereUniqueWithoutAuthorInput {
+  where: MessagesWhereUniqueInput;
+  update: MessagesUpdateWithoutAuthorDataInput;
+  create: MessagesCreateWithoutAuthorInput;
 }
 
 export interface MembersCreateManyWithoutGuildsInput {
@@ -510,33 +529,44 @@ export interface MembersCreateManyWithoutGuildsInput {
   connect?: MembersWhereUniqueInput[] | MembersWhereUniqueInput;
 }
 
-export interface ChannelsSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: ChannelsWhereInput;
-  AND?: ChannelsSubscriptionWhereInput[] | ChannelsSubscriptionWhereInput;
-  OR?: ChannelsSubscriptionWhereInput[] | ChannelsSubscriptionWhereInput;
-  NOT?: ChannelsSubscriptionWhereInput[] | ChannelsSubscriptionWhereInput;
+export interface GuildsUpdateOneWithoutMembersInput {
+  create?: GuildsCreateWithoutMembersInput;
+  update?: GuildsUpdateWithoutMembersDataInput;
+  upsert?: GuildsUpsertWithoutMembersInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: GuildsWhereUniqueInput;
 }
 
 export interface MembersCreateWithoutGuildsInput {
   users?: UsersCreateOneWithoutMemberOfInput;
 }
 
-export type GuildsWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-}>;
+export interface MessagesSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: MessagesWhereInput;
+  AND?: MessagesSubscriptionWhereInput[] | MessagesSubscriptionWhereInput;
+  OR?: MessagesSubscriptionWhereInput[] | MessagesSubscriptionWhereInput;
+  NOT?: MessagesSubscriptionWhereInput[] | MessagesSubscriptionWhereInput;
+}
 
 export interface UsersCreateOneWithoutMemberOfInput {
   create?: UsersCreateWithoutMemberOfInput;
   connect?: UsersWhereUniqueInput;
 }
 
-export interface MembersUpdateInput {
-  guilds?: GuildsUpdateOneWithoutMembersInput;
-  users?: UsersUpdateOneWithoutMemberOfInput;
+export interface GuildsSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: GuildsWhereInput;
+  AND?: GuildsSubscriptionWhereInput[] | GuildsSubscriptionWhereInput;
+  OR?: GuildsSubscriptionWhereInput[] | GuildsSubscriptionWhereInput;
+  NOT?: GuildsSubscriptionWhereInput[] | GuildsSubscriptionWhereInput;
 }
 
 export interface UsersCreateWithoutMemberOfInput {
@@ -544,59 +574,82 @@ export interface UsersCreateWithoutMemberOfInput {
   username: String;
   password: String;
   ownerOf?: GuildsCreateManyWithoutOwnerInput;
+  messages?: MessagesCreateManyWithoutAuthorInput;
+}
+
+export interface UsersUpdateInput {
+  email?: String;
+  username?: String;
+  password?: String;
+  ownerOf?: GuildsUpdateManyWithoutOwnerInput;
+  memberOf?: MembersUpdateManyWithoutUsersInput;
+  messages?: MessagesUpdateManyWithoutAuthorInput;
+}
+
+export interface MessagesCreateManyWithoutAuthorInput {
+  create?:
+    | MessagesCreateWithoutAuthorInput[]
+    | MessagesCreateWithoutAuthorInput;
+  connect?: MessagesWhereUniqueInput[] | MessagesWhereUniqueInput;
+}
+
+export type GuildsWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface MessagesCreateWithoutAuthorInput {
+  content: String;
+  channel?: ChannelsCreateOneWithoutMessagesInput;
+}
+
+export interface MessagesCreateInput {
+  content: String;
+  author?: UsersCreateOneWithoutMessagesInput;
+  channel?: ChannelsCreateOneWithoutMessagesInput;
+}
+
+export interface ChannelsCreateOneWithoutMessagesInput {
+  create?: ChannelsCreateWithoutMessagesInput;
+  connect?: ChannelsWhereUniqueInput;
 }
 
 export type MembersWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
-export interface GuildsCreateManyWithoutOwnerInput {
-  create?: GuildsCreateWithoutOwnerInput[] | GuildsCreateWithoutOwnerInput;
-  connect?: GuildsWhereUniqueInput[] | GuildsWhereUniqueInput;
+export interface ChannelsCreateWithoutMessagesInput {
+  type: Int;
+  channelname: String;
+  belongsTo?: GuildsCreateOneWithoutChannelsInput;
 }
 
-export interface GuildsCreateInput {
-  guildname: String;
-  owner?: UsersCreateOneWithoutOwnerOfInput;
-  channels?: ChannelsCreateManyWithoutBelongsToInput;
-  members?: MembersCreateManyWithoutGuildsInput;
-}
-
-export interface GuildsUpdateWithWhereUniqueWithoutOwnerInput {
-  where: GuildsWhereUniqueInput;
-  data: GuildsUpdateWithoutOwnerDataInput;
-}
-
-export type UsersWhereUniqueInput = AtLeastOne<{
-  id: ID_Input;
-  email?: String;
-  username?: String;
-}>;
-
-export interface ChannelsUpdateInput {
-  channelname?: String;
-  belongsTo?: GuildsUpdateOneWithoutChannelsInput;
-  type?: Int;
-}
-
-export interface UsersUpsertWithoutMemberOfInput {
-  update: UsersUpdateWithoutMemberOfDataInput;
-  create: UsersCreateWithoutMemberOfInput;
-}
-
-export interface GuildsUpdateOneWithoutChannelsInput {
-  create?: GuildsCreateWithoutChannelsInput;
-  update?: GuildsUpdateWithoutChannelsDataInput;
-  upsert?: GuildsUpsertWithoutChannelsInput;
-  delete?: Boolean;
-  disconnect?: Boolean;
-  connect?: GuildsWhereUniqueInput;
-}
-
-export interface GuildsUpdateWithoutOwnerDataInput {
+export interface GuildsUpdateInput {
   guildname?: String;
+  owner?: UsersUpdateOneWithoutOwnerOfInput;
   channels?: ChannelsUpdateManyWithoutBelongsToInput;
   members?: MembersUpdateManyWithoutGuildsInput;
+}
+
+export interface ChannelsUpdateInput {
+  type?: Int;
+  channelname?: String;
+  belongsTo?: GuildsUpdateOneWithoutChannelsInput;
+  messages?: MessagesUpdateManyWithoutChannelInput;
+}
+
+export type MessagesWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+}>;
+
+export interface GuildsUpsertWithWhereUniqueWithoutOwnerInput {
+  where: GuildsWhereUniqueInput;
+  update: GuildsUpdateWithoutOwnerDataInput;
+  create: GuildsCreateWithoutOwnerInput;
+}
+
+export interface UsersUpsertWithoutOwnerOfInput {
+  update: UsersUpdateWithoutOwnerOfDataInput;
+  create: UsersCreateWithoutOwnerOfInput;
 }
 
 export interface GuildsUpdateWithoutChannelsDataInput {
@@ -605,10 +658,38 @@ export interface GuildsUpdateWithoutChannelsDataInput {
   members?: MembersUpdateManyWithoutGuildsInput;
 }
 
-export interface ChannelsCreateInput {
-  channelname: String;
-  belongsTo?: GuildsCreateOneWithoutChannelsInput;
-  type: Int;
+export type UsersWhereUniqueInput = AtLeastOne<{
+  id: ID_Input;
+  email?: String;
+  username?: String;
+}>;
+
+export interface UsersUpdateOneWithoutOwnerOfInput {
+  create?: UsersCreateWithoutOwnerOfInput;
+  update?: UsersUpdateWithoutOwnerOfDataInput;
+  upsert?: UsersUpsertWithoutOwnerOfInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: UsersWhereUniqueInput;
+}
+
+export interface ChannelsUpsertWithWhereUniqueWithoutBelongsToInput {
+  where: ChannelsWhereUniqueInput;
+  update: ChannelsUpdateWithoutBelongsToDataInput;
+  create: ChannelsCreateWithoutBelongsToInput;
+}
+
+export interface UsersUpdateWithoutOwnerOfDataInput {
+  email?: String;
+  username?: String;
+  password?: String;
+  memberOf?: MembersUpdateManyWithoutUsersInput;
+  messages?: MessagesUpdateManyWithoutAuthorInput;
+}
+
+export interface UsersUpsertWithoutMessagesInput {
+  update: UsersUpdateWithoutMessagesDataInput;
+  create: UsersCreateWithoutMessagesInput;
 }
 
 export interface MembersWhereInput {
@@ -633,23 +714,69 @@ export interface MembersWhereInput {
   NOT?: MembersWhereInput[] | MembersWhereInput;
 }
 
+export interface ChannelsCreateInput {
+  type: Int;
+  channelname: String;
+  belongsTo?: GuildsCreateOneWithoutChannelsInput;
+  messages?: MessagesCreateManyWithoutChannelInput;
+}
+
+export interface ChannelsWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  type?: Int;
+  type_not?: Int;
+  type_in?: Int[] | Int;
+  type_not_in?: Int[] | Int;
+  type_lt?: Int;
+  type_lte?: Int;
+  type_gt?: Int;
+  type_gte?: Int;
+  channelname?: String;
+  channelname_not?: String;
+  channelname_in?: String[] | String;
+  channelname_not_in?: String[] | String;
+  channelname_lt?: String;
+  channelname_lte?: String;
+  channelname_gt?: String;
+  channelname_gte?: String;
+  channelname_contains?: String;
+  channelname_not_contains?: String;
+  channelname_starts_with?: String;
+  channelname_not_starts_with?: String;
+  channelname_ends_with?: String;
+  channelname_not_ends_with?: String;
+  belongsTo?: GuildsWhereInput;
+  messages_every?: MessagesWhereInput;
+  messages_some?: MessagesWhereInput;
+  messages_none?: MessagesWhereInput;
+  AND?: ChannelsWhereInput[] | ChannelsWhereInput;
+  OR?: ChannelsWhereInput[] | ChannelsWhereInput;
+  NOT?: ChannelsWhereInput[] | ChannelsWhereInput;
+}
+
 export interface GuildsCreateWithoutChannelsInput {
   guildname: String;
   owner?: UsersCreateOneWithoutOwnerOfInput;
   members?: MembersCreateManyWithoutGuildsInput;
 }
 
-export interface GuildsUpdateManyWithoutOwnerInput {
-  create?: GuildsCreateWithoutOwnerInput[] | GuildsCreateWithoutOwnerInput;
-  delete?: GuildsWhereUniqueInput[] | GuildsWhereUniqueInput;
-  connect?: GuildsWhereUniqueInput[] | GuildsWhereUniqueInput;
-  disconnect?: GuildsWhereUniqueInput[] | GuildsWhereUniqueInput;
-  update?:
-    | GuildsUpdateWithWhereUniqueWithoutOwnerInput[]
-    | GuildsUpdateWithWhereUniqueWithoutOwnerInput;
-  upsert?:
-    | GuildsUpsertWithWhereUniqueWithoutOwnerInput[]
-    | GuildsUpsertWithWhereUniqueWithoutOwnerInput;
+export interface MembersUpsertWithWhereUniqueWithoutGuildsInput {
+  where: MembersWhereUniqueInput;
+  update: MembersUpdateWithoutGuildsDataInput;
+  create: MembersCreateWithoutGuildsInput;
 }
 
 export interface UsersCreateWithoutOwnerOfInput {
@@ -657,63 +784,16 @@ export interface UsersCreateWithoutOwnerOfInput {
   username: String;
   password: String;
   memberOf?: MembersCreateManyWithoutUsersInput;
+  messages?: MessagesCreateManyWithoutAuthorInput;
 }
 
-export interface UsersUpdateWithoutMemberOfDataInput {
-  email?: String;
-  username?: String;
-  password?: String;
-  ownerOf?: GuildsUpdateManyWithoutOwnerInput;
+export interface UsersUpsertWithoutMemberOfInput {
+  update: UsersUpdateWithoutMemberOfDataInput;
+  create: UsersCreateWithoutMemberOfInput;
 }
 
 export interface MembersCreateWithoutUsersInput {
   guilds?: GuildsCreateOneWithoutMembersInput;
-}
-
-export interface UsersUpdateOneWithoutMemberOfInput {
-  create?: UsersCreateWithoutMemberOfInput;
-  update?: UsersUpdateWithoutMemberOfDataInput;
-  upsert?: UsersUpsertWithoutMemberOfInput;
-  delete?: Boolean;
-  disconnect?: Boolean;
-  connect?: UsersWhereUniqueInput;
-}
-
-export interface UsersSubscriptionWhereInput {
-  mutation_in?: MutationType[] | MutationType;
-  updatedFields_contains?: String;
-  updatedFields_contains_every?: String[] | String;
-  updatedFields_contains_some?: String[] | String;
-  node?: UsersWhereInput;
-  AND?: UsersSubscriptionWhereInput[] | UsersSubscriptionWhereInput;
-  OR?: UsersSubscriptionWhereInput[] | UsersSubscriptionWhereInput;
-  NOT?: UsersSubscriptionWhereInput[] | UsersSubscriptionWhereInput;
-}
-
-export interface MembersUpdateWithoutUsersDataInput {
-  guilds?: GuildsUpdateOneWithoutMembersInput;
-}
-
-export interface UsersUpdateInput {
-  email?: String;
-  username?: String;
-  password?: String;
-  ownerOf?: GuildsUpdateManyWithoutOwnerInput;
-  memberOf?: MembersUpdateManyWithoutUsersInput;
-}
-
-export interface GuildsUpdateOneWithoutMembersInput {
-  create?: GuildsCreateWithoutMembersInput;
-  update?: GuildsUpdateWithoutMembersDataInput;
-  upsert?: GuildsUpsertWithoutMembersInput;
-  delete?: Boolean;
-  disconnect?: Boolean;
-  connect?: GuildsWhereUniqueInput;
-}
-
-export interface MembersCreateInput {
-  guilds?: GuildsCreateOneWithoutMembersInput;
-  users?: UsersCreateOneWithoutMemberOfInput;
 }
 
 export interface GuildsUpdateWithoutMembersDataInput {
@@ -722,9 +802,10 @@ export interface GuildsUpdateWithoutMembersDataInput {
   channels?: ChannelsUpdateManyWithoutBelongsToInput;
 }
 
-export interface GuildsUpsertWithoutChannelsInput {
-  update: GuildsUpdateWithoutChannelsDataInput;
-  create: GuildsCreateWithoutChannelsInput;
+export interface GuildsCreateWithoutMembersInput {
+  guildname: String;
+  owner?: UsersCreateOneWithoutOwnerOfInput;
+  channels?: ChannelsCreateManyWithoutBelongsToInput;
 }
 
 export interface ChannelsUpdateManyWithoutBelongsToInput {
@@ -742,10 +823,10 @@ export interface ChannelsUpdateManyWithoutBelongsToInput {
     | ChannelsUpsertWithWhereUniqueWithoutBelongsToInput;
 }
 
-export interface GuildsUpsertWithWhereUniqueWithoutOwnerInput {
-  where: GuildsWhereUniqueInput;
-  update: GuildsUpdateWithoutOwnerDataInput;
-  create: GuildsCreateWithoutOwnerInput;
+export interface ChannelsCreateWithoutBelongsToInput {
+  type: Int;
+  channelname: String;
+  messages?: MessagesCreateManyWithoutChannelInput;
 }
 
 export interface ChannelsUpdateWithWhereUniqueWithoutBelongsToInput {
@@ -753,36 +834,116 @@ export interface ChannelsUpdateWithWhereUniqueWithoutBelongsToInput {
   data: ChannelsUpdateWithoutBelongsToDataInput;
 }
 
-export interface GuildsCreateOneWithoutChannelsInput {
-  create?: GuildsCreateWithoutChannelsInput;
-  connect?: GuildsWhereUniqueInput;
+export interface MessagesCreateWithoutChannelInput {
+  content: String;
+  author?: UsersCreateOneWithoutMessagesInput;
 }
 
 export interface ChannelsUpdateWithoutBelongsToDataInput {
-  channelname?: String;
   type?: Int;
+  channelname?: String;
+  messages?: MessagesUpdateManyWithoutChannelInput;
 }
 
-export interface MembersCreateManyWithoutUsersInput {
-  create?: MembersCreateWithoutUsersInput[] | MembersCreateWithoutUsersInput;
-  connect?: MembersWhereUniqueInput[] | MembersWhereUniqueInput;
+export interface UsersCreateWithoutMessagesInput {
+  email: String;
+  username: String;
+  password: String;
+  ownerOf?: GuildsCreateManyWithoutOwnerInput;
+  memberOf?: MembersCreateManyWithoutUsersInput;
 }
 
-export interface ChannelsUpsertWithWhereUniqueWithoutBelongsToInput {
-  where: ChannelsWhereUniqueInput;
-  update: ChannelsUpdateWithoutBelongsToDataInput;
-  create: ChannelsCreateWithoutBelongsToInput;
+export interface MessagesUpdateManyWithoutChannelInput {
+  create?:
+    | MessagesCreateWithoutChannelInput[]
+    | MessagesCreateWithoutChannelInput;
+  delete?: MessagesWhereUniqueInput[] | MessagesWhereUniqueInput;
+  connect?: MessagesWhereUniqueInput[] | MessagesWhereUniqueInput;
+  disconnect?: MessagesWhereUniqueInput[] | MessagesWhereUniqueInput;
+  update?:
+    | MessagesUpdateWithWhereUniqueWithoutChannelInput[]
+    | MessagesUpdateWithWhereUniqueWithoutChannelInput;
+  upsert?:
+    | MessagesUpsertWithWhereUniqueWithoutChannelInput[]
+    | MessagesUpsertWithWhereUniqueWithoutChannelInput;
 }
 
-export interface GuildsSubscriptionWhereInput {
+export interface UsersSubscriptionWhereInput {
   mutation_in?: MutationType[] | MutationType;
   updatedFields_contains?: String;
   updatedFields_contains_every?: String[] | String;
   updatedFields_contains_some?: String[] | String;
-  node?: GuildsWhereInput;
-  AND?: GuildsSubscriptionWhereInput[] | GuildsSubscriptionWhereInput;
-  OR?: GuildsSubscriptionWhereInput[] | GuildsSubscriptionWhereInput;
-  NOT?: GuildsSubscriptionWhereInput[] | GuildsSubscriptionWhereInput;
+  node?: UsersWhereInput;
+  AND?: UsersSubscriptionWhereInput[] | UsersSubscriptionWhereInput;
+  OR?: UsersSubscriptionWhereInput[] | UsersSubscriptionWhereInput;
+  NOT?: UsersSubscriptionWhereInput[] | UsersSubscriptionWhereInput;
+}
+
+export interface MessagesUpdateWithWhereUniqueWithoutChannelInput {
+  where: MessagesWhereUniqueInput;
+  data: MessagesUpdateWithoutChannelDataInput;
+}
+
+export interface ChannelsSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: ChannelsWhereInput;
+  AND?: ChannelsSubscriptionWhereInput[] | ChannelsSubscriptionWhereInput;
+  OR?: ChannelsSubscriptionWhereInput[] | ChannelsSubscriptionWhereInput;
+  NOT?: ChannelsSubscriptionWhereInput[] | ChannelsSubscriptionWhereInput;
+}
+
+export interface MessagesUpdateWithoutChannelDataInput {
+  content?: String;
+  author?: UsersUpdateOneWithoutMessagesInput;
+}
+
+export interface MessagesUpdateInput {
+  content?: String;
+  author?: UsersUpdateOneWithoutMessagesInput;
+  channel?: ChannelsUpdateOneWithoutMessagesInput;
+}
+
+export interface UsersUpdateOneWithoutMessagesInput {
+  create?: UsersCreateWithoutMessagesInput;
+  update?: UsersUpdateWithoutMessagesDataInput;
+  upsert?: UsersUpsertWithoutMessagesInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: UsersWhereUniqueInput;
+}
+
+export interface MembersCreateInput {
+  guilds?: GuildsCreateOneWithoutMembersInput;
+  users?: UsersCreateOneWithoutMemberOfInput;
+}
+
+export interface UsersUpdateWithoutMessagesDataInput {
+  email?: String;
+  username?: String;
+  password?: String;
+  ownerOf?: GuildsUpdateManyWithoutOwnerInput;
+  memberOf?: MembersUpdateManyWithoutUsersInput;
+}
+
+export interface GuildsUpsertWithoutChannelsInput {
+  update: GuildsUpdateWithoutChannelsDataInput;
+  create: GuildsCreateWithoutChannelsInput;
+}
+
+export interface GuildsUpdateManyWithoutOwnerInput {
+  create?: GuildsCreateWithoutOwnerInput[] | GuildsCreateWithoutOwnerInput;
+  delete?: GuildsWhereUniqueInput[] | GuildsWhereUniqueInput;
+  connect?: GuildsWhereUniqueInput[] | GuildsWhereUniqueInput;
+  disconnect?: GuildsWhereUniqueInput[] | GuildsWhereUniqueInput;
+  update?:
+    | GuildsUpdateWithWhereUniqueWithoutOwnerInput[]
+    | GuildsUpdateWithWhereUniqueWithoutOwnerInput;
+  upsert?:
+    | GuildsUpsertWithWhereUniqueWithoutOwnerInput[]
+    | GuildsUpsertWithWhereUniqueWithoutOwnerInput;
 }
 
 export interface GuildsUpsertWithoutMembersInput {
@@ -790,16 +951,25 @@ export interface GuildsUpsertWithoutMembersInput {
   create: GuildsCreateWithoutMembersInput;
 }
 
-export interface GuildsUpdateInput {
+export interface GuildsUpdateWithWhereUniqueWithoutOwnerInput {
+  where: GuildsWhereUniqueInput;
+  data: GuildsUpdateWithoutOwnerDataInput;
+}
+
+export interface UsersCreateOneWithoutOwnerOfInput {
+  create?: UsersCreateWithoutOwnerOfInput;
+  connect?: UsersWhereUniqueInput;
+}
+
+export interface GuildsUpdateWithoutOwnerDataInput {
   guildname?: String;
-  owner?: UsersUpdateOneWithoutOwnerOfInput;
   channels?: ChannelsUpdateManyWithoutBelongsToInput;
   members?: MembersUpdateManyWithoutGuildsInput;
 }
 
-export interface MembersUpdateWithWhereUniqueWithoutGuildsInput {
-  where: MembersWhereUniqueInput;
-  data: MembersUpdateWithoutGuildsDataInput;
+export interface GuildsCreateOneWithoutMembersInput {
+  create?: GuildsCreateWithoutMembersInput;
+  connect?: GuildsWhereUniqueInput;
 }
 
 export interface MembersUpdateManyWithoutGuildsInput {
@@ -815,26 +985,25 @@ export interface MembersUpdateManyWithoutGuildsInput {
     | MembersUpsertWithWhereUniqueWithoutGuildsInput;
 }
 
-export interface UsersUpsertWithoutOwnerOfInput {
-  update: UsersUpdateWithoutOwnerOfDataInput;
-  create: UsersCreateWithoutOwnerOfInput;
+export interface MessagesCreateManyWithoutChannelInput {
+  create?:
+    | MessagesCreateWithoutChannelInput[]
+    | MessagesCreateWithoutChannelInput;
+  connect?: MessagesWhereUniqueInput[] | MessagesWhereUniqueInput;
 }
 
-export interface MembersUpsertWithWhereUniqueWithoutUsersInput {
+export interface MembersUpdateWithWhereUniqueWithoutGuildsInput {
   where: MembersWhereUniqueInput;
-  update: MembersUpdateWithoutUsersDataInput;
-  create: MembersCreateWithoutUsersInput;
+  data: MembersUpdateWithoutGuildsDataInput;
 }
 
-export interface UsersCreateOneWithoutOwnerOfInput {
-  create?: UsersCreateWithoutOwnerOfInput;
-  connect?: UsersWhereUniqueInput;
+export interface GuildsCreateManyWithoutOwnerInput {
+  create?: GuildsCreateWithoutOwnerInput[] | GuildsCreateWithoutOwnerInput;
+  connect?: GuildsWhereUniqueInput[] | GuildsWhereUniqueInput;
 }
 
-export interface MembersUpsertWithWhereUniqueWithoutGuildsInput {
-  where: MembersWhereUniqueInput;
-  update: MembersUpdateWithoutGuildsDataInput;
-  create: MembersCreateWithoutGuildsInput;
+export interface MembersUpdateWithoutGuildsDataInput {
+  users?: UsersUpdateOneWithoutMemberOfInput;
 }
 
 export interface UsersCreateInput {
@@ -843,11 +1012,126 @@ export interface UsersCreateInput {
   password: String;
   ownerOf?: GuildsCreateManyWithoutOwnerInput;
   memberOf?: MembersCreateManyWithoutUsersInput;
+  messages?: MessagesCreateManyWithoutAuthorInput;
 }
 
-export interface GuildsCreateOneWithoutMembersInput {
-  create?: GuildsCreateWithoutMembersInput;
+export interface UsersUpdateOneWithoutMemberOfInput {
+  create?: UsersCreateWithoutMemberOfInput;
+  update?: UsersUpdateWithoutMemberOfDataInput;
+  upsert?: UsersUpsertWithoutMemberOfInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: UsersWhereUniqueInput;
+}
+
+export interface GuildsCreateInput {
+  guildname: String;
+  owner?: UsersCreateOneWithoutOwnerOfInput;
+  channels?: ChannelsCreateManyWithoutBelongsToInput;
+  members?: MembersCreateManyWithoutGuildsInput;
+}
+
+export interface UsersUpdateWithoutMemberOfDataInput {
+  email?: String;
+  username?: String;
+  password?: String;
+  ownerOf?: GuildsUpdateManyWithoutOwnerInput;
+  messages?: MessagesUpdateManyWithoutAuthorInput;
+}
+
+export interface MessagesUpsertWithWhereUniqueWithoutChannelInput {
+  where: MessagesWhereUniqueInput;
+  update: MessagesUpdateWithoutChannelDataInput;
+  create: MessagesCreateWithoutChannelInput;
+}
+
+export interface MessagesUpdateManyWithoutAuthorInput {
+  create?:
+    | MessagesCreateWithoutAuthorInput[]
+    | MessagesCreateWithoutAuthorInput;
+  delete?: MessagesWhereUniqueInput[] | MessagesWhereUniqueInput;
+  connect?: MessagesWhereUniqueInput[] | MessagesWhereUniqueInput;
+  disconnect?: MessagesWhereUniqueInput[] | MessagesWhereUniqueInput;
+  update?:
+    | MessagesUpdateWithWhereUniqueWithoutAuthorInput[]
+    | MessagesUpdateWithWhereUniqueWithoutAuthorInput;
+  upsert?:
+    | MessagesUpsertWithWhereUniqueWithoutAuthorInput[]
+    | MessagesUpsertWithWhereUniqueWithoutAuthorInput;
+}
+
+export interface MembersCreateManyWithoutUsersInput {
+  create?: MembersCreateWithoutUsersInput[] | MembersCreateWithoutUsersInput;
+  connect?: MembersWhereUniqueInput[] | MembersWhereUniqueInput;
+}
+
+export interface MessagesUpdateWithWhereUniqueWithoutAuthorInput {
+  where: MessagesWhereUniqueInput;
+  data: MessagesUpdateWithoutAuthorDataInput;
+}
+
+export interface UsersCreateOneWithoutMessagesInput {
+  create?: UsersCreateWithoutMessagesInput;
+  connect?: UsersWhereUniqueInput;
+}
+
+export interface ChannelsUpsertWithoutMessagesInput {
+  update: ChannelsUpdateWithoutMessagesDataInput;
+  create: ChannelsCreateWithoutMessagesInput;
+}
+
+export interface ChannelsUpdateWithoutMessagesDataInput {
+  type?: Int;
+  channelname?: String;
+  belongsTo?: GuildsUpdateOneWithoutChannelsInput;
+}
+
+export interface ChannelsUpdateOneWithoutMessagesInput {
+  create?: ChannelsCreateWithoutMessagesInput;
+  update?: ChannelsUpdateWithoutMessagesDataInput;
+  upsert?: ChannelsUpsertWithoutMessagesInput;
+  delete?: Boolean;
+  disconnect?: Boolean;
+  connect?: ChannelsWhereUniqueInput;
+}
+
+export interface MessagesUpdateWithoutAuthorDataInput {
+  content?: String;
+  channel?: ChannelsUpdateOneWithoutMessagesInput;
+}
+
+export interface MembersSubscriptionWhereInput {
+  mutation_in?: MutationType[] | MutationType;
+  updatedFields_contains?: String;
+  updatedFields_contains_every?: String[] | String;
+  updatedFields_contains_some?: String[] | String;
+  node?: MembersWhereInput;
+  AND?: MembersSubscriptionWhereInput[] | MembersSubscriptionWhereInput;
+  OR?: MembersSubscriptionWhereInput[] | MembersSubscriptionWhereInput;
+  NOT?: MembersSubscriptionWhereInput[] | MembersSubscriptionWhereInput;
+}
+
+export interface ChannelsCreateManyWithoutBelongsToInput {
+  create?:
+    | ChannelsCreateWithoutBelongsToInput[]
+    | ChannelsCreateWithoutBelongsToInput;
+  connect?: ChannelsWhereUniqueInput[] | ChannelsWhereUniqueInput;
+}
+
+export interface GuildsCreateOneWithoutChannelsInput {
+  create?: GuildsCreateWithoutChannelsInput;
   connect?: GuildsWhereUniqueInput;
+}
+
+export interface MembersUpsertWithWhereUniqueWithoutUsersInput {
+  where: MembersWhereUniqueInput;
+  update: MembersUpdateWithoutUsersDataInput;
+  create: MembersCreateWithoutUsersInput;
+}
+
+export interface MembersUpdateInput {
+  guilds?: GuildsUpdateOneWithoutMembersInput;
+  users?: UsersUpdateOneWithoutMemberOfInput;
 }
 
 export interface NodeNode {
@@ -879,22 +1163,20 @@ export interface UsersPreviousValuesSubscription
   password: () => Promise<AsyncIterator<String>>;
 }
 
-export interface GuildsConnectionNode {}
-
-export interface GuildsConnection
-  extends Promise<GuildsConnectionNode>,
-    Fragmentable {
-  pageInfo: <T = PageInfo>() => T;
-  edges: <T = FragmentableArray<GuildsEdgeNode>>() => T;
-  aggregate: <T = AggregateGuilds>() => T;
+export interface AggregateChannelsNode {
+  count: Int;
 }
 
-export interface GuildsConnectionSubscription
-  extends Promise<AsyncIterator<GuildsConnectionNode>>,
+export interface AggregateChannels
+  extends Promise<AggregateChannelsNode>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<GuildsEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateGuildsSubscription>() => T;
+  count: () => Promise<Int>;
+}
+
+export interface AggregateChannelsSubscription
+  extends Promise<AsyncIterator<AggregateChannelsNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface MembersNode {
@@ -915,20 +1197,20 @@ export interface MembersSubscription
   users: <T = UsersSubscription>() => T;
 }
 
-export interface AggregateChannelsNode {
-  count: Int;
+export interface ChannelsEdgeNode {
+  cursor: String;
 }
 
-export interface AggregateChannels
-  extends Promise<AggregateChannelsNode>,
-    Fragmentable {
-  count: () => Promise<Int>;
+export interface ChannelsEdge extends Promise<ChannelsEdgeNode>, Fragmentable {
+  node: <T = Channels>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface AggregateChannelsSubscription
-  extends Promise<AsyncIterator<AggregateChannelsNode>>,
+export interface ChannelsEdgeSubscription
+  extends Promise<AsyncIterator<ChannelsEdgeNode>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  node: <T = ChannelsSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface GuildsNode {
@@ -994,226 +1276,6 @@ export interface GuildsSubscription
   ) => T;
 }
 
-export interface ChannelsEdgeNode {
-  cursor: String;
-}
-
-export interface ChannelsEdge extends Promise<ChannelsEdgeNode>, Fragmentable {
-  node: <T = Channels>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ChannelsEdgeSubscription
-  extends Promise<AsyncIterator<ChannelsEdgeNode>>,
-    Fragmentable {
-  node: <T = ChannelsSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateUsersNode {
-  count: Int;
-}
-
-export interface AggregateUsers
-  extends Promise<AggregateUsersNode>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUsersSubscription
-  extends Promise<AsyncIterator<AggregateUsersNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ChannelsNode {
-  id: ID_Output;
-  channelname: String;
-  type: Int;
-}
-
-export interface Channels extends Promise<ChannelsNode>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  channelname: () => Promise<String>;
-  belongsTo: <T = Guilds>() => T;
-  type: () => Promise<Int>;
-}
-
-export interface ChannelsSubscription
-  extends Promise<AsyncIterator<ChannelsNode>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  channelname: () => Promise<AsyncIterator<String>>;
-  belongsTo: <T = GuildsSubscription>() => T;
-  type: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface UsersConnectionNode {}
-
-export interface UsersConnection
-  extends Promise<UsersConnectionNode>,
-    Fragmentable {
-  pageInfo: <T = PageInfo>() => T;
-  edges: <T = FragmentableArray<UsersEdgeNode>>() => T;
-  aggregate: <T = AggregateUsers>() => T;
-}
-
-export interface UsersConnectionSubscription
-  extends Promise<AsyncIterator<UsersConnectionNode>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UsersEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUsersSubscription>() => T;
-}
-
-export interface ChannelsSubscriptionPayloadNode {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface ChannelsSubscriptionPayload
-  extends Promise<ChannelsSubscriptionPayloadNode>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = Channels>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ChannelsPreviousValues>() => T;
-}
-
-export interface ChannelsSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ChannelsSubscriptionPayloadNode>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ChannelsSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ChannelsPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateMembersNode {
-  count: Int;
-}
-
-export interface AggregateMembers
-  extends Promise<AggregateMembersNode>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateMembersSubscription
-  extends Promise<AsyncIterator<AggregateMembersNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ChannelsConnectionNode {}
-
-export interface ChannelsConnection
-  extends Promise<ChannelsConnectionNode>,
-    Fragmentable {
-  pageInfo: <T = PageInfo>() => T;
-  edges: <T = FragmentableArray<ChannelsEdgeNode>>() => T;
-  aggregate: <T = AggregateChannels>() => T;
-}
-
-export interface ChannelsConnectionSubscription
-  extends Promise<AsyncIterator<ChannelsConnectionNode>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ChannelsEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateChannelsSubscription>() => T;
-}
-
-export interface MembersSubscriptionPayloadNode {
-  mutation: MutationType;
-  updatedFields?: String[];
-}
-
-export interface MembersSubscriptionPayload
-  extends Promise<MembersSubscriptionPayloadNode>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = Members>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = MembersPreviousValues>() => T;
-}
-
-export interface MembersSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<MembersSubscriptionPayloadNode>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = MembersSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = MembersPreviousValuesSubscription>() => T;
-}
-
-export interface BatchPayloadNode {
-  count: Long;
-}
-
-export interface BatchPayload extends Promise<BatchPayloadNode>, Fragmentable {
-  count: () => Promise<Long>;
-}
-
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayloadNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
-}
-
-export interface ChannelsPreviousValuesNode {
-  id: ID_Output;
-  channelname: String;
-  type: Int;
-}
-
-export interface ChannelsPreviousValues
-  extends Promise<ChannelsPreviousValuesNode>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  channelname: () => Promise<String>;
-  type: () => Promise<Int>;
-}
-
-export interface ChannelsPreviousValuesSubscription
-  extends Promise<AsyncIterator<ChannelsPreviousValuesNode>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  channelname: () => Promise<AsyncIterator<String>>;
-  type: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface MembersEdgeNode {
-  cursor: String;
-}
-
-export interface MembersEdge extends Promise<MembersEdgeNode>, Fragmentable {
-  node: <T = Members>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface MembersEdgeSubscription
-  extends Promise<AsyncIterator<MembersEdgeNode>>,
-    Fragmentable {
-  node: <T = MembersSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface AggregateGuildsNode {
-  count: Int;
-}
-
-export interface AggregateGuilds
-  extends Promise<AggregateGuildsNode>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateGuildsSubscription
-  extends Promise<AsyncIterator<AggregateGuildsNode>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
 export interface UsersNode {
   id: ID_Output;
   email: String;
@@ -1241,6 +1303,17 @@ export interface Users extends Promise<UsersNode>, Fragmentable {
     args?: {
       where?: MembersWhereInput;
       orderBy?: MembersOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+  messages: <T = FragmentableArray<MessagesNode>>(
+    args?: {
+      where?: MessagesWhereInput;
+      orderBy?: MessagesOrderByInput;
       skip?: Int;
       after?: String;
       before?: String;
@@ -1279,6 +1352,250 @@ export interface UsersSubscription
       last?: Int;
     }
   ) => T;
+  messages: <T = Promise<AsyncIterator<MessagesSubscription>>>(
+    args?: {
+      where?: MessagesWhereInput;
+      orderBy?: MessagesOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface MessagesSubscriptionPayloadNode {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface MessagesSubscriptionPayload
+  extends Promise<MessagesSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Messages>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = MessagesPreviousValues>() => T;
+}
+
+export interface MessagesSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<MessagesSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = MessagesSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = MessagesPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateUsersNode {
+  count: Int;
+}
+
+export interface AggregateUsers
+  extends Promise<AggregateUsersNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUsersSubscription
+  extends Promise<AsyncIterator<AggregateUsersNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UsersEdgeNode {
+  cursor: String;
+}
+
+export interface UsersEdge extends Promise<UsersEdgeNode>, Fragmentable {
+  node: <T = Users>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UsersEdgeSubscription
+  extends Promise<AsyncIterator<UsersEdgeNode>>,
+    Fragmentable {
+  node: <T = UsersSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UsersConnectionNode {}
+
+export interface UsersConnection
+  extends Promise<UsersConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<UsersEdgeNode>>() => T;
+  aggregate: <T = AggregateUsers>() => T;
+}
+
+export interface UsersConnectionSubscription
+  extends Promise<AsyncIterator<UsersConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UsersEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUsersSubscription>() => T;
+}
+
+export interface AggregateMessagesNode {
+  count: Int;
+}
+
+export interface AggregateMessages
+  extends Promise<AggregateMessagesNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateMessagesSubscription
+  extends Promise<AsyncIterator<AggregateMessagesNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ChannelsNode {
+  id: ID_Output;
+  type: Int;
+  channelname: String;
+}
+
+export interface Channels extends Promise<ChannelsNode>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  type: () => Promise<Int>;
+  channelname: () => Promise<String>;
+  belongsTo: <T = Guilds>() => T;
+  messages: <T = FragmentableArray<MessagesNode>>(
+    args?: {
+      where?: MessagesWhereInput;
+      orderBy?: MessagesOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface ChannelsSubscription
+  extends Promise<AsyncIterator<ChannelsNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  type: () => Promise<AsyncIterator<Int>>;
+  channelname: () => Promise<AsyncIterator<String>>;
+  belongsTo: <T = GuildsSubscription>() => T;
+  messages: <T = Promise<AsyncIterator<MessagesSubscription>>>(
+    args?: {
+      where?: MessagesWhereInput;
+      orderBy?: MessagesOrderByInput;
+      skip?: Int;
+      after?: String;
+      before?: String;
+      first?: Int;
+      last?: Int;
+    }
+  ) => T;
+}
+
+export interface MessagesConnectionNode {}
+
+export interface MessagesConnection
+  extends Promise<MessagesConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<MessagesEdgeNode>>() => T;
+  aggregate: <T = AggregateMessages>() => T;
+}
+
+export interface MessagesConnectionSubscription
+  extends Promise<AsyncIterator<MessagesConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<MessagesEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateMessagesSubscription>() => T;
+}
+
+export interface ChannelsSubscriptionPayloadNode {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface ChannelsSubscriptionPayload
+  extends Promise<ChannelsSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Channels>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ChannelsPreviousValues>() => T;
+}
+
+export interface ChannelsSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ChannelsSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ChannelsSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ChannelsPreviousValuesSubscription>() => T;
+}
+
+export interface MessagesNode {
+  id: ID_Output;
+  content: String;
+}
+
+export interface Messages extends Promise<MessagesNode>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  content: () => Promise<String>;
+  author: <T = Users>() => T;
+  channel: <T = Channels>() => T;
+}
+
+export interface MessagesSubscription
+  extends Promise<AsyncIterator<MessagesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  content: () => Promise<AsyncIterator<String>>;
+  author: <T = UsersSubscription>() => T;
+  channel: <T = ChannelsSubscription>() => T;
+}
+
+export interface ChannelsPreviousValuesNode {
+  id: ID_Output;
+  type: Int;
+  channelname: String;
+}
+
+export interface ChannelsPreviousValues
+  extends Promise<ChannelsPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  type: () => Promise<Int>;
+  channelname: () => Promise<String>;
+}
+
+export interface ChannelsPreviousValuesSubscription
+  extends Promise<AsyncIterator<ChannelsPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  type: () => Promise<AsyncIterator<Int>>;
+  channelname: () => Promise<AsyncIterator<String>>;
+}
+
+export interface MembersEdgeNode {
+  cursor: String;
+}
+
+export interface MembersEdge extends Promise<MembersEdgeNode>, Fragmentable {
+  node: <T = Members>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface MembersEdgeSubscription
+  extends Promise<AsyncIterator<MembersEdgeNode>>,
+    Fragmentable {
+  node: <T = MembersSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface PageInfoNode {
@@ -1304,23 +1621,20 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface GuildsPreviousValuesNode {
-  id: ID_Output;
-  guildname: String;
+export interface AggregateGuildsNode {
+  count: Int;
 }
 
-export interface GuildsPreviousValues
-  extends Promise<GuildsPreviousValuesNode>,
+export interface AggregateGuilds
+  extends Promise<AggregateGuildsNode>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  guildname: () => Promise<String>;
+  count: () => Promise<Int>;
 }
 
-export interface GuildsPreviousValuesSubscription
-  extends Promise<AsyncIterator<GuildsPreviousValuesNode>>,
+export interface AggregateGuildsSubscription
+  extends Promise<AsyncIterator<AggregateGuildsNode>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  guildname: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface GuildsSubscriptionPayloadNode {
@@ -1346,6 +1660,94 @@ export interface GuildsSubscriptionPayloadSubscription
   previousValues: <T = GuildsPreviousValuesSubscription>() => T;
 }
 
+export interface GuildsConnectionNode {}
+
+export interface GuildsConnection
+  extends Promise<GuildsConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<GuildsEdgeNode>>() => T;
+  aggregate: <T = AggregateGuilds>() => T;
+}
+
+export interface GuildsConnectionSubscription
+  extends Promise<AsyncIterator<GuildsConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<GuildsEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateGuildsSubscription>() => T;
+}
+
+export interface GuildsPreviousValuesNode {
+  id: ID_Output;
+  guildname: String;
+}
+
+export interface GuildsPreviousValues
+  extends Promise<GuildsPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  guildname: () => Promise<String>;
+}
+
+export interface GuildsPreviousValuesSubscription
+  extends Promise<AsyncIterator<GuildsPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  guildname: () => Promise<AsyncIterator<String>>;
+}
+
+export interface MessagesEdgeNode {
+  cursor: String;
+}
+
+export interface MessagesEdge extends Promise<MessagesEdgeNode>, Fragmentable {
+  node: <T = Messages>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface MessagesEdgeSubscription
+  extends Promise<AsyncIterator<MessagesEdgeNode>>,
+    Fragmentable {
+  node: <T = MessagesSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateMembersNode {
+  count: Int;
+}
+
+export interface AggregateMembers
+  extends Promise<AggregateMembersNode>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateMembersSubscription
+  extends Promise<AsyncIterator<AggregateMembersNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface MessagesPreviousValuesNode {
+  id: ID_Output;
+  content: String;
+}
+
+export interface MessagesPreviousValues
+  extends Promise<MessagesPreviousValuesNode>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  content: () => Promise<String>;
+}
+
+export interface MessagesPreviousValuesSubscription
+  extends Promise<AsyncIterator<MessagesPreviousValuesNode>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  content: () => Promise<AsyncIterator<String>>;
+}
+
 export interface MembersPreviousValuesNode {
   id: ID_Output;
 }
@@ -1360,6 +1762,79 @@ export interface MembersPreviousValuesSubscription
   extends Promise<AsyncIterator<MembersPreviousValuesNode>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+}
+
+export interface MembersSubscriptionPayloadNode {
+  mutation: MutationType;
+  updatedFields?: String[];
+}
+
+export interface MembersSubscriptionPayload
+  extends Promise<MembersSubscriptionPayloadNode>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = Members>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = MembersPreviousValues>() => T;
+}
+
+export interface MembersSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<MembersSubscriptionPayloadNode>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = MembersSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = MembersPreviousValuesSubscription>() => T;
+}
+
+export interface ChannelsConnectionNode {}
+
+export interface ChannelsConnection
+  extends Promise<ChannelsConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<ChannelsEdgeNode>>() => T;
+  aggregate: <T = AggregateChannels>() => T;
+}
+
+export interface ChannelsConnectionSubscription
+  extends Promise<AsyncIterator<ChannelsConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ChannelsEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateChannelsSubscription>() => T;
+}
+
+export interface MembersConnectionNode {}
+
+export interface MembersConnection
+  extends Promise<MembersConnectionNode>,
+    Fragmentable {
+  pageInfo: <T = PageInfo>() => T;
+  edges: <T = FragmentableArray<MembersEdgeNode>>() => T;
+  aggregate: <T = AggregateMembers>() => T;
+}
+
+export interface MembersConnectionSubscription
+  extends Promise<AsyncIterator<MembersConnectionNode>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<MembersEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateMembersSubscription>() => T;
+}
+
+export interface BatchPayloadNode {
+  count: Long;
+}
+
+export interface BatchPayload extends Promise<BatchPayloadNode>, Fragmentable {
+  count: () => Promise<Long>;
+}
+
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayloadNode>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Long>>;
 }
 
 export interface UsersSubscriptionPayloadNode {
@@ -1401,39 +1876,16 @@ export interface GuildsEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface MembersConnectionNode {}
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
-export interface MembersConnection
-  extends Promise<MembersConnectionNode>,
-    Fragmentable {
-  pageInfo: <T = PageInfo>() => T;
-  edges: <T = FragmentableArray<MembersEdgeNode>>() => T;
-  aggregate: <T = AggregateMembers>() => T;
-}
-
-export interface MembersConnectionSubscription
-  extends Promise<AsyncIterator<MembersConnectionNode>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<MembersEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateMembersSubscription>() => T;
-}
-
-export interface UsersEdgeNode {
-  cursor: String;
-}
-
-export interface UsersEdge extends Promise<UsersEdgeNode>, Fragmentable {
-  node: <T = Users>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UsersEdgeSubscription
-  extends Promise<AsyncIterator<UsersEdgeNode>>,
-    Fragmentable {
-  node: <T = UsersSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
+/*
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+*/
+export type ID_Input = string | number;
+export type ID_Output = string;
 
 /*
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
@@ -1443,20 +1895,9 @@ export type Int = number;
 export type Long = string;
 
 /*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
-*/
-export type ID_Input = string | number;
-export type ID_Output = string;
-
-/*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
-
-/*
-The `Boolean` scalar type represents `true` or `false`.
-*/
-export type Boolean = boolean;
 
 /**
  * Type Defs

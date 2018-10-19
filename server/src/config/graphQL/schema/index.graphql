@@ -9,7 +9,7 @@ type Users {
   id: ID!
   email: String!
   username: String!
-  
+
   ownerOf: [Guilds!]!
   memberOf: [Members!]!
 }

@@ -7,18 +7,18 @@ export const createMessageTable = async () => {
       `
       CREATE TABLE IF NOT EXISTS messages 
       (
-        message_id VARCHAR(200) UNIQUE NOT NULL,
+        id VARCHAR(200) UNIQUE NOT NULL,
 
         author VARCHAR(200) NOT NULL,
-        channel_id VARCHAR(200) NOT NULL,
+        channel VARCHAR(200) NOT NULL,
         content VARCHAR(200) NOT NULL,
 
         CONSTRAINT messages_pk 
-          PRIMARY key(message_id),
+          PRIMARY key(id),
         CONSTRAINT fk_messages_author
           FOREIGN KEY(author) REFERENCES users(id),
-        CONSTRAINT fk_messages_channel_id
-          FOREIGN KEY(channel_id) REFERENCES channels(channel_id)
+        CONSTRAINT fk_messages_channel
+          FOREIGN KEY(channel) REFERENCES channels(id)
       )
       `
     );
