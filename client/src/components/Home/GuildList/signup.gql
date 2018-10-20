@@ -1,0 +1,14 @@
+mutation bitch {
+  signup (
+    email: "ymym@gmail.com",
+    username: "ymym",
+    password: "apple"
+  ) {
+    token 
+    user {
+      id
+      username
+      email
+    }
+  }
+}
