@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Signup from './Signup';
+
 class Landing extends Component {
   constructor(props) {
     super(props);
@@ -8,7 +10,7 @@ class Landing extends Component {
   render() {
     return (
       <div>
-        Hello from landing
+        <Signup/>
       </div>
     );
   }

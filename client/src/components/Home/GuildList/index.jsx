@@ -20,13 +20,13 @@ class GuildList extends Component {
   render() {
     
     const variables = {
-      email: 'ymym@gmail.com',
-      username: 'ymym',
+      email: 'ffff@gmail.com',
+      username: 'ffff',
       password: 'mango'
     }
     return (
       <Mutation mutation={signupmutation} variables={variables}>
-        { signupMutation => <button onClick={signupMutation}>Submit</button>}
+        { asdf => <button onClick={asdf}>Submit</button>}
       </Mutation>
 
     )

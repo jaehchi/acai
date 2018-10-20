@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Landing from './landing';
-import GuildList from './Home/GuildList';
+import Landing from './Landing';
+
+import GuildList from './Home/GuildList'
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -10,7 +11,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <GuildList></GuildList>
+      <div>
+        <Landing/>
+      </div>
     );
   }
 }
