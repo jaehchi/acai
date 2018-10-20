@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
+import Landing from './landing';
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -7,9 +9,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
-        Hello from React
-      </div>
+      <Switch>
+        <Route path='/' component={Landing} />
+    </Switch>
     );
   }
 }

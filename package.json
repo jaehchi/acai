@@ -8,7 +8,8 @@
     "setup:server": "cd server && npm install",
     "db:setup:server": "cd server && npm run db:setup",
     "start": "npm-run-all -p start:server",
-    "buildEnv": "node bin/buildEnv.js"
+    "buildEnv": "node bin/buildEnv.js",
+    "build": "cd client && npm run build"
   },
   "keywords": [],
   "author": "",
