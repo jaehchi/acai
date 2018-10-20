@@ -26,8 +26,9 @@ Environment Setup
 ```
 1. npm i 
 2. npm run buildEnv
-3. npm run setup:gql-server
-4. npm run db:setup:gql-server
+3. npm run setup:server
+4. npm run db:setup:server
+5. npm run build
 ```
 
 Start Server
@@ -35,7 +36,7 @@ Start Server
 ```
 npm run start
 
-# or, start it from gql-server folder,
-cd gql-server && npm run start
+# or, start it from server folder,
+cd server && npm run start
 ```
 
