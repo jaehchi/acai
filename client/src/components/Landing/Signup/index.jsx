@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Mutation } from 'react-apollo';
-import { SIGNUP_MUTATION } from './SIGNUP_MUTATION';
+import SignupMutation from '../../../mutations/signupMutation.js';
 
 import Input from '../../globals/Input'
 
@@ -33,7 +33,7 @@ class Signup extends Component {
     };
 
     return ( 
-      <Mutation mutation={SIGNUP_MUTATION} variables={payload}>
+      <Mutation mutation={SignupMutation} variables={payload}>
         { 
           (signupMutation) => {
             return ( <button onClick={signupMutation}>Submit</button> );
