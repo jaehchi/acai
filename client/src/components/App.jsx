@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 
 import Landing from './Landing';
 
-import GuildList from './Home/GuildList'
 export default class App extends Component {
   constructor(props) {
     super(props);
