@@ -14,10 +14,10 @@ export const signup = async (parent, args, ctx, info) => {
   
   const token = await generateToken(user.id);
 
-  return {
+  return { 
     token,
     user
-  }
+  };
 };
 
 export const login = async (parent, { email, password }, ctx, info) => {
