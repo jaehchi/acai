@@ -37,30 +37,37 @@ class Register extends Component {
     return (
       <div>
         <form className="authBox">
-          <div className="register-wrapper">
-            <h5 className="">Email</h5>
-            <div className="">
+          <div className="r-wrapper">
+            <div className="r-title">Create an account</div>
+            <div className="r-input">
+              <h5>email</h5>
               <input
                 type="text"
                 name="email"
                 onChange={this.onChange}
               />
             </div>
-            <h5 className="">Username</h5>
-            <input
-              type="text"
-              name="username"
-              onChange={this.onChange}
-            />
-            <h5 className="">Password</h5>
-            <input
-              type="password"
-              name="password"
-              onChange={this.onChange}
-            />
-            
-            <button onClick={this.register}>Continue</button>
-            <div className="">By registering, you agree to acai's nonexistent TOS and Privacy Policy</div>
+            <div className="r-input">
+              <h5>username</h5>
+              <input
+                type="text"
+                name="username"
+                onChange={this.onChange}
+              />
+            </div>
+            <div className="r-input">
+              <h5>password</h5>
+              <input
+                type="password"
+                name="password"
+                onChange={this.onChange}
+              />
+            </div>
+            <button className="r-signup" onClick={this.register}>Continue</button>
+            <div href="" className="r-login">
+              <a>Already have an account?</a>
+            </div>
+            <div className="r-tos">By registering, you agree to Acai's nonexistent Terms of Service and Privacy Policy.</div>
           </div>
         </form>
       </div>
