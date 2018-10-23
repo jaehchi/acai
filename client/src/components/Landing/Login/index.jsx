@@ -18,13 +18,13 @@ class Login extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
-  onChange (e) {
+  onChange(e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [ e.target.name ]: e.target.value
     });
   }
 
-  async login (e) {
+  async login(e) {
     e.preventDefault();
 
     const response = await this.props.mutate({
@@ -37,18 +37,38 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <input
-          type="text"
-          name="username"
-          onChange={this.onChange}
-        />
-        <h5 className="">Password</h5>
-        <input
-          type="password"
-          name="password"
-          onChange={this.onChange}
-        />
-        <button onClick={this.login}>Continue</button>
+        <form className="l-authBox">
+          <div className="l-wrapper">
+            <div className="l-title">
+              <div>Welcome Back!</div>
+              <div className="l-comment">We're so excited to see you again!</div>
+            </div>
+            <div className="l-input">
+              <h5>username</h5>
+              <input
+                type="text"
+                name="username"
+                onChange={this.onChange}
+              />
+            </div>
+            <div className="l-input">
+              <h5>password</h5>
+              <input
+                type="password"
+                name="password"
+                onChange={this.onChange}
+              />
+              <div className="l-password">
+                <a href="">Forgot your password?</a>
+              </div>
+            </div>
+            <button className="l-button" onClick={this.register}>Continue</button>
+            <div className="l-register">
+              <span>Need an account? </span>
+              <a href="">Register</a>
+            </div>
+          </div>
+        </form>
       </div>
     );
   }
