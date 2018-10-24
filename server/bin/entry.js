@@ -1,16 +1,17 @@
-require('babel-polyfill');
 require('babel-register');
+require('babel-polyfill');
 
-const { readFileSync } = require('fs');
-const { resolve } = require('path');
+const fs = require('fs');
+const path = require('path');
 const env = require('dotenv');
 
-if (!readFileSync(resolve(__dirname, '../.env'))) {
-  throw new Error('.env config file must exist in server root');
+if (!fs.readFileSync(path.resolve(__dirname, '../.env'))) {
+  console.log('.env configuration file must exist inside of the rest-server root');
+  process.exit();
 }
 
 env.config({
-  path: resolve(__dirname, '../.env'),
+  path: path.resolve(__dirname, '../.env'),
 });
 
-require('../src');
+require('../');

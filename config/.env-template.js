@@ -16,6 +16,10 @@ const envBuild = {
     'SALT_ROUNDS=10',
     'TOKEN_SECRET_KEY=acaiapi',
   ],
+  'server': [
+    'PORT=3000'
+  ],
+  
 };
 
 module.exports = envBuild;

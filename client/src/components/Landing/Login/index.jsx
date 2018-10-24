@@ -44,10 +44,10 @@ class Login extends Component {
               <div className="l-comment">We're so excited to see you again!</div>
             </div>
             <div className="l-input">
-              <h5>username</h5>
+              <h5>email</h5>
               <input
                 type="text"
-                name="username"
+                name="email"
                 onChange={this.onChange}
               />
             </div>
@@ -62,7 +62,7 @@ class Login extends Component {
                 <a href="">Forgot your password?</a>
               </div>
             </div>
-            <button className="l-button" onClick={this.register}>Continue</button>
+            <button className="l-button" onClick={this.login}>Continue</button>
             <div className="l-register">
               <span>Need an account? </span>
               <a href="">Register</a>

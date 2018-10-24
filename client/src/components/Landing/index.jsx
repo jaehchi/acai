@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Register from './Register';
+// import Register from './Register';
 import Login from './Login';
 
 class Landing extends Component {
@@ -11,7 +11,7 @@ class Landing extends Component {
   render() {
     return (
       <div>
-        <Register/>
+        {/* <Register/> */}
         <Login/>
       </div>
     );

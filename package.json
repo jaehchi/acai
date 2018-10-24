@@ -1,15 +1,17 @@
 {
-  "name": "acai-api",
+  "name": "acai",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:gql-server": "cd gql-server && npm run start",
     "start:server": "cd server && npm run start",
-    "setup:server": "cd server && npm install",
-    "db:setup:server": "cd server && npm run db:setup",
-    "start": "npm-run-all -p start:server",
+    "db:setup:server": "cd gql-server && npm run db:setup",
+    "start": "npm-run-all -p start:gql-server start:server",
     "buildEnv": "node bin/buildEnv.js",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm run build",
+    "setup:gql-server": "cd gql-server && npm install",
+    "setup:client": "cd client && npm install"
   },
   "keywords": [],
   "author": "",
