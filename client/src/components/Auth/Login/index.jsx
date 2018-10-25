@@ -17,6 +17,7 @@ class Login extends Component {
 
     this.login = this.login.bind(this);
     this.onChange = this.onChange.bind(this);
+    this._saveUserData = this._saveUserData.bind(this);
   }
 
   onChange(e) {
@@ -27,17 +28,27 @@ class Login extends Component {
 
   async login(e) {
     e.preventDefault();
+    
+    try {
+      const { data: { login } } = await this.props.mutate({
+        variables: this.state
+      });
 
-    const response = await this.props.mutate({
-      variables: this.state
-    });
+      await this._saveUserData(login.token);
+      this.props.history.push('/')
+    } catch (e) {
+      console.log('Login error: ', e);
+    }
 
-    this.props.props.history.push('/home');
-    console.log(response)
+
+  }
+
+  async _saveUserData (token) {
+    localStorage.access_token = token;
   }
 
   render() {
-    console.log(this.props)
+
     return (
       <div id="login">
         <form className="l-authBox" onSubmit={this.login}>
