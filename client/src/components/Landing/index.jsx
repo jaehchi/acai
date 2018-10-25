@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-// import Register from './Register';
-import Login from './Login';
 
+import Canva from './Canva';
+import LandingNav from './LandingNav';
+
+import './landing.sass';
 class Landing extends Component {
   constructor(props) {
     super(props);
@@ -10,9 +13,9 @@ class Landing extends Component {
 
   render() {
     return (
-      <div>
-        {/* <Register/> */}
-        <Login/>
+      <div className="landing">
+        <LandingNav/> 
+        <Canva/>
       </div>
     );
   }

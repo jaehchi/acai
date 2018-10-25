@@ -27,6 +27,37 @@ module.exports = {
         test: /\.(graphql|gql)$/,
         exclude: /node_modules/,
         loader: 'graphql-tag/loader'
+      },
+      {
+        test: /\.(pdf|gif|png|jpe?g)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              optipng: {
+                optimizationLevel: 7,
+              },
+              pngquant: {
+                quality: 65,
+              },
+              svggo: {
+                enabled: false,
+              },
+              webp: {
+                quality: 65
+              }
+            }
+          },
+        ],
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url-loader?limit=1000000&mimetype=image/svg+xml"
       }
     ]
   },

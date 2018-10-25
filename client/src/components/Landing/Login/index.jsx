@@ -31,13 +31,15 @@ class Login extends Component {
       variables: this.state
     });
 
+    this.props.props.history.push('/home');
     console.log(response)
   }
 
   render() {
+    console.log(this.props)
     return (
-      <div>
-        <form className="l-authBox">
+      <div id="login">
+        <form className="l-authBox" onSubmit={this.login}>
           <div className="l-wrapper">
             <div className="l-title">
               <div>Welcome Back!</div>
@@ -65,7 +67,7 @@ class Login extends Component {
             <button className="l-button" onClick={this.login}>Continue</button>
             <div className="l-register">
               <span>Need an account? </span>
-              <a href="">Register</a>
+              <a href="/register">Register</a>
             </div>
           </div>
         </form>
