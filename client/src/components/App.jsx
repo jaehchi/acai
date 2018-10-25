@@ -3,9 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import Landing from './Landing';
 import Home from './Home';
-import Register from './Landing/Register';
-import Login from './Landing/Login';
-
+import Register from './Auth/Register';
+import Login from './Auth/Login';
 export default class App extends Component {
   constructor(props) {
     super(props);

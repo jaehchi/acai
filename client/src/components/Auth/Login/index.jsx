@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import { Link } from 'react-router-dom';
 
 import { loginMutation } from '../../../mutations/login';
 
@@ -67,7 +68,7 @@ class Login extends Component {
             <button className="l-button" onClick={this.login}>Continue</button>
             <div className="l-register">
               <span>Need an account? </span>
-              <a href="/register">Register</a>
+              <Link to="/register" href="/register">Register</Link>
             </div>
           </div>
         </form>

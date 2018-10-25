@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-
+import { Link } from 'react-router-dom';
+ 
 import { registerMutation } from '../../../mutations/register';
 import Login from '../Login';
 
@@ -68,7 +69,7 @@ class Register extends Component {
               />
             </div>
             <button className="r-button" onClick={this.register}>Continue</button>
-            <a className="r-redirect" href="/login">Already have an account?</a>
+            <Link className="r-redirect" to="/login" href="/login">Already have an account?</Link>
             <div className="r-tos">By registering, you agree to Acai's nonexistent Terms of Service and Privacy Policy.</div>
           </div>
         </form>
