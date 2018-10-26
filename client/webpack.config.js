@@ -18,7 +18,10 @@ module.exports = {
         options: {
           presets: [ 'env', 'react' ],
           plugins: [
-            ["transform-object-rest-spread", { "useBuiltIns": true }]
+            [  "transform-object-rest-spread", { 
+                useBuiltIns: true 
+              }
+            ]
           ]
         }, 
         
