@@ -30,12 +30,23 @@ class Register extends Component {
   async register (e) {
     e.preventDefault();
 
-    const response = await this.props.mutate({
-      variables: this.state
-    });
+    try {
+      const { data: { signup }} = await this.props.mutate({
+        variables: this.state
+      });
 
-    console.log(response)
-    this.props.history.push('/home');
+      await this._saveUserData(signup);
+      this.props.history.push('/home')
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+
+  async _saveUserData ({ token, user }) {
+    localStorage.access_token = token;
+    localStorage._id = user.id
   }
 
   render() {

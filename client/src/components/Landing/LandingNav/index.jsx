@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 
 import './landingNav.sass';
 
@@ -10,8 +11,8 @@ const LandingNav = () => {
       </div>
       <div className="la-links">
         <a href="">Features</a>
-        <a href="">asdfs</a>
-        <a href="register">Login</a>
+        <a href="">About</a>
+        <Link className="r-redirect" to="/login" href="/login">Login</Link>
       </div>
     </div>
   );

@@ -6,8 +6,6 @@ export const loginMutation = gql`
       token 
       user {
         id
-        username
-        email
       }
     }
   }

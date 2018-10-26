@@ -34,8 +34,9 @@ class Login extends Component {
         variables: this.state
       });
 
-      await this._saveUserData(login.token);
-      this.props.history.push('/')
+      console.log(login);
+      await this._saveUserData(login);
+      this.props.history.push('/home');
     } catch (e) {
       console.log('Login error: ', e);
     }
@@ -43,8 +44,9 @@ class Login extends Component {
 
   }
 
-  async _saveUserData (token) {
+  async _saveUserData ({ token, user}) {
     localStorage.access_token = token;
+    localStorage._id = user.id
   }
 
   render() {
