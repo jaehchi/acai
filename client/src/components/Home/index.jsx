@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+
+import GuildList from './GuildList'
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -7,7 +10,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        Hey
+        <GuildList/>
       </div>
     );
   }

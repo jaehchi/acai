@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
  
-import { registerMutation } from '../../../mutations/register';
+import { registerMutation } from '../../../graphQL/mutations/register';
 import Login from '../Login';
 
 import './register.sass';
