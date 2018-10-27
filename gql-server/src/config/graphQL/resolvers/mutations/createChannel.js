@@ -1,4 +1,4 @@
-import { getUserID } from '../../../../utils/jwt';
+import { getUserID } from '../../../utils/jwt';
 
 export const createChannel = async (parent, { guildID, channelname, type }, ctx, info) => {
   const userID = await getUserID(ctx.request);

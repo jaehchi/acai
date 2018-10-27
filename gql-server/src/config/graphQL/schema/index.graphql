@@ -5,12 +5,13 @@ type AuthPayload {
   user: Users
 }
 
+
 type Users {
   id: ID!
   email: String!
   username: String!
   
-  ownerOf: [Guilds!]!
+  ownerOf: [Guilds!]! 
   memberOf: [Members!]!
   messages: [Messages!]!
 }
@@ -20,12 +21,11 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
 
   createGuild(guildname: String!): Guilds
-  joinGuild(guildID: String!, userID: String!): Members
+  joinGuild(guildID: ID!): Members
   createChannel(guildID: ID!, type: Int!, channelname: String!) : Channels
 }
 
 type Query {
   user(id: ID): Users
-  users: [Users!]!
-  allMembers(id: ID!) : Guilds
+  fetchGuildList(id: ID): [Guilds!]!
 }

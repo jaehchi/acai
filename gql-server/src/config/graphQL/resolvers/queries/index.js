@@ -1,9 +1,7 @@
 import user from './user';
-import users from './users';
-import allMembers from './allMembers';
+import fetchGuildList from './fetchGuildList';
 
 export default {
   user,
-  users,
-  allMembers,
+  fetchGuildList,
 };

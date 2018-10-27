@@ -1,24 +1,5 @@
-import { hashPassword, comparePasswords } from '../../../../utils/bcrypt';
-import { generateToken } from '../../../../utils/jwt';
-
-export const signup = async (parent, args, ctx, info) => {
-
-  const password = await hashPassword(args.password);
-  
-  const user = await ctx.db.mutation.createUsers({
-    data: {
-      ...args,
-      password
-    }
-  }, `{ id email username}`);
-  
-  const token = await generateToken(user.id);
-
-  return { 
-    token,
-    user
-  };
-};
+import { comparePasswords } from '../../../utils/bcrypt';
+import { generateToken } from '../../../utils/jwt';
 
 export const login = async (parent, { email, password }, ctx, info) => {
   const user = await ctx.db.query.users({

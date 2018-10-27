@@ -1,5 +1,5 @@
 # source: http://localhost:4466
-# timestamp: Thu Oct 18 2018 18:12:53 GMT-0700 (Pacific Daylight Time)
+# timestamp: Fri Oct 26 2018 21:40:07 GMT-0700 (Pacific Daylight Time)
 
 type AggregateChannels {
   count: Int!
@@ -309,8 +309,6 @@ input ChannelsWhereInput {
 input ChannelsWhereUniqueInput {
   id: ID
 }
-
-scalar DateTime
 
 type Guilds implements Node {
   id: ID!
@@ -1164,8 +1162,6 @@ type Users implements Node {
   email: String!
   username: String!
   password: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
   ownerOf(where: GuildsWhereInput, orderBy: GuildsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Guilds!]
   memberOf(where: MembersWhereInput, orderBy: MembersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Members!]
   messages(where: MessagesWhereInput, orderBy: MessagesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Messages!]
@@ -1247,10 +1243,6 @@ enum UsersOrderByInput {
   username_DESC
   password_ASC
   password_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
 }
 
 type UsersPreviousValues {
@@ -1258,8 +1250,6 @@ type UsersPreviousValues {
   email: String!
   username: String!
   password: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 type UsersSubscriptionPayload {
@@ -1545,50 +1535,6 @@ input UsersWhereInput {
 
   """All values not ending with the given string."""
   password_not_ends_with: String
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
   ownerOf_every: GuildsWhereInput
   ownerOf_some: GuildsWhereInput
   ownerOf_none: GuildsWhereInput
