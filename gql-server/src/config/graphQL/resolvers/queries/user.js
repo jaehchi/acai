@@ -9,7 +9,7 @@ export default async (parent, { id }, ctx, info) => {
     user = await getUserID(ctx.request);
   }
 
-  return await ctx.db.query.users({ 
+  return await ctx.db.query.user({ 
     where: { 
       id : user
     } 

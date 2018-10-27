@@ -7,8 +7,8 @@ export const fetchGuildsQuery = gql`
         id
         
         guilds {
-        id
-        guildname
+          id
+          guildname
         }
       }
     }

@@ -2,30 +2,29 @@
 
 type AuthPayload {
   token: String
-  user: Users
+  user: User
 }
 
-
-type Users {
+type User {
   id: ID!
   email: String!
   username: String!
   
-  ownerOf: [Guilds!]! 
-  memberOf: [Members!]!
-  messages: [Messages!]!
+  ownerOf: [Guild!]! 
+  memberOf: [Guild!]!
+  messages: [Message!]!
 }
 
 type Mutation {
   signup(email: String!, password: String!, username: String!) : AuthPayload
   login(email: String!, password: String!): AuthPayload
 
-  createGuild(guildname: String!): Guilds
-  joinGuild(guildID: ID!): Members
-  createChannel(guildID: ID!, type: Int!, channelname: String!) : Channels
+  createGuild(guildname: String!): Guild
+  joinGuild(guildID: ID!): Guild
+  createChannel(guildID: ID!, type: Int!, channelname: String!) : Channel
 }
 
 type Query {
-  user(id: ID): Users
-  fetchGuildList(id: ID): [Guilds!]!
+  user(id: ID): User
+  fetchGuildList(id: ID): [Guild!]!
 }

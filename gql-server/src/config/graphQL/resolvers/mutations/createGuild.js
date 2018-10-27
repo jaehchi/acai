@@ -3,7 +3,8 @@ import { getUserID } from '../../../utils/jwt';
 export const createGuild = async (parent, args, ctx, info) => {
   const userID = await getUserID(ctx.request);
 
-  const guild = await ctx.db.mutation.createGuilds({
+  console.log(userID)
+  const guild = await ctx.db.mutation.createGuild({
     data: {
       ...args,
       owner: {
@@ -12,12 +13,8 @@ export const createGuild = async (parent, args, ctx, info) => {
         }
       },
       members: {
-        create: {
-          users: {
-            connect: {
-              id: userID
-            }
-          }
+        connect: {
+          id: userID
         }
       }
     }

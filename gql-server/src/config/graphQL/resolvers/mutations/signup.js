@@ -5,7 +5,7 @@ export const signup = async (parent, args, ctx, info) => {
 
   const password = await hashPassword(args.password);
   
-  const user = await ctx.db.mutation.createUsers({
+  const user = await ctx.db.mutation.createUser({
     data: {
       ...args,
       password
