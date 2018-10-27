@@ -1,3 +1,5 @@
 .env
 node_modules
 package-lock.json
+/src/config/graphQL/prismaLayer/generated
+/src/config/graphQL/schema/generated
