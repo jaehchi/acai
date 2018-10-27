@@ -7,8 +7,10 @@ type AuthPayload {
 
 type User {
   id: ID!
+
   email: String!
   username: String!
+  avatar: String
   
   ownerOf: [Guild!]! 
   memberOf: [Guild!]!
@@ -16,11 +18,11 @@ type User {
 }
 
 type Mutation {
-  signup(email: String!, password: String!, username: String!) : AuthPayload
+  signup(email: String!, password: String!, username: String!, avatar: String) : AuthPayload
   login(email: String!, password: String!): AuthPayload
 
-  createGuild(guildname: String!): Guild
-  joinGuild(guildID: ID!): Guild
+  createGuild(guildname: String!, avatar: String): Guild
+  joinGuild(id: ID!): Guild
   createChannel(guildID: ID!, type: Int!, channelname: String!) : Channel
 }
 

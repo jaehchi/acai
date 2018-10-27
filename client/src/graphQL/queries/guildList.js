@@ -5,12 +5,9 @@ export const fetchGuildsQuery = gql`
     user {
       memberOf {
         id
-        
-        guilds {
-          id
-          guildname
-        }
+        guildname
+        avatar
       }
     }
   }
-`
+`;
