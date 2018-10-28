@@ -3,7 +3,7 @@ import { login } from './login';
 import { createGuild } from './createGuild';
 import { joinGuild } from './joinGuild';
 import { createChannel } from './createChannel';
-// import { createMessage } from './createMessage';
+import { createMessage } from './createMessage';
 
 export default {
   signup,
@@ -11,4 +11,5 @@ export default {
   createGuild,
   joinGuild,
   createChannel,
+  createMessage,
 };

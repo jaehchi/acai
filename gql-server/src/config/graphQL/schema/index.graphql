@@ -23,7 +23,8 @@ type Mutation {
 
   createGuild(guildname: String!, avatar: String): Guild
   joinGuild(id: ID!): Guild
-  createChannel(guildID: ID!, type: Int!, channelname: String!) : Channel
+  createChannel(id: ID!, type: Int!, channelname: String!) : Channel
+  createMessage(id: ID!, content: String!): Message
 }
 
 type Query {

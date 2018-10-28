@@ -1,11 +1,11 @@
 import { getUserID } from '../../../utils/jwt';
 
-export const createChannel = async (parent, { type, channelname, guildID }, ctx, info) => {
+export const createChannel = async (parent, { type, channelname, id }, ctx, info) => {
   const userID = await getUserID(ctx.request);
 
   const { owner } =  await ctx.db.query.guild({
     where: {
-      id: guildID
+      id,
     }
   }, `{ owner { id } }`);
 
@@ -19,7 +19,7 @@ export const createChannel = async (parent, { type, channelname, guildID }, ctx,
       channelname,
       belongsTo: {
         connect: {
-          id: guildID
+          id,
         }
       }
     }
