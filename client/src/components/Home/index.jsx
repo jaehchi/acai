@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom'
 
-import GuildList from './GuildList'
+import GuildList from './GuildList';
+import Contents from './Contents';
 
 class Home extends Component {
   constructor(props) {
@@ -11,6 +13,10 @@ class Home extends Component {
     return (
       <div>
         <GuildList/>
+        <Switch>
+          <Route pathname="/contents" component={Contents}/>
+        </Switch>
+      
       </div>
     );
   }

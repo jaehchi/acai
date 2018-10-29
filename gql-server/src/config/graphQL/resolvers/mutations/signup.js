@@ -3,8 +3,6 @@ import { generateToken } from '../../../utils/jwt';
 
 export const signup = async (parent, args, ctx, info) => {
 
-  console.log(args)
-
   const password = await hashPassword(args.password);
   
   const user = await ctx.db.mutation.createUser({

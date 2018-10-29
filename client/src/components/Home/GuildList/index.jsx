@@ -18,12 +18,11 @@ class GuildList extends Component {
     } else if (error) {
       return <p>Error!</p>;
     } else {
-      console.log(user.memberOf)
       return (
         <ul>
           {
-            user.memberOf.map(({ id, guildname, avatar }) => {
-              return <GuildListItem key={id} guild={{ id, guildname, avatar }}/>
+            user.memberOf.map(({ id, guildname, avatar, channels }) => {
+              return <GuildListItem key={id} guild={{ id, guildname, avatar, channels }}/>
             })
           }
         </ul>

@@ -34,7 +34,6 @@ class Login extends Component {
         variables: this.state
       });
 
-      console.log(login);
       await this._saveUserData(login);
       this.props.history.push('/home');
     } catch (e) {

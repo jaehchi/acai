@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 
 import './guildListItem.sass';
 
-const GuildListItem = (props) => {
-  console.log( props )
+const GuildListItem = ({ guild }) => {
+
+  const payload = {
+    pathname: "/contents",
+    state: guild
+  }
 
   return (
     <div>
-      <Link to="/" href="/">
-        <img src={props.guild.avatar} alt="" className='asdf'/>
+      <Link to={payload}>
+        <img src={guild.avatar} alt="" className='asdf'/>
       </Link>
     </div>
   )
