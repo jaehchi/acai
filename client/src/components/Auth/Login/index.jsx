@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import { loginMutation } from '../../../graphQL/mutations/login';
+import { loginMutation } from './login';
 
 import './login.sass';
 
@@ -34,8 +34,10 @@ class Login extends Component {
         variables: this.state
       });
 
+      this.props.history.push(`/${login.user.memberOf[0].id}/${login.user.memberOf[0].channels[0].id}`);
+
       await this._saveUserData(login);
-      this.props.history.push('/home');
+    
     } catch (e) {
       console.log('Login error: ', e);
     }

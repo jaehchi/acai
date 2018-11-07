@@ -14,10 +14,9 @@ export default class App extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/contents" component={Home}/>
         <Route path="/register" component={Register}/>
         <Route path="/login" component={Login}/>
-        <Route path='/home' component={Home}/>
+        <Route path='/:guildId' component={Home}/>
         <Route path='/' component={Landing}/> 
       </Switch>
     );

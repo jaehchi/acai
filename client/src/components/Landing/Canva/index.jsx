@@ -24,6 +24,6 @@ class Canva extends Component {
       </div>
     );
   }
-}
+};
 
 export default Canva;

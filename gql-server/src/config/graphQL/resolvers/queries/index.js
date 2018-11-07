@@ -1,7 +1,11 @@
 import user from './user';
-import fetchGuildList from './fetchGuildList';
+import guildlist from './guildlist';
+import allChannels from './allChannels';
+import allMessages from './allMessages';
 
 export default {
   user,
-  fetchGuildList,
+  guildlist,
+  allChannels,
+  allMessages,
 };
