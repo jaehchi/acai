@@ -1,5 +1,4 @@
-#endpoint: ''
-endpoint: https://us1.prisma.sh/jae-chi/prismaLayer/dev
+endpoint: ${env:PRISMA_ENDPOINT}
 datamodel: datamodel.graphql
 
 generate:

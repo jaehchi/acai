@@ -16,6 +16,7 @@ const Messages = (props) => {
   
   return (
     <div>
+      <h1>{props.data.allMessages.length ? props.data.allMessages[0].channel.channelname: null}</h1>
       {props.data.allMessages.map(({id, content, createdAt, author }) => (
         <div key={id} className="">
           <p>{content}</p>
@@ -38,6 +39,10 @@ const query = gql`
           id
           username
           avatar
+        }
+
+        channel {
+          channelname
         }
       }
     }
