@@ -24,10 +24,20 @@ const GuildList = ({ data: { loading, error, guildlist}}) => {
           guildlist.map(({ id, guildname, avatar, channels }) => (
             <li key={id} className="guild">
               <Link to={`/${id}/${channels[0].id}`}>
-                <img src={avatar}/>
-              </Link>
-            </li>
-          ))
+                {
+                  avatar ? ( 
+                    <img src={avatar}/>
+                  ) : (
+                    <div>
+                      {guildname[0]}
+                    </div>
+
+          
+                  )
+                }
+                </Link>
+                </li>
+                ))
         }
       </ul>
     </div>

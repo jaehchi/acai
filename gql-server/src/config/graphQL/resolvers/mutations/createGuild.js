@@ -15,6 +15,12 @@ export const createGuild = async (parent, args, ctx, info) => {
         connect: {
           id: userID
         }
+      },
+      channels: {
+        create: {
+          type: 0,
+          channelname: 'general'
+        }
       }
     }
   }, info ); 
