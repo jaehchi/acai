@@ -18,13 +18,14 @@ const GuildList = ({ data: { loading, error, guilds }}) => {
   return (
     <div className="guildList">
       <div className="separator"></div>
-      <ul>
+      <div className="guilds">
         {
           guilds.map( (guild) => (
             <GuildItem key={guild.id} guild={guild}/>
           ))
         }
-      </ul>
+      </div>
+      <div className="separator"></div>
     </div>
   );
 }

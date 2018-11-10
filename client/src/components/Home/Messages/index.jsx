@@ -1,11 +1,11 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-import { Route, Link } from 'react-router-dom';
+
 import gql from 'graphql-tag';
 
 
 const Messages = (props) => {
-  console.log('mesage', props)
+  
   if ( props.data.loading ) {
     return <h1>Loading...</h1>
   }

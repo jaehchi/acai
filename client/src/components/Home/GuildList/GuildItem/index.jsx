@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import './guild.sass';
+import './guildItem.sass';
 
-const Guild = ({ guild: { id, guildname, avatar, channels }}) => {
+const GuildItem = ({ guild: { id, guildname, avatar, channels }}) => {
   return (
     <div className="guildItem">
       <Link to={`/${id}/${channels[0].id}`}>
-        <div className="g-avatar">
           {
-            avatar ? <img src={avatar}/> : <div className="g-basic-avatar">{guildname[0]}</div>
+            avatar ? (
+              <div className="g-avatar">
+                <img src={avatar}/>
+              </div>
+            )
+            : (
+            <div className="g-basic-avatar">
+              <h1>{guildname[0]}</h1>
+            </div>
+            )
           }
-        </div>
       </Link>
     </div>
   )
 };
 
-export default Guild;
+export default GuildItem;

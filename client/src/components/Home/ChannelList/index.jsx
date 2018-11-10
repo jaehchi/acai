@@ -35,7 +35,6 @@ const ChannelList = ({ data: { loading, error, channels }, match}) => {
           ))
         }
       </ul>
-
     </div>
   );
 }
@@ -59,9 +58,9 @@ const query = gql`
 `;
 
 export default graphql(query, {
-  options: (props) => ({
+  options: ({ match: { params: { guildId }}}) => ({
     variables: {
-      id: props.match.params.guildId
+      id: guildId
     } 
   })
 })(ChannelList);
