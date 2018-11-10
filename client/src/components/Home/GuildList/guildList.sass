@@ -1,0 +1,38 @@
+
+.guilds 
+  background-color: #202225
+
+  .separator 
+    height: 2px
+    margin: 10px auto
+    position: relative
+    width: 50px
+
+  .separator::after
+    content: " "
+    height: 2px
+    left: 20%
+    position: absolute
+    right: 20%
+    top: 0
+    background-color: white
+
+  ul 
+    padding: 0
+    margin: 0 auto
+
+  .guild
+    margin: 0 auto 
+    width: 50px
+    padding-bottom: 10px
+    position: relative
+
+    img 
+      height: 50px
+      width: 50px
+      border-radius: 50%
+      transition: border-radius 0.5s ease-in-out
+
+    img:hover
+      border-radius: 25%
+     

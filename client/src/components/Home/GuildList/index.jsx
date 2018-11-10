@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import { Route, Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 
-import ChannelList from './ChannelList';
+import './guildList.sass';
 
 const GuildList = ({ data: { loading, error, guildlist}}) => {
 
@@ -16,21 +16,20 @@ const GuildList = ({ data: { loading, error, guildlist}}) => {
   }
   
   return (
-    <div>
-      <h1>GuildList</h1>
+    <div className="guilds">
+
+      <div className="separator"></div>
       <ul>
         {
-          guildlist.map(({ id, guildname, channels }) => (
-            <li key={id}>
-              <Link to={`/${id}/${channels[0].id}`}>{guildname}</Link>
+          guildlist.map(({ id, guildname, avatar, channels }) => (
+            <li key={id} className="guild">
+              <Link to={`/${id}/${channels[0].id}`}>
+                <img src={avatar}/>
+              </Link>
             </li>
           ))
         }
       </ul>
-
-      <hr />
-
-      <Route path={`/:guildId`} component={ChannelList}/>
     </div>
   );
 }
@@ -40,6 +39,7 @@ const query = gql`
     guildlist {
       id
       guildname
+      avatar 
 
       channels {
         id
