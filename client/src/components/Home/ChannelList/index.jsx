@@ -1,39 +1,38 @@
 
 import React from 'react';
 import { graphql } from 'react-apollo';
-import { Route, Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 
-
+import ChannelItem from './ChannelItem';
 import './channelList.sass';
 
-const ChannelList = (props) => {
 
-  if ( props.data.loading ) {
+
+const ChannelList = ({ data: { loading, error, channels }, match}) => {
+
+  if ( loading ) {
     return <h1>Loading...</h1>
   }
 
-  if ( props.data.error ) {
-    return <h1>{props.data.error.message}</h1>
+  if ( error ) {
+    return <h1>{error.message}</h1>
   }
-
-  console.log('hey ', props.data.allChannels[0].belongsTo.owner.id === localStorage._id)
+  
   return (
     <div className="channelList">
       <div>
-        {props.data.allChannels[0].belongsTo.guildname}
+        {channels[0].belongsTo.guildname}
       </div>
       <h1>Text Channels</h1>
       <ul>
         {
-          props.data.allChannels.map(({ id, channelname, type }) => {
-            return (
-
-              <li key={id}>
-                <Link to={`${props.match.url}/${id}`}># { channelname }</Link>
-              </li>
-            )
-          })
+          channels.map((channel) => (
+            <ChannelItem 
+              key={channel.id}
+              channel={channel}
+              match={match}
+            />
+          ))
         }
       </ul>
 
@@ -42,7 +41,7 @@ const ChannelList = (props) => {
 }
 const query = gql`
     query ($id: ID!) {
-      allChannels(id: $id) {
+      channels(id: $id) {
         id
         channelname
 

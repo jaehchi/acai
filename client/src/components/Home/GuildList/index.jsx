@@ -1,11 +1,11 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-import { Route, Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 
+import GuildItem from './GuildItem';
 import './guildList.sass';
 
-const GuildList = ({ data: { loading, error, guildlist}}) => {
+const GuildList = ({ data: { loading, error, guilds }}) => {
 
   if ( loading ) {
     return <h1>Loading...</h1>
@@ -16,28 +16,13 @@ const GuildList = ({ data: { loading, error, guildlist}}) => {
   }
   
   return (
-    <div className="guilds">
-
+    <div className="guildList">
       <div className="separator"></div>
       <ul>
         {
-          guildlist.map(({ id, guildname, avatar, channels }) => (
-            <li key={id} className="guild">
-              <Link to={`/${id}/${channels[0].id}`}>
-                {
-                  avatar ? ( 
-                    <img src={avatar}/>
-                  ) : (
-                    <div>
-                      {guildname[0]}
-                    </div>
-
-          
-                  )
-                }
-                </Link>
-                </li>
-                ))
+          guilds.map( (guild) => (
+            <GuildItem key={guild.id} guild={guild}/>
+          ))
         }
       </ul>
     </div>
@@ -46,7 +31,7 @@ const GuildList = ({ data: { loading, error, guildlist}}) => {
 
 const query = gql`
   query {
-    guildlist {
+    guilds {
       id
       guildname
       avatar 

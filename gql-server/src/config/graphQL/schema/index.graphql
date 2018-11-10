@@ -29,7 +29,7 @@ type Mutation {
 
 type Query {
   user(id: ID): User
-  guildlist: [Guild!]!
-  allChannels(id: ID!): [Channel!]!
+  guilds: [Guild!]!
+  channels(id: ID!): [Channel!]!
   allMessages(id: ID!): [Message!]!
 }
