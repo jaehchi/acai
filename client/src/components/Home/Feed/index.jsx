@@ -1,10 +1,14 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-
 import gql from 'graphql-tag';
 
+import FeedNav from './FeedNav';
+import AddMessage from './AddMessage';
+import MessageList from './MessageList';
 
-const Messages = (props) => {
+import './feed.sass';
+
+const Feed = (props) => {
   
   if ( props.data.loading ) {
     return <h1>Loading...</h1>
@@ -14,19 +18,15 @@ const Messages = (props) => {
     return <h1>{props.error.message}</h1>
   }
   
+
   return (
-    <div>
-      <h1>{props.data.allMessages.length ? props.data.allMessages[0].channel.channelname: null}</h1>
-      {props.data.allMessages.map(({id, content, createdAt, author }) => (
-        <div key={id} className="">
-          <p>{content}</p>
-          <p>{author.id}</p>
-        </div>
-      ))}
-    
+    <div className="feed">
+      <FeedNav name={props.data.channel.name} />
+      <MessageList messages={props.data.allMessages}/>
+      <AddMessage channel={props.data.channel}/>
     </div>
   );
-}
+};
 
 const query = gql`
     query ($id: ID!) {
@@ -40,15 +40,14 @@ const query = gql`
           username
           avatar
         }
-
-        channel {
-          channelname
-        }
+      },
+      channel(id: $id) {
+        id
+        name
       }
     }
-  
-`;
 
+`;
 
 export default graphql(query, {
   options: (props) => ({
@@ -56,4 +55,4 @@ export default graphql(query, {
       id: props.match.params.channelId
     } 
   })
-})(Messages);
+})(Feed);

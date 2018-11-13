@@ -1,8 +1,9 @@
 import { getUserID } from '../../../utils/jwt';
 
-export const createChannel = async (parent, { type, channelname, id }, ctx, info) => {
+export const createChannel = async (parent, { type, name, id }, ctx, info) => {
   const userID = await getUserID(ctx.request);
-
+  name = name.toLowerCase();
+  
   const { owner } =  await ctx.db.query.guild({
     where: {
       id,
@@ -10,13 +11,13 @@ export const createChannel = async (parent, { type, channelname, id }, ctx, info
   }, `{ owner { id } }`);
 
   if ( owner.id !== userID ) {
-    throw new Error('Only the Guild Owners are allowed to create channels');
+    throw new Error('Only the Guild owner is allowed to create channels');
   }
   
   return await ctx.db.mutation.createChannel({
     data: {
       type,
-      channelname,
+      name,
       belongsTo: {
         connect: {
           id,

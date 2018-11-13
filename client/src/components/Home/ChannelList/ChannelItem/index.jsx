@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 import hashtag from '../../../../../public/assets/hashtag.svg';
 
 
-const ChannelItem = ({ channel: { id, channelname }, match }) => {
+const ChannelItem = ({ channel: { id, name }, match }) => {
   return (
-    <li key={id}>
+    <div key={id}>
       <Link to={`${match.url}/${id}`}>
         <img src={hashtag} alt=""/>
-        <span>{channelname}</span>
+        <span>{name}</span>
       </Link>
-    </li>
+    </div>
   );
 };
 

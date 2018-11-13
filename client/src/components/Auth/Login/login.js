@@ -9,11 +9,11 @@ export const loginMutation = gql`
 
         memberOf {
           id
-          guildname
+          name
           
           channels {
             id
-            channelname
+            name
           }
         }
       

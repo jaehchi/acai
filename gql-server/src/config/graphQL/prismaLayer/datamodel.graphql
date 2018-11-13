@@ -3,7 +3,7 @@ type Channel {
   createdAt: DateTime!
   updatedAt: DateTime!
   type: Int!
-  channelname: String!
+  name: String!
 
   belongsTo: Guild
   messages: [Message!]!
@@ -13,7 +13,7 @@ type Guild  {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
-  guildname: String!
+  name: String!
   owner: User @relation(name: "GuildOwners")
 
   avatar: String

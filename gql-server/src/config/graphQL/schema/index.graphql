@@ -21,9 +21,9 @@ type Mutation {
   signup(email: String!, password: String!, username: String!, avatar: String) : AuthPayload
   login(email: String!, password: String!): AuthPayload
 
-  createGuild(guildname: String!, avatar: String): Guild
+  createGuild(name: String!, avatar: String): Guild
   joinGuild(id: ID!): Guild
-  createChannel(id: ID!, type: Int!, channelname: String!) : Channel
+  createChannel(id: ID!, type: Int!, name: String!) : Channel
   createMessage(id: ID!, content: String!): Message
 }
 
@@ -31,5 +31,6 @@ type Query {
   user(id: ID): User
   guilds: [Guild!]!
   channels(id: ID!): [Channel!]!
+  channel(id: ID!): Channel
   allMessages(id: ID!): [Message!]!
 }

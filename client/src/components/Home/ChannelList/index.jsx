@@ -4,27 +4,26 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import ChannelItem from './ChannelItem';
+import ChannelNav from './ChannelNav/index';
 import './channelList.sass';
 
-
-
 const ChannelList = ({ data: { loading, error, channels }, match}) => {
-
+  
   if ( loading ) {
     return <h1>Loading...</h1>
   }
-
+  
   if ( error ) {
     return <h1>{error.message}</h1>
   }
   
+  const guildname = channels[0].belongsTo.name; 
+  
   return (
     <div className="channelList">
+      <ChannelNav name={guildname}/>
+      <h5>Text Channels</h5>
       <div>
-        {channels[0].belongsTo.guildname}
-      </div>
-      <h1>Text Channels</h1>
-      <ul>
         {
           channels.map((channel) => (
             <ChannelItem 
@@ -34,7 +33,7 @@ const ChannelList = ({ data: { loading, error, channels }, match}) => {
             />
           ))
         }
-      </ul>
+      </div>
     </div>
   );
 }
@@ -42,10 +41,10 @@ const query = gql`
     query ($id: ID!) {
       channels(id: $id) {
         id
-        channelname
+        name
 
         belongsTo {
-          guildname
+          name
 
           owner { 
             id

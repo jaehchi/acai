@@ -34,7 +34,7 @@ const query = gql`
   query {
     guilds {
       id
-      guildname
+      name
       avatar 
 
       channels {

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './guildItem.sass';
 
-const GuildItem = ({ guild: { id, guildname, avatar, channels }}) => {
+const GuildItem = ({ guild: { id, name, avatar, channels }}) => {
   return (
     <div className="guildItem">
       <Link to={`/${id}/${channels[0].id}`}>
@@ -15,7 +15,7 @@ const GuildItem = ({ guild: { id, guildname, avatar, channels }}) => {
             )
             : (
             <div className="g-basic-avatar">
-              <h1>{guildname[0]}</h1>
+              <h1>{name[0]}</h1>
             </div>
             )
           }
