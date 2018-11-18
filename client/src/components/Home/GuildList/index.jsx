@@ -1,33 +1,36 @@
-import React from 'react';
+import React, { Component }from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import GuildItem from './GuildItem';
+import AddGuild from './AddGuild';
+
 import './guildList.sass';
 
-const GuildList = ({ data: { loading, error, guilds }}) => {
+class GuildList extends Component {
+  constructor(props) {
+    super(props);
 
-  if ( loading ) {
-    return <h1>Loading...</h1>
   }
 
-  if ( error ) {
-    return <h1>{error.message}</h1>
-  }
-  
-  return (
-    <div className="guildList">
-      <div className="separator"></div>
-      <div className="guilds">
+  render() {
+    const { data: { loading, error, guilds } } = this.props;
+
+    loading ? <h1>Loading...</h1> : null;
+
+    error ? <h1>{error.message}</h1> : null;
+    
+    return (
+      <div className="guildList">
         {
-          guilds.map( (guild) => (
+          guilds && guilds.map( (guild) => (
             <GuildItem key={guild.id} guild={guild}/>
           ))
         }
+        <AddGuild/>
       </div>
-      <div className="separator"></div>
-    </div>
-  );
+    )
+  }
 }
 
 const query = gql`

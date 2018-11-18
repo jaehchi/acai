@@ -41,8 +41,6 @@ class Login extends Component {
     } catch (e) {
       console.log('Login error: ', e);
     }
-
-
   }
 
   async _saveUserData ({ token, user}) {
@@ -51,7 +49,6 @@ class Login extends Component {
   }
 
   render() {
-
     return (
       <div id="login">
         <form className="l-authBox" onSubmit={this.login}>

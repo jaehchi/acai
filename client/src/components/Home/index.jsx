@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import GuildList from './GuildList';
-import ChannelList from './ChannelList';
+import GuildContent from './GuildContent';
 import Feed from './Feed';
 import './home.sass';
 
@@ -15,7 +15,7 @@ class Home extends Component {
     return (
       <div className="home">
         <GuildList/>
-        <Route path={`/:guildId`} component={ChannelList}/>
+        <Route path={`/:guildId`} component={GuildContent}/>
         <Route path={`/:guildId/:channelId`} component={Feed}/>
       </div>
     );

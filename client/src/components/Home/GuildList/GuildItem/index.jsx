@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './guildItem.sass';
@@ -7,18 +7,11 @@ const GuildItem = ({ guild: { id, name, avatar, channels }}) => {
   return (
     <div className="guildItem">
       <Link to={`/${id}/${channels[0].id}`}>
+        <div className="g-avatar">
           {
-            avatar ? (
-              <div className="g-avatar">
-                <img src={avatar}/>
-              </div>
-            )
-            : (
-            <div className="g-basic-avatar">
-              <h1>{name[0]}</h1>
-            </div>
-            )
+            avatar ? <img src={avatar}/> : <span>{name[0]}</span>
           }
+        </div>
       </Link>
     </div>
   )

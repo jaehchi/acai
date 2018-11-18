@@ -1,6 +1,7 @@
 
 .guildList 
   background-color: #202225
+  overflow-y: scroll
 
   .separator 
     height: 2px
@@ -16,6 +17,6 @@
     right: 20%
     top: 0
     background-color: white
-  
-  .guilds 
-    margin: 0 auto
+
+.guildList::-webkit-scrollbar
+    display: none
