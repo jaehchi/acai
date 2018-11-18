@@ -1,0 +1,80 @@
+@import '../../../globals/global.sass'
+
+.addGuild
+  background-color: #202225
+  color: #535559
+  border-color: #535559
+  height: 50px
+  width: 50px
+  border-radius: 50%
+  border-style: dashed
+  border-width: 1px
+  font-size: 40px
+  font-weight: 300
+  line-height: 100%
+  padding: 0
+  text-align: center
+
+.add-server-wrapper
+  background-color: rgba(0,0,0,0.5)
+  position: fixed
+  height: 100%
+  width: 100%
+  top: 0
+  left: 0
+  z-index: 988
+  display: grid
+  align-self: center
+  justify-items: center
+
+  .add-server-container
+  
+    display: grid
+    background-color: white
+    align-self: center
+    grid-template-columns: 260px 260px 
+    grid-template-rows: 100px 300px
+    grid-template-areas: "header header" "createAction createAction"
+    height: 400px
+    position: relative
+
+    
+    .create-header
+      grid-area: header
+      text-align: center
+      color: $discordBlue
+      padding: 0
+      margin: auto
+      text-transform: uppercase
+      font-size: 28px
+
+    .ag-create
+      grid-area: createAction
+      border-radius: 3px
+      border: 1px solid rgba(0,0,0,.1)
+      box-sizing: border-box
+      margin: auto
+      padding: 0
+      width: 100%
+      height: 100%
+      text-align: center
+
+      .create-action
+        width: 400px
+        margin: auto
+
+        .ag-button
+          width: 100%  
+          background-color: $discordBlue
+          color: $white
+          border-color: $discordBlue
+          height: 45px
+          border-radius: 3px
+          margin: 0 auto
+          font-size: 15px
+
+
+        .ag-button:hover 
+          color: $discordBlue
+          background-color: $white
+          border-color: $white
