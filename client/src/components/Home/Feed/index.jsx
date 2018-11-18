@@ -28,7 +28,7 @@ const Feed = (props) => {
   );
 };
 
-const query = gql`
+export const AllMessages = gql`
     query ($id: ID!) {
       allMessages(id: $id) {
         id
@@ -49,10 +49,10 @@ const query = gql`
 
 `;
 
-export default graphql(query, {
+export default graphql(AllMessages, {
   options: (props) => ({
     variables: {
       id: props.match.params.channelId
-    } 
+    }
   })
 })(Feed);

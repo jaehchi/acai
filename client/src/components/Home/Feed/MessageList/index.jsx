@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 
+import './messageList.sass';
+
 const MessageList = ({ messages }) => {
   return (
-    <div>
+    <div className="messageList">
       {
         messages.map( ({id, content, createdAt, author }) => (
           <div key={id} className="">
-            <p>{content}</p>
-            <p>{author.id}</p>
+            <div>{createdAt}</div>
+            <div>{author.username}</div>
+            <div>{content}</div>
           </div>
         ))
       }
