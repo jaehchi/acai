@@ -4,7 +4,8 @@ import gql from 'graphql-tag';
 
 import Modal from '../../../globals/Modal';
 import CreateServer from './CreateServer';
-import AddServerOptions from './AddServerOptions';
+import JoinServer from './JoinServer';
+import ServerOptions from './ServerOptions';
 
 import './addGuild.sass';
 import '../GuildItem/guildItem.sass'
@@ -15,53 +16,81 @@ class AddGuild extends Component {
 
     this.state = {
       showModal: false,
-      switchModal: false
+      showServerOptions: true,
+      showCreateServer: false,
+      showJoinServer: false,
     };
 
     this.toggleModal = this.toggleModal.bind(this);
-    this.switchModal = this.switchModal.bind(this);
+    this.showServerOptions = this.showServerOptions.bind(this);
+    this.joinModal = this.joinModal.bind(this);
+    this.createModal = this.createModal.bind(this);
   }
 
   toggleModal (e) {
-    if (this.state.showModal && this.node.contains(e.target)) {
+    if (e && this.state.showModal && this.node.contains(e.target)) {
       return;
     }
 
     this.setState({
-      showModal: !this.state.showModal
+      showModal: !this.state.showModal,
+      showServerOptions: true,
+      showCreateServer: false,
+      showJoinServer: false,
     });
-  }
+  };
 
-  switchModal () {
+  showServerOptions () {
     this.setState({
-      switchModal: !this.state.switchModal
+      showServerOptions: !this.state.showServerOptions,
     });
-  }
+  };
+
+  createModal () {
+    this.setState({
+      showServerOptions: !this.state.showServerOptions,
+      showCreateServer: !this.state.showCreateServer
+    });
+  };
+
+  joinModal () {
+    this.setState({
+      showServerOptions: !this.state.showServerOptions,
+      showJoinServer: !this.state.showJoinServer
+    });
+  };
 
   render() {
-    
-    const modal = this.state.showModal ? (
+    const showServerActions = (this.state.showCreateServer && !this.state.showJoinServer) ? (
+      <CreateServer createModal={this.createModal} toggleModal={this.toggleModal}/>
+    ) : ( 
+      <JoinServer joinModal={this.joinModal} toggleModal={this.toggleModal}/>
+    );
+
+    const showServerOptions = <ServerOptions joinModal={this.joinModal} createModal={this.createModal}/> 
+  
+    const showModal = this.state.showModal ? (
       <Modal>
         <div className="add-server-wrapper" onClick={this.toggleModal}>
           <div className="add-server-container" ref={ node => { this.node = node; }}>
             { 
-              this.state.switchModal ? 
-                <CreateServer switchModal={this.switchModal}/> : <AddServerOptions switchModal={this.switchModal}/>
+              this.state.showServerOptions ? showServerOptions : showServerActions
             }
           </div>
         </div>
       </Modal>
     ) : null;
+    
 
     return (
       <div className="guildItem">
         <div className="addGuild" onClick={this.toggleModal}>
           <span>+</span>
         </div>
-        {modal}
+        {showModal}
       </div>
     );
-  }
+  };
 }
 
 export default AddGuild;

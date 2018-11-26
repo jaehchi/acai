@@ -26,7 +26,7 @@ Environment Setup
 ```
 1. npm i 
 2. npm run buildEnv
-3. npm run setup:server
+3. npm run setup:all
 4. npm run db:setup:server
 5. npm run build
 ```
@@ -34,9 +34,9 @@ Environment Setup
 Start Server
 
 ```
-npm run start
+cd into server/image-server/gql-server individually && npm run start
 
-# or, start it from server folder,
-cd server && npm run start
+# or, start all servers together from the root folder,
+npm run start:all
 ```
 

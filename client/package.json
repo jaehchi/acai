@@ -17,8 +17,9 @@
     "react": "^16.5.2",
     "react-apollo": "^2.2.4",
     "react-dom": "^16.5.2",
+    "react-dropzone": "^7.0.1",
     "react-router-dom": "^4.3.1",
-    "sweetalert2": "^7.29.0"
+    "superagent": "^4.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.2.1",

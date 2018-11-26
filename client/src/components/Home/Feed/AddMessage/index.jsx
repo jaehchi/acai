@@ -52,7 +52,6 @@ class AddMessage extends Component {
         }
 
       });
-      console.log(data);
       e.target.value = '';
     } catch (err) {
       console.log(err);

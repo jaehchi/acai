@@ -33,7 +33,7 @@ class GuildList extends Component {
   }
 }
 
-const query = gql`
+export const allGuildsQuery = gql`
   query {
     guilds {
       id
@@ -47,4 +47,4 @@ const query = gql`
   }
 `;
 
-export default graphql(query)(GuildList);
+export default graphql(allGuildsQuery)(GuildList);

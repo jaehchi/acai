@@ -1,0 +1,84 @@
+@import '../../../../globals/global.sass'
+
+.server-options 
+  display: grid
+  grid-template-columns: 260px 260px 
+  grid-template-rows: 75px 325px
+  grid-template-areas: "header header" "createServer joinServer"
+  background-color: white
+  align-self: center
+  height: 400px
+  position: relative
+
+  .server-header
+    grid-area: header
+    text-align: center
+    color: $discordBlue
+    padding: 0
+    margin: auto
+    text-transform: uppercase
+    font-size: 24px
+
+  .so-options
+    width: 100%
+    height: 100%
+    text-align: center
+    margin: auto
+    padding: 0
+
+    .so-action
+      margin-bottom: 20px
+      border-radius: 3px
+      height: 300px
+      border: 1px solid rgba(0,0,0,.1)
+      box-sizing: border-box
+      box-shadow: .5px 2px 0 rgba(0,0,0,.3)
+      
+      img 
+        height: 150px
+
+      h2 
+        font-size: 20px
+        margin: 10px
+
+      p
+        margin: 10px 10px 0 10px
+        font-size: 14px
+
+      .ag-button
+        width: 210px  
+        height: 45px
+        border-radius: 3px
+        margin: 10px auto
+        font-size: 15px
+
+    .create 
+      margin-left: 20px
+      margin-right: 8px
+      color: $discordBlue
+
+      button 
+        background-color: $discordBlue
+        color: $white
+        border-color: $discordBlue
+
+      button:hover 
+        color: $discordBlue
+        background-color: $white
+        border-color: $discordBlue
+
+    .join
+      margin-left: 8px
+      margin-right: 20px
+      color: #3ca374
+
+      button 
+        background-color: #3ca374
+        color: $white
+        border-color: #3ca374
+
+      button:hover 
+        color: #3ca374
+        background-color: $white
+
+        border-color: #3ca374
