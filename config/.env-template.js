@@ -16,6 +16,9 @@ const envBuild = {
     'SALT_ROUNDS=10',
     'TOKEN_SECRET_KEY=acaiapi',
   ],
+  'image-server': [
+    'PORT=3100'
+  ],
   'server': [
     'PORT=3000'
   ],
