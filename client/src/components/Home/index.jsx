@@ -13,7 +13,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="home">
+      <div id="home">
         <GuildList/>
         <Route path={`/:guildId`} component={GuildContent}/>
         <Route path={`/:guildId/:channelId`} component={Feed}/>

@@ -6,8 +6,6 @@ import Home from './Home';
 import Register from './Auth/Register';
 import Login from './Auth/Login';
 
-import './app.sass';
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -15,15 +13,12 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="app-container">
-        <Switch>
-          <Route path="/register" component={Register}/>
-          <Route path="/login" component={Login}/>
-          <Route path='/:guildId' component={Home}/>
-          <Route path='/' component={Landing}/> 
-        </Switch>
-
-      </div>
+      <Switch>
+        <Route path="/register" component={Register}/>
+        <Route path="/login" component={Login}/>
+        <Route path='/:guildId' component={Home}/>
+        <Route path='/' component={Landing}/> 
+      </Switch>
     );
   }
 }
