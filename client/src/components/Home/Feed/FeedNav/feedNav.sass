@@ -1,7 +1,6 @@
 @import '../../../globals/global.sass'
 
 .feedNav
-  font-family: Whitney
   align-items: center
   box-shadow: 0 1px 0 rgba(0,0,0,.2), 0 2px 0 rgba(0,0,0,.06)
   box-sizing: border-box
@@ -10,11 +9,17 @@
   font-weight: 500
   height: 50px
   padding: 0 12px 0 16px
-  transition: background-color .15s ease
   z-index: 3
   font-size: 20px
 
-  .channelName 
-    padding: 0 5px
-    line-height: 22px
-    letter-spacing: 0.5px
+  .hashtag 
+    background-image: url('/assets/hashtag.svg')
+    background-position: 0
+    background-repeat: no-repeat
+    background-size: 20px
+
+    .channelName
+      padding: 0 2px
+      // line-height: 22px
+      letter-spacing: 0.5px
+      margin-left: 20px

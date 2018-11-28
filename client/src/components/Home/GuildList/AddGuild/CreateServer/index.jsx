@@ -124,10 +124,10 @@ class CreateServer extends Component {
             maxSize={5000000}
             onDrop={this.onDrop}
           >
-          { 
-            this.state.preview ? 
-            <img src={ this.state.preview } alt="image preview"/>: <h2>Change Icon</h2>
-          }
+            { 
+              this.state.preview ? 
+              <img src={ this.state.preview } alt="image preview"/>: <h2>Change Icon</h2>
+            }
           </Dropzone>
           {
             this.state.preview ? 
@@ -135,7 +135,9 @@ class CreateServer extends Component {
           }
         </div>
         <div className="cs-footer">
-          <button className="cs-back" onClick={createModal}>Back</button>
+          <button className="cs-back" onClick={createModal}>
+            <span>Back</span>
+          </button>
           <button className='cs-create' onClick={this.addGuild}>Create</button>
         </div>
       </div>

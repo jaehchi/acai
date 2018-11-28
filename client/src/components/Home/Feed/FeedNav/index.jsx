@@ -7,8 +7,9 @@ import './feedNav.sass';
 const FeedNav = ({ name }) => {
   return (
     <div className="feedNav">
-      <img src={hashtag}/>
-      <div className="channelName">{name}</div>
+      <div className="hashtag">
+        <div className="channelName">{name}</div>
+      </div>
     </div>
   );
 };

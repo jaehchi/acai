@@ -1,19 +1,19 @@
 @import '../../../../globals/global.sass'
 
-.create__server
+.join__server
   display: grid
-  grid-template-columns: 280px 240px 
-  grid-template-rows: 150px 175px 75px
-  grid-template-areas: "cs-header cs-header" "cs-form cs-avatar" "cs-footer cs-footer"
+  grid-template-columns: auto
+  grid-template-rows: auto 75px
+  grid-template-areas: "js-header js-header" "js-footer js-footer"
   position: relative
   height: 400px
 
   align-self: center
-
-  .cs-header
-    grid-area: cs-header
+  
+  .js-header
+    grid-area: js-header 
     text-align: center
-    color: $discordBlue
+    color: #3ca374
     padding: 0
     margin: 30px 40px 0 40px
 
@@ -28,70 +28,25 @@
       margin: 20px
       color: #99aab5
       font-weight: 300
-      
-  .cs-form
-    grid-area: cs-form
-    margin: 0 0 0 40px
-
-    h3
-      font-size: 10px
-      margin: 0 10px
-      text-transform: uppercase
-      color: #949494
+    
+    .sample-invite
+      color: #406c17
+      margin: 0
 
     input
       border: none
       border-bottom: 1px solid #f0f0f0
       line-height: 34px
-      width: 220px
+      width: 300px
       outline: 0
       font-size: 14px
       font-weight: 400
-      margin: 10px
+      margin: 20px
       color: #949494
+  
 
-    input:placeholder 
-      color: #949494
-
-    input:focus 
-      border-bottom: 2px solid $discordBlue
-
-  .cs-avatar
-    grid-area: cs-avatar
-    margin-right: 40px
-    display: grid
-
-    .cs-dropzone
-      display: grid
-      height: 125px
-      width: 125px
-      margin: 0 auto
-      border-radius: 50%
-      border: 7px solid #99aab5
-      background-color: $discordBlue
-
-      h2 
-        align-self: center
-        font-size: 14px
-        text-align: center
-        color: $white
-        margin: auto
-
-    img 
-      height: 150px
-      width: 150px
-      border-radius: 50%
-
-    .cs-rf
-      text-transform: uppercase
-      font-size: 12px
-      border: none
-      align-self: center
-      outline: 0
-      margin: 8px auto
-
-  .cs-footer
-    grid-area: cs-footer
+  .js-footer
+    grid-area: js-footer
     display: flex
     justify-content: space-between
     padding: 0 40px
@@ -100,7 +55,7 @@
     border-bottom-left-radius: 5px
     border-bottom-right-radius: 5px
 
-    .cs-back
+    .js-back
       height: 30px
       margin: auto 0
   
@@ -119,16 +74,16 @@
         font-weight: 500
         margin-left: 20px
 
-    .cs-back:hover 
+    .js-back:hover 
       border-bottom: 1px solid #949494
 
-    .cs-create
+    .js-join
       height: 40px
       width: 75px
       margin: auto 0
-      background-color: $discordBlue
+      background-color: #3ca374
       color: $white
-      border-color: $discordBlue
+      border-color: #3ca374
 
       font-size: 12px
       border-radius: 3px
