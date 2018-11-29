@@ -15,6 +15,8 @@ const envBuild = {
     'AWS_PORT=',
     'SALT_ROUNDS=10',
     'TOKEN_SECRET_KEY=acaiapi',
+    'CRYPTO_ALGO=aes-256-cbc',
+    'CRYPTO_PASSWORD=acai-invites',
   ],
   'image-server': [
     'PORT=3100'
