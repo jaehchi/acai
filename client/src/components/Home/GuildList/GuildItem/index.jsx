@@ -35,7 +35,7 @@ class GuildItem extends Component {
               <img 
                 src={avatar} 
                 onError={this.onBrokenImage} 
-              /> : <span>{name[0]}</span>
+              /> : <p>{name[0]}</p>
           }
         </NavLink>
         <div className="g-selector"></div>
