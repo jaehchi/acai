@@ -1,3 +1,13 @@
+type Slug {
+  id: ID! @unique
+  createdAt: DateTime!
+  code: String
+
+  key: String
+  guild: Guild! 
+  channel: Channel
+}
+
 type Channel {
   id: ID! @unique
   createdAt: DateTime!
@@ -7,6 +17,7 @@ type Channel {
 
   belongsTo: Guild
   messages: [Message!]!
+  slugs: [Slug!]!
 }
 
 type Guild  {
@@ -19,6 +30,7 @@ type Guild  {
   avatar: String
 
   channels: [Channel!]!
+  slugs: [Slug!]!
   members: [User!]! @relation(name: "GuildMembers")
 }
 
