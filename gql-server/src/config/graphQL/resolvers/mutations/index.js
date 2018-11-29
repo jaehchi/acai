@@ -4,6 +4,7 @@ import { createGuild } from './createGuild';
 import { joinGuild } from './joinGuild';
 import { createChannel } from './createChannel';
 import { createMessage } from './createMessage';
+import { createSlug } from './createSlug';
 
 export default {
   signup,
@@ -12,4 +13,5 @@ export default {
   joinGuild,
   createChannel,
   createMessage,
+  createSlug,
 };
