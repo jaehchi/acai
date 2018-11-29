@@ -14,6 +14,7 @@ class GuildList extends Component {
   }
 
   render() {
+
     const { data: { loading, error, guilds } } = this.props;
 
     loading ? <h1>Loading...</h1> : null;

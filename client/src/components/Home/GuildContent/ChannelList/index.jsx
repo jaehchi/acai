@@ -20,4 +20,4 @@ const ChannelList = ({ channels, match }) => {
   );
 };
 
-export default ChannelList
+export default ChannelList;

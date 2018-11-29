@@ -8,7 +8,6 @@ import { allGuildsQuery } from '../../';
 
 import './CreateServer.sass';
 
-
 class CreateServer extends Component {
   constructor(props) {
     super(props);

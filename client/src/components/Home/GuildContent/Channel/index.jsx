@@ -8,7 +8,7 @@ import './channel.sass';
 const Channel = ({ channel: { id, name }, match }) => {
   return (
     <div key={id}>
-      <NavLink to={`${match.url}/${id}`} className="channel" activeClassName="active">
+      <NavLink to={`${match.url}/${id}`} className="channel" activeClassName="c-active">
         <img className="c-symbol" src={hashtag} alt=""/>
         <div className="c-name">{name}</div>
       </NavLink>

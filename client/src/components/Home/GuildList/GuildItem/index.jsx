@@ -1,6 +1,6 @@
 // import React from 'react';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 import './guildItem.sass';
 class GuildItem extends Component {
@@ -20,20 +20,25 @@ class GuildItem extends Component {
   }
 
   render() {
+
     const { guild: { id, name, avatar, channels }} = this.props;
+    
     return (
       <div className="guildItem">
-        <Link to={`/${id}/${channels[0].id}`}>
-          <div className="g-avatar">
-            {
-              this.state.avatar ? 
-                <img 
-                  src={avatar} 
-                  onError={this.onBrokenImage.bind(this)} 
-                /> : <span>{name[0]}</span>
-            }
-          </div>
-        </Link>
+        <NavLink 
+          to={`/${id}/${channels[0].id}`} 
+          className="g-avatar" 
+          activeClassName="g-active"
+        >
+          {
+            this.state.avatar ? 
+              <img 
+                src={avatar} 
+                onError={this.onBrokenImage} 
+              /> : <span>{name[0]}</span>
+          }
+        </NavLink>
+        <div className="g-selector"></div>
       </div>
     )
   }
