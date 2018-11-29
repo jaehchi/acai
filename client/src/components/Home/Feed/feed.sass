@@ -1,6 +1,32 @@
 .feed 
   background-color: #36393f
   display: grid
-  grid-template-columns: auto
-  grid-template-rows: 50px auto 125px
+  grid-template-columns: auto 240px
+  grid-template-rows: 50px auto 
+  grid-template-areas: "feed-navs feed-navs" "feed-content feed-members"
   height: 100vh
+  z-index: 1
+  position: relative
+
+  .feed__nav
+    grid-area: feed-navs
+    z-index: 99
+    position: relative
+    
+  .feed__content
+    grid-area: feed-content
+    display: grid
+    grid-template-columns: auto 
+    grid-template-rows: auto 125px
+    z-index: 10
+    position: relative
+
+  .feed__members 
+    grid-area: feed-members
+    background-color: #2f3136
+    margin: 0
+    z-index: 9
+    position: relative
+
+    .asdf 
+      padding: 10px

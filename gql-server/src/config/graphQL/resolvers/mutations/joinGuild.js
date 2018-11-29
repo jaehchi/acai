@@ -27,24 +27,6 @@ export const joinGuild = async (parent, { slug }, ctx, info) => {
           }
         }
       }
-    });
-  }
-
-  return 'Invalid invite'
-  // receive slug sfrom client
-  // transform slugs to receive guild.id
-  // update guild with it's newest member!
-  
-  // return await ctx.db.mutation.updateGuild({
-  //   where: {
-  //     id,
-  //   },
-  //   data : {
-  //     members: {
-  //       connect: {
-  //         id: userID
-  //       }
-  //     }
-  //   }
-  // }, info );
+    }, info);
+  };
 };

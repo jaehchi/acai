@@ -21,9 +21,18 @@ const Feed = (props) => {
 
   return (
     <div className="feed">
-      <FeedNav name={props.data.channel.name} />
-      <MessageList messages={props.data.allMessages}/>
-      <AddMessage channel={props.data.channel}/>
+      <div className="feed__nav">
+        <FeedNav name={props.data.channel.name}/>
+      </div>
+      <div className="feed__content">
+        <MessageList messages={props.data.allMessages}/>
+        <AddMessage channel={props.data.channel} />
+      </div>
+      <div className="feed__members">
+        <div className="asdf">
+          asdfasdf
+        </div>
+      </div>
     </div>
   );
 };
