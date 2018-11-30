@@ -8,7 +8,7 @@ import ChannelList from './ChannelList';
 
 import './guildContent.sass';
 
-const GuildContent = ({ data: { loading, error, channels }, match }) => {
+const GuildContent = ({ data: { loading, error, categories }, match }) => {
   
   if ( loading ) {
     return <h1>Loading...</h1>
@@ -20,16 +20,17 @@ const GuildContent = ({ data: { loading, error, channels }, match }) => {
 
   return (
     <div className="guild-content">
-      <ChannelNav name={channels[0].belongsTo.name}/>
-      <ChannelList channels={channels} match={match}/>
+      <ChannelNav name={categories[0].belongsTo.name}/>
+      <ChannelList categories={categories} match={match}/>
     </div>
   );
 }
-const query = gql`
+const categoriesQuery = gql`
     query ($id: ID!) {
-      channels(id: $id) {
+      categories(id: $id) {
         id
         name
+        type
 
         belongsTo {
           name
@@ -39,12 +40,18 @@ const query = gql`
             username
           }
         }
+
+        channels {
+          id
+          name
+          type
+        }
       }
     }
   
 `;
 
-export default graphql(query, {
+export default graphql(categoriesQuery, {
   options: ({ match: { params: { guildId }}}) => ({
     variables: {
       id: guildId

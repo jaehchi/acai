@@ -6,6 +6,7 @@ export const loginMutation = gql`
       token 
       user {
         id
+        lastSeenOn
 
         memberOf {
           id

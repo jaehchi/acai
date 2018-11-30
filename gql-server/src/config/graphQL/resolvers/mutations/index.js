@@ -1,5 +1,6 @@
 import { signup } from './signup';
 import { login } from './login';
+import { logout } from './logout';
 import { createGuild } from './createGuild';
 import { joinGuild } from './joinGuild';
 import { createChannel } from './createChannel';
@@ -9,6 +10,7 @@ import { createSlug } from './createSlug';
 export default {
   signup,
   login,
+  logout,
   createGuild,
   joinGuild,
   createChannel,

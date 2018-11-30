@@ -21,8 +21,7 @@ class GuildItem extends Component {
 
   render() {
 
-    const { guild: { id, name, avatar, channels }} = this.props;
-    
+    const { guild: { id, name, avatar, channels: [{ channels }] }} = this.props;
     return (
       <div className="guildItem">
         <NavLink 
@@ -33,7 +32,7 @@ class GuildItem extends Component {
           {
             this.state.avatar ? 
               <img 
-                src={avatar} 
+                src={`http://localhost:3100/${avatar}`} 
                 onError={this.onBrokenImage} 
               /> : <p>{name[0]}</p>
           }

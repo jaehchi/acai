@@ -14,9 +14,14 @@ type Channel {
   updatedAt: DateTime!
   type: Int!
   name: String!
+  topic: String
 
-  belongsTo: Guild
-  messages: [Message!]!
+  owner: User @relation(name: "DMOwner", onDelete: SET_NULL)
+  belongsTo: Guild @relation(name: "GuildChannels", onDelete: SET_NULL)
+  messages: [Message!]! @relation(name: "ChannelMessages", onDelete: CASCADE)
+  recipients: [User!]! @relation(name: "DMS", onDelete: SET_NULL)
+  parent_id: Channel @relation(name: "Category", onDelete: SET_NULL)
+  channels: [Channel!]! @relation(name: "Category", onDelete: SET_NULL)
   slugs: [Slug!]!
 }
 
@@ -25,13 +30,13 @@ type Guild  {
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
-  owner: User @relation(name: "GuildOwners")
+  owner: User @relation(name: "GuildOwner", onDelete: SET_NULL)
 
   avatar: String
 
-  channels: [Channel!]!
+  channels: [Channel!]! @relation(name: "GuildChannels", onDelete: CASCADE)
   slugs: [Slug!]!
-  members: [User!]! @relation(name: "GuildMembers")
+  members: [User!]! @relation(name: "GuildMember", onDelete: SET_NULL)
 }
 
 type Message {
@@ -41,7 +46,7 @@ type Message {
   content: String!
   author: User
 
-  channel: Channel 
+  channel: Channel! @relation(name: "ChannelMessages", onDelete: SET_NULL)
 }
 
 type User {
@@ -51,11 +56,13 @@ type User {
   email: String! @unique
   username: String! @unique
   password: String!
-
   avatar: String
+  lastSeenOn: String
   
-  ownerOf: [Guild!]! @relation(name: "GuildOwners")
-  memberOf: [Guild!]! @relation(name: "GuildMembers")
+  ownerOfGuild: [Guild!]! @relation(name: "GuildOwner", onDelete: CASCADE)  
+  memberOf: [Guild!]! @relation(name: "GuildMember", onDelete: SET_NULL)
+  ownerOfDMs: [Channel!]! @relation(name: "DMOwner", onDelete: CASCADE)
+  dmChannels: [Channel!]! @relation(name: "DMS", onDelete: CASCADE)
   messages: [Message!]!
 }
 

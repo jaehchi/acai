@@ -10,15 +10,16 @@ import './guildList.sass';
 class GuildList extends Component {
   constructor(props) {
     super(props);
-
   }
+
+    
 
   render() {
 
     const { data: { loading, error, guilds } } = this.props;
 
     loading ? <h1>Loading...</h1> : null;
-
+    
     error ? <h1>{error.message}</h1> : null;
     
     return (
@@ -43,6 +44,12 @@ export const allGuildsQuery = gql`
 
       channels {
         id
+        name
+
+        channels {
+          id
+          name
+        }
       }
     }
   }

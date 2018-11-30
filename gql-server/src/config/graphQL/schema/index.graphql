@@ -7,19 +7,25 @@ type AuthPayload {
 
 type User {
   id: ID!
-
+  createdAt: DateTime!
+  updatedAt: DateTime!
   email: String!
   username: String!
   avatar: String
+  lastSeenOn: String
   
-  ownerOf: [Guild!]! 
+  ownerOfGuild: [Guild!]!
   memberOf: [Guild!]!
+  ownerOfDMs: [Channel!]!
+  dmChannels: [Channel!]!
   messages: [Message!]!
 }
+
 
 type Mutation {
   signup(email: String!, password: String!, username: String!, avatar: String) : AuthPayload
   login(email: String!, password: String!): AuthPayload
+  logout(lastSeenOn: String!): User
 
   createGuild(name: String!, avatar: String): Guild
   createChannel(id: ID!, type: Int!, name: String!) : Channel
@@ -31,7 +37,7 @@ type Mutation {
 type Query {
   user(id: ID): User
   guilds: [Guild!]!
-  channels(id: ID!): [Channel!]!
+  categories(id: ID!): [Channel!]!
   channel(id: ID!): Channel
   allMessages(id: ID!): [Message!]!
 }

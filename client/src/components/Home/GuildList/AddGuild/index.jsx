@@ -22,7 +22,6 @@ class AddGuild extends Component {
     };
 
     this.toggleModal = this.toggleModal.bind(this);
-    this.showServerOptions = this.showServerOptions.bind(this);
     this.joinModal = this.joinModal.bind(this);
     this.createModal = this.createModal.bind(this);
   }
@@ -37,12 +36,6 @@ class AddGuild extends Component {
       showServerOptions: true,
       showCreateServer: false,
       showJoinServer: false,
-    });
-  };
-
-  showServerOptions () {
-    this.setState({
-      showServerOptions: !this.state.showServerOptions,
     });
   };
 

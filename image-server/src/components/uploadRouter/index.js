@@ -6,6 +6,7 @@ import sha256 from 'crypto-js/sha256';
 const router = Router();
 
 const filename = (req, file, cb) => {
+  console.log(file)
   cb(null, sha256(file.filename) + file.originalname);
 };
 
@@ -23,4 +24,4 @@ router.post('/avatar', upload.single('avatar'), ( req, res ) => {
   return res.send(req.file.filename).status(200);
 })
 
-export default router;
+export default router; 

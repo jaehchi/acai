@@ -1,13 +1,13 @@
 import user from './user';
 import guilds from './guilds';
-import channels from './channels';
+import categories from './categories';
 import allMessages from './allMessages';
 import channel from './channel.js';
 
 export default {
   user,
   guilds,
-  channels,
+  categories,
   allMessages,
   channel,
 };

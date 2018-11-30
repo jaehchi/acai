@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 import request from 'superagent';
+import { withRouter } from 'react-router-dom';
 
 import { allGuildsQuery } from '../../';
 
@@ -54,7 +55,7 @@ class CreateServer extends Component {
         .attach('avatar', file, file.name);
 
       this.setState({
-        imageURL: `http://localhost:3100/${text}`
+        imageURL: text
       });
     } catch (err) {
       console.error('Failed to upload.', err)
@@ -69,7 +70,8 @@ class CreateServer extends Component {
 
   async addGuild() {
     try {
-      await this.onUpload(this.state.file);
+      this.state.file ? await this.onUpload(this.state.file) : null;
+
       const { createGuild } = await this.props.mutate({
         variables: {
           name: this.state.serverName,
@@ -91,18 +93,22 @@ class CreateServer extends Component {
           store.writeQuery({ query: allGuildsQuery, variables: {
             id: localStorage._id
           }, data });
+
+          // goes to the newly created guild
+          this.props.history.push(`/${createGuild.id}/${createGuild.channels[0].channels[0].id}`);
         }
+
       });
 
       this.props.toggleModal();
-
     } catch (err) {
-      console.log(err);
+      console.log('asdf',err);
     }
   };
 
   render() {
     const { createModal } = this.props;
+    console.log(this.props)
 
     return (
       <div className="create__server">
@@ -155,10 +161,15 @@ const addGuildMutation = gql`
       channels {
         id
         name
+
+        channels {
+          id
+          name
+        }
       }
       
     }
   }
 `;
 
-export default graphql(addGuildMutation)(CreateServer);
+export default compose(withRouter, graphql(addGuildMutation))(CreateServer);
