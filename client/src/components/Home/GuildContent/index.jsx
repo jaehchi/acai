@@ -27,10 +27,11 @@ const GuildContent = ({ data: { loading, error, categories }, match }) => {
 }
 const categoriesQuery = gql`
     query ($id: ID!) {
-      categories(id: $id) {
+      categories(id: $id, orderBy: position_ASC) {
         id
         name
         type
+        position
 
         belongsTo {
           name
@@ -45,6 +46,7 @@ const categoriesQuery = gql`
           id
           name
           type
+          position
           
         }
       }

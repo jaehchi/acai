@@ -95,7 +95,7 @@ class CreateServer extends Component {
           }, data });
 
           // goes to the newly created guild
-          this.props.history.push(`/${createGuild.id}/${createGuild.channels[0].subChannels[0].id}`);
+          this.props.history.push(`/${createGuild.id}/${createGuild.channels[0].children[0].id}`);
         }
 
       });
@@ -130,7 +130,7 @@ class CreateServer extends Component {
           >
             { 
               this.state.preview ? 
-              <img src={ this.state.preview } alt="image preview"/>: <h2>{this.state.serverName[0]}</h2>
+              <img src={ this.state.preview } alt="image preview"/> : ( !this.state.serverName ? <h1>Change Icon</h1> :  <h2> {this.state.serverName[0]} </h2>)
             }
           </Dropzone>
           {
@@ -161,7 +161,7 @@ const addGuildMutation = gql`
         id
         name
 
-        subChannels {
+        children {
           id
           name
         }
