@@ -22,6 +22,7 @@ class GuildList extends Component {
     
     error ? <h1>{error.message}</h1> : null;
     
+    console.log(guilds)
     return (
       <div className="guildList">
         {
@@ -46,7 +47,7 @@ export const allGuildsQuery = gql`
         id
         name
 
-        channels {
+        children {
           id
           name
         }

@@ -36,7 +36,7 @@ class Login extends Component {
 
       //addlogin auto 
 
-      this.props.history.push(`/${login.user.memberOf[0].id}/${login.user.memberOf[0].channels[0].id}`);
+      this.props.history.push(`/${login.user.memberOf[0].id}/${login.user.memberOf[0].channels[0].children[0].id}`);
 
       await this._saveUserData(login);
     

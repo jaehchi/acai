@@ -95,7 +95,7 @@ class CreateServer extends Component {
           }, data });
 
           // goes to the newly created guild
-          this.props.history.push(`/${createGuild.id}/${createGuild.channels[0].channels[0].id}`);
+          this.props.history.push(`/${createGuild.id}/${createGuild.channels[0].subChannels[0].id}`);
         }
 
       });
@@ -108,7 +108,6 @@ class CreateServer extends Component {
 
   render() {
     const { createModal } = this.props;
-    console.log(this.props)
 
     return (
       <div className="create__server">
@@ -131,12 +130,12 @@ class CreateServer extends Component {
           >
             { 
               this.state.preview ? 
-              <img src={ this.state.preview } alt="image preview"/>: <h2>Change Icon</h2>
+              <img src={ this.state.preview } alt="image preview"/>: <h2>{this.state.serverName[0]}</h2>
             }
           </Dropzone>
           {
             this.state.preview ? 
-            <button className="cs-rf" onClick={this.onRemove.bind(this)}>remove</button> : null
+            <button className="cs-rf" onClick={this.onRemove}>remove</button> : null
           }
         </div>
         <div className="cs-footer">
@@ -162,7 +161,7 @@ const addGuildMutation = gql`
         id
         name
 
-        channels {
+        subChannels {
           id
           name
         }

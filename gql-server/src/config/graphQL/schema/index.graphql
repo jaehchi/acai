@@ -28,7 +28,7 @@ type Mutation {
   logout(lastSeenOn: String!): User
 
   createGuild(name: String!, avatar: String): Guild
-  createChannel(id: ID!, type: Int!, name: String!) : Channel
+  createChannel(id: ID!, type: Int!, name: String!, position: Int!) : Channel
   createMessage(id: ID!, content: String!): Message
   createSlug(id: ID!): Slug
   joinGuild(slug: String!): Guild

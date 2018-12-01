@@ -1,8 +1,9 @@
 // import React from 'react';
 import React, { Component } from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import './guildItem.sass';
+
 class GuildItem extends Component {
   constructor(props) {
     super(props);
@@ -20,12 +21,12 @@ class GuildItem extends Component {
   }
 
   render() {
+    const { guild: { id, name, avatar, channels: [{ children }] }} = this.props;
 
-    const { guild: { id, name, avatar, channels: [{ channels }] }} = this.props;
     return (
       <div className="guildItem">
         <NavLink 
-          to={`/${id}/${channels[0].id}`} 
+          to={`/${id}/${children[0].id}`} 
           className="g-avatar" 
           activeClassName="g-active"
         >
@@ -39,8 +40,8 @@ class GuildItem extends Component {
         </NavLink>
         <div className="g-selector"></div>
       </div>
-    )
-  }
+    );
+  };
 };
 
 export default GuildItem;

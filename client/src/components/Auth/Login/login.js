@@ -15,9 +15,13 @@ export const loginMutation = gql`
           channels {
             id
             name
+            
+            children {
+              id
+              name
+            }
           }
         }
-      
       }
     }
   }

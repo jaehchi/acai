@@ -20,10 +20,12 @@ export const createGuild = async (parent, args, ctx, info) => {
       channels: {
         create: {
           type: 4,
-          name: 'Text Channels',
-          channels: {
+          name: 'Text Channel',
+          position: 0,
+          children: {
             create: {
               type: 0,
+              position: 0,
               name: 'general',
             }
           }

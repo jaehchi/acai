@@ -12,10 +12,16 @@ const ChannelList = ({ categories, match }) => {
       {
         categories.map((category) => {
           return (
-            <div key={category.id}>
-              <Category category={category}/>
+            <div key={category.id} className="test">
               {
-                category.channels.map( channel => (
+                category.type === 4 ?  <Category category={category}/> : <Channel 
+                  key={category.id}
+                  channel={category}
+                  match={match}
+                />
+              }
+              {
+                category.children && category.children.map( channel => (
                   <Channel 
                     key={channel.id}
                     channel={channel}

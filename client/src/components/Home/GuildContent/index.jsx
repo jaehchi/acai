@@ -41,10 +41,11 @@ const categoriesQuery = gql`
           }
         }
 
-        channels {
+        children {
           id
           name
           type
+          
         }
       }
     }

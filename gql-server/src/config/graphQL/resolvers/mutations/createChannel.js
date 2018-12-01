@@ -1,6 +1,6 @@
 import { getUserID } from '../../../utils/jwt';
 
-export const createChannel = async (parent, { type, name, id }, ctx, info) => {
+export const createChannel = async (parent, { type, name, id, position }, ctx, info) => {
   const userID = await getUserID(ctx.request);
   name = name.toLowerCase();
   
