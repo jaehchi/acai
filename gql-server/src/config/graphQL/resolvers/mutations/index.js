@@ -3,9 +3,10 @@ import { login } from './login';
 import { logout } from './logout';
 import { createGuild } from './createGuild';
 import { joinGuild } from './joinGuild';
-import { createChannel } from './createChannel';
+import { createChannel } from './channels/createChannel';
 import { createMessage } from './createMessage';
 import { createSlug } from './createSlug';
+
 
 export default {
   signup,
@@ -16,4 +17,5 @@ export default {
   createChannel,
   createMessage,
   createSlug,
+  // updateChannels,
 };
