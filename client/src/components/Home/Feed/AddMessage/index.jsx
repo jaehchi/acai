@@ -28,7 +28,7 @@ class AddMessage extends Component {
     e.preventDefault();
 
     try {
-      const data = await this.props.mutate({
+      const message = await this.props.mutate({
         variables: {
           id: this.props.channel.id,
           content: this.state.content
@@ -42,23 +42,24 @@ class AddMessage extends Component {
             } 
           });
 
+          console.log('asdf', data);
           // pushes newly created messages in all messages array
           data.allMessages.push(createMessage);
-
+          console.log('asdf', data);
           // updates the all messages back in the cache
           store.writeQuery({ query: AllMessages, variables: {
-            id: this.props.channel.id 
+            id: this.props.channel.id,
           }, data });
         }
 
       });
-      e.target.value = '';
     } catch (err) {
       console.log(err);
     } 
   }
 
   render() {  
+    // console.log(this.props)
     return (
       <div className="add__message">
         <form onSubmit={this.onSubmit}>
@@ -77,12 +78,15 @@ class AddMessage extends Component {
 const AddMessageMutation = gql`
   mutation AddMessageMutation ($id: ID!, $content: String!) {
     createMessage(id: $id, content: $content) {
-      id 
+      id
       content
+      createdAt
+      
       author {
         id
+        username
+        avatar
       }
-      createdAt
     }
   }
 `;

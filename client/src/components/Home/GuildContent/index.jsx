@@ -9,13 +9,20 @@ import ChannelList from './ChannelList';
 import './guildContent.sass';
 
 const GuildContent = ({ data: { loading, error, categories }, match }) => {
-  
   if ( loading ) {
-    return <h1>Loading...</h1>
+    return (
+      <div className="guild-content">
+        <h1>Loading...</h1>
+      </div>
+    );
   }
   
   if ( error ) {
-    return <h1>{error.message}</h1>
+    return (
+      <div className="guild-content">
+        <h1>error...</h1>
+      </div>
+    );
   } 
 
   return (
@@ -25,7 +32,7 @@ const GuildContent = ({ data: { loading, error, categories }, match }) => {
     </div>
   );
 }
-const categoriesQuery = gql`
+export const categoriesQuery = gql`
     query ($id: ID!) {
       categories(id: $id, orderBy: position_ASC) {
         id
@@ -35,7 +42,6 @@ const categoriesQuery = gql`
 
         belongsTo {
           name
-
           owner { 
             id
             username
@@ -47,17 +53,15 @@ const categoriesQuery = gql`
           name
           type
           position
-          
         }
       }
     }
-  
 `;
 
 export default graphql(categoriesQuery, {
-  options: ({ match: { params: { guildId }}}) => ({
+  options: ({ match: { params: { guild_id }}}) => ({
     variables: {
-      id: guildId
-    } 
+      id: guild_id
+    },
   })
 })(GuildContent);

@@ -5,33 +5,33 @@ import gql from 'graphql-tag';
 import FeedNav from './FeedNav';
 import AddMessage from './AddMessage';
 import MessageList from './MessageList';
+import Members from './Members';
 
 import './feed.sass';
 
-const Feed = (props) => {
+const Feed = ({ data: { loading, error, channel, allMessages }}) => {
   
-  if ( props.data.loading ) {
+  if ( loading ) {
     return <h1>Loading...</h1>
   }
 
-  if ( props.data.error ) {
+  if ( error ) {
     return <h1>{props.error.message}</h1>
   }
   
 
   return (
+    
     <div className="feed">
       <div className="feed__nav">
-        <FeedNav name={props.data.channel.name}/>
+        <FeedNav name={channel.name}/>
       </div>
       <div className="feed__content">
-        <MessageList messages={props.data.allMessages}/>
-        <AddMessage channel={props.data.channel} />
+        <MessageList messages={allMessages}/>
+        <AddMessage channel={channel} />
       </div>
       <div className="feed__members">
-        <div className="asdf">
-          asdfasdf
-        </div>
+        <Members/>
       </div>
     </div>
   );
@@ -59,9 +59,9 @@ export const AllMessages = gql`
 `;
 
 export default graphql(AllMessages, {
-  options: (props) => ({
+  options: ({ match: { params: { channel_id }}}) => ({
     variables: {
-      id: props.match.params.channelId
+      id: channel_id
     }
   })
 })(Feed);

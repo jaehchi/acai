@@ -15,8 +15,8 @@ class Home extends Component {
     return (
       <div id="home">
         <GuildList/>
-        <Route path={`/:guildId`} component={GuildContent}/>
-        <Route path={`/:guildId/:channelId`} component={Feed}/>
+        <Route path={`/:guild_id`} component={GuildContent}/>
+        <Route path={`/:guild_id/:channel_id`} component={Feed}/>
       </div>
     );
   }

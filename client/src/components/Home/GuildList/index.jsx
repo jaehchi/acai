@@ -22,7 +22,7 @@ class GuildList extends Component {
     
     error ? <h1>{error.message}</h1> : null;
     
-    console.log(guilds)
+
     return (
       <div className="guildList">
         {
