@@ -6,11 +6,11 @@ export const createGuild = async (parent, args, ctx, info) => {
   const defaultChannels = {
     create: {
       type: 4,    // category
-      name: 'Text Channels', 
+      name: 'Text Channel', 
       position: 0,
       children: {
         create: {
-          type: 0, // channel within category 
+          type: 0, // category default channel
           position: 0,
           name: 'general'
         }

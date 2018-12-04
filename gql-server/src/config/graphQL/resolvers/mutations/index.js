@@ -4,6 +4,7 @@ import { logout } from './logout';
 import { createGuild } from './createGuild';
 import { joinGuild } from './joinGuild';
 import { createChannel } from './channels/createChannel';
+import { updateChannelPosition } from './channels/updateChannelPosition';
 import { createMessage } from './createMessage';
 import { createSlug } from './createSlug';
 
@@ -17,5 +18,5 @@ export default {
   createChannel,
   createMessage,
   createSlug,
-  // updateChannels,
+  updateChannelPosition,
 };
