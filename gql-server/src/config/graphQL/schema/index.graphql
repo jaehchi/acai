@@ -46,7 +46,7 @@ type Mutation {
 type Query {
   user(id: ID): User
   guilds: [Guild!]!
-  categories(id: ID!, orderBy: ChannelOrderByInput): [Channel!]!
+  channels(id: ID!, orderBy: ChannelOrderByInput): [Channel!]!
   channel(id: ID!): Channel
-  allMessages(id: ID!): [Message!]!
+  messages(id: ID!): [Message!]!
 }

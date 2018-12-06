@@ -1,0 +1,18 @@
+
+query {
+  guilds {
+    id
+    name
+    avatar 
+
+    channels {
+      id
+      name
+
+      children {
+        id
+        name
+      }
+    }
+  }
+}

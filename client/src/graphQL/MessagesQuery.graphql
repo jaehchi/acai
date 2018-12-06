@@ -1,0 +1,17 @@
+query ($id: ID!) {
+  messages(id: $id) {
+    id
+    content
+    createdAt
+
+    author {
+      id
+      username
+      avatar
+    }
+  },
+  channel(id: $id) {
+    id
+    name
+  }
+}

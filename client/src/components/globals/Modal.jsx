@@ -6,7 +6,7 @@ const modalRoot = document.getElementById('overlay');
 
 // Let's create a Modal component that is an abstraction around
 // the portal API.
-export default class Modal extends React.Component {
+export default class Modal extends Component {
   constructor(props) {
     super(props);
     // Create a div that we'll render the modal into. Because each

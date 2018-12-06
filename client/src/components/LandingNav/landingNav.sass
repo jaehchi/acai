@@ -1,0 +1,30 @@
+@import '../globals/global.sass'
+
+.la-nav
+  position: relative
+  padding: 2em 2em 0 2em
+  margin: 0 auto
+  display: grid
+  grid-template-columns: 1fr 32em
+  
+
+  .la-logo
+    align-self: center
+    
+    font-size: 12px
+    margin: 0
+    padding: 0 0 0 1.5em
+
+    a
+      color: $white
+      text-transform: uppercase
+      font-size: 20px
+
+  .la-links
+    display: grid
+    grid-template-columns: 100px repeat(3, 1fr)
+
+    a
+      place-self: center
+      color: $white
+      border: none

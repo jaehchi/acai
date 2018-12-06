@@ -1,0 +1,89 @@
+@import '../globals/global.sass'
+
+.join__server
+  display: grid
+  grid-template-columns: auto
+  grid-template-rows: auto 75px
+  grid-template-areas: "js-header js-header" "js-footer js-footer"
+  position: relative
+  height: 400px
+
+  align-self: center
+  
+  .js-header
+    grid-area: js-header 
+    text-align: center
+    color: #3ca374
+    padding: 0
+    margin: 30px 40px 0 40px
+
+    h1 
+      text-transform: uppercase
+      font-weight: 600
+      font-size: 18px
+      margin: 8px 20px
+
+    p 
+      font-size: 16px
+      margin: 20px
+      color: #99aab5
+      font-weight: 300
+    
+    .sample-invite
+      color: #406c17
+      margin: 0
+
+    input
+      border: none
+      border-bottom: 1px solid #f0f0f0
+      line-height: 34px
+      width: 300px
+      outline: 0
+      font-size: 14px
+      font-weight: 400
+      margin: 30px
+      color: #949494
+  
+
+  .js-footer
+    grid-area: js-footer
+    display: flex
+    justify-content: space-between
+    padding: 0 40px
+    border-top: 1px solid #f0f0f0
+    background-color: #f9f9f9
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+
+    .js-back
+      height: 30px
+      margin: auto 0
+  
+      background-color: #f9f9f9
+      background-image: url('/assets/leftarrow.svg')
+      background-size: 18px, 12px
+      background-position: 5px
+      background-repeat: no-repeat
+      border: 1px solid #f9f9f9
+      
+      span
+        color: #99aab5
+        padding: 0
+        text-transform: uppercase
+        font-size: 12px
+        font-weight: 500
+        margin-left: 20px
+
+    .js-back:hover 
+      border-bottom: 1px solid #949494
+
+    .js-join
+      height: 40px
+      width: 75px
+      margin: auto 0
+      background-color: #3ca374
+      color: $white
+      border-color: #3ca374
+
+      font-size: 12px
+      border-radius: 3px

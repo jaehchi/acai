@@ -1,0 +1,18 @@
+mutation AddGuildMutation ($name: String!, $avatar: String) {
+  createGuild(name: $name, avatar: $avatar) {
+    id
+    name
+    avatar
+    
+    channels {
+      id
+      name
+
+      children {
+        id
+        name
+      }
+    }
+    
+  }
+}

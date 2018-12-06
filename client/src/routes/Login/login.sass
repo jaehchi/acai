@@ -1,0 +1,117 @@
+@import '../../components/globals/global.sass'
+
+#login 
+  background-image: url('/assets/register.png')
+  background-repeat: no-repeat
+  background-size: cover
+  width: 100%
+  height: 100vh
+  z-index: 1
+  position: relative
+
+  .l-authBox 
+    display: flex
+    justify-content: center
+    background: #36393f
+    border-radius: 5px
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.2)
+    box-sizing: border-box
+    color: #72767d
+    letter-spacing: .5px
+    font-size: 18px
+    width: 480px
+    height: 435px
+    padding: 40px
+    font-weight: 200
+    top: 150px
+    left: 400px
+    position: relative
+
+    .l-wrapper
+      display: flex
+      flex-direction: column
+      width: 100%
+
+      .l-title 
+        font-size: 26px
+        line-height: 32px
+        color: white
+        text-align: center
+        margin-bottom: 20px
+
+        .l-comment 
+          font-size: 18px
+          line-height: 32px
+          color: #72767d
+          text-align: center
+
+
+      .l-input 
+        margin-bottom: 20px
+        font-size: 12px
+
+        h5 
+          margin: 0 0 8px 0
+          color: #b9bbbe
+          letter-spacing: .5px
+          text-transform: uppercase
+          font-size: 11px
+
+        input 
+          width: 100%
+          outline: none
+          border-radius: 3px
+          border-style: solid
+          border-width: 1px
+          box-sizing: border-box
+          transition: background-color .15s ease,border .15s ease
+          background-color: rgba(0,0,0,.1)
+          border-color: rgba(0,0,0,.3)
+          color: #f6f6f7
+          height: 40px
+          padding: 10px
+          font-size: 14px
+
+        .l-password 
+          margin-top: 8px
+
+          a 
+            color: $discordBlue
+            font-size: 13px
+
+        .l-password:hover 
+          text-decoration: underline 
+          
+        input:focus
+          border-color: $discordBlue
+          
+
+      .l-button 
+        width: 100%  
+        background-color: $discordBlue
+        color: $white
+        border-color: $discordBlue
+        height: 45px
+        border-radius: 3px
+        margin: 0 auto
+        font-size: 15px
+
+
+      .l-button:hover 
+        color: $discordBlue
+        background-color: $white
+        border-color: $white
+
+
+      .l-register
+        margin-top: 8px
+
+        span 
+          font-size: 13px
+
+        a 
+          color: $discordBlue
+          font-size: 13px
+
+        a:hover 
+          text-decoration: underline 

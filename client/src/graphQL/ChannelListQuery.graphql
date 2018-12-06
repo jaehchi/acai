@@ -1,0 +1,20 @@
+query ($id: ID!) {
+  channels(id: $id, orderBy: type_ASC) {
+    id
+    name
+    type
+    position
+
+    belongsTo {
+      id
+      name
+    }
+
+    children {
+      id
+      name
+      type
+      position
+    }
+  }
+}
