@@ -4,7 +4,7 @@ import rocket from '../../../public/assets/rocket.svg'
 import rockets from '../../../public/assets/rockets.svg';
 import "./serverOptions.sass";
 
-const ServerOptions = ({ createModal, joinModal }) => {
+const ServerOptionsModal = ({ createModal, joinModal }) => {
   return (
     <div className="server-options">
       <h1 className="server-header">OH, another server huh?</h1>
@@ -28,7 +28,5 @@ const ServerOptions = ({ createModal, joinModal }) => {
   );
 }
 
-ServerOptions
-
-export default ServerOptions;
+export default ServerOptionsModal;
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import ApolloClient from 'apollo-client';
-import { withApollo } from 'react-apollo';
+import { withApollo, compose } from 'react-apollo';
 
 import CHANNELLIST_QUERY from '../../graphQL/ChannelListQuery.graphql';
 import './guildEntry.sass';
@@ -18,7 +18,7 @@ class GuildEntry extends Component {
   }
 
   async prefetchChannels () {
-    const { guild: { id, channels: [{ children }] }, client,} = this.props;
+    const { guild: { id }, client} = this.props;
     await client.query({
       query: CHANNELLIST_QUERY,
       variables: { id },
@@ -37,15 +37,13 @@ class GuildEntry extends Component {
 
     return (
       <div className="guildItem">
-        <NavLink to={path} className="g-avatar" activeClassName="g-active" onMouseOver={this.prefetchChannels}>
+        <NavLink to={path} className="g-avatar" activeClassName="g-active" onMouseOver={this.prefetchChannels} isActive={ () => ( this.props.location.pathname.includes(id) )} >
           {
             this.state.avatar ? 
               <img 
                 src={`http://localhost:3100/${avatar}`} 
                 onError={this.onBrokenImage} 
-              /> 
-                : 
-              <p>{name[0]}</p>
+              /> : <p>{name[0]}</p>
           }
         </NavLink>
         <div className="g-selector"></div>
@@ -54,4 +52,4 @@ class GuildEntry extends Component {
   };
 };
 
-export default withApollo(GuildEntry);
+export default withRouter(withApollo(GuildEntry));

@@ -8,48 +8,20 @@ import ChannelNav from '../ChannelNav';
  
 import './channelList.sass';
 
-const  ChannelList = ({ channels = [], match }) => {
+const ChannelList = ({ channels = [], guild_id, match }) => {
   return  (
-    <div>
+    <ul className="channels">
       {
-        channels.length > 0 ? ( <ChannelNav name={channels[0].belongsTo.name}/> )  : null
+        channels && channels.map( channel => (
+          <div className="test">
+            { channel.type === 4 ? <Category guild_id={guild_id} key={channel.id} channel={channel} match={match}/> : <Channel key={channel.id} channel={channel} match={match}/> }
+            { channel.children && channel.children.map( child => ( <Channel key={child.id} channel={child} match={match} />)) }
+          </div>
+        ))
       }
-      <div>
-        
-      </div>
-      <ul className="channels">
-        {
-          channels && channels.map((category) => {
-            return (
-              <div key={category.id} className="test">
-                {
-                  category.type === 4 ?  <Category category={category}/> : <Channel 
-                  key={category.id}
-                  channel={category}
-                  match={match}
-                  />
-                }
-                {
-                  category.children && category.children.map( channel => (
-                    <Channel 
-                    key={channel.id}
-                    channel={channel}
-                    match={match}
-                    />
-                    ))
-                  }
-              </div>
-            );
-          }
-          )
-        }
-      </ul>
-
-    </div>
-
+    </ul>
   );
 }
-
 
 export default ChannelList;
 

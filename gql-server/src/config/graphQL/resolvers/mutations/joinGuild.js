@@ -10,10 +10,8 @@ export const joinGuild = async (parent, { slug }, ctx, info) => {
     }
   }, `{ id, code, key guild { id }}`);
 
-  console.log(slugData)
 
   const dec = await decrypt(slugData[0].code + slugData[0].key);
-  console.log(dec);
 
   if ( dec === slugData[0].id ) {
     return await ctx.db.mutation.updateGuild({

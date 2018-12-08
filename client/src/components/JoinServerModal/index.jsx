@@ -6,7 +6,7 @@ import { allGuildsQuery } from '../GuildList';
 
 import './joinServer.sass';
 
-class JoinServer extends Component {
+class JoinServerModal extends Component {
   constructor(props) {
     super(props);
 
@@ -94,4 +94,4 @@ const joinGuildMutation = gql`
   }
 `;
 
-export default graphql(joinGuildMutation)(JoinServer);
+export default graphql(joinGuildMutation)(JoinServerModal);

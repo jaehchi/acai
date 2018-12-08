@@ -23,7 +23,6 @@ export const updatePos = async ( arr, from, to ) => {
 export const updateChannelPosition = async (parent, args, ctx, info) => {
   const userID = await getUserID(ctx.request);
   
-  console.log('hello')
   const { owner } =  await ctx.db.query.guild({
     where: {
       id: args.id
@@ -48,7 +47,6 @@ export const updateChannelPosition = async (parent, args, ctx, info) => {
   }, `{ id type name position }`);
 
   const channelsAreReordered = await updatePos( channelsPositionsToReorder, args.from, args.to );
-  console.log('asdf', channelsAreReordered)
 
   const channelsPositionToReorderMutations = [];
 
@@ -66,7 +64,6 @@ export const updateChannelPosition = async (parent, args, ctx, info) => {
   })
   
 
-  console.log('fuck', )
 
   // Update all sections in parallel
   await Promise.all(channelsPositionToReorderMutations);

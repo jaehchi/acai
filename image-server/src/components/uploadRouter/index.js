@@ -6,7 +6,6 @@ import sha256 from 'crypto-js/sha256';
 const router = Router();
 
 const filename = (req, file, cb) => {
-  console.log(file)
   cb(null, sha256(file.filename) + file.originalname);
 };
 

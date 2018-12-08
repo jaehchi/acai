@@ -24,7 +24,7 @@ class FeedPage extends Component {
     <Query query={MESSAGES_QUERY} variables={{ id: match.params.channel_id }}>
       { ({loading, data}) => {
         if (loading) {
-          return <div>Fetching</div> 
+          return <Loading/>
         }
 
         return (

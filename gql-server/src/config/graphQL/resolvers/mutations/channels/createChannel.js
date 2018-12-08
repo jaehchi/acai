@@ -41,7 +41,7 @@ export const createChannel = async (parent, { id, type, name }, ctx, info) => {
   }
 
   // Update all sections in parallel
-  await Promise.all(channelsPositionToMoveMutations);
+  await Promise.all(channelsPositionToIncrementMutations);
 
   // create new channel in current position
   return await ctx.db.mutation.createChannel({

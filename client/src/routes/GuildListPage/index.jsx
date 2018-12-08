@@ -4,9 +4,7 @@ import gql from 'graphql-tag';
 
 import GuildList from '../../components/GuildList';
 import Loading from '../../components/globals/Loading';
-import AddGuild from '../../components/AddGuild';
 import GUILDLIST_QUERY from '../../graphQL/GuildListQuery.graphql';
-import CREATEGUILD_MUTATION from '../../graphQL/createGuild.graphql';
 
 import './guildList.sass';
 

@@ -8,7 +8,6 @@ export const login = async (parent, { email, password }, ctx, info) => {
     } 
   }, ` { id password } `);
 
-    console.log(user)
   if (!user) {
     throw new Error('No user found');
   }

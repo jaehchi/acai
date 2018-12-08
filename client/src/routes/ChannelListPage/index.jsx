@@ -17,25 +17,27 @@ class ChannelListPage extends Component {
   }
 
   render() {
-    const { match, location } = this.props;
+    const { match } = this.props;
+    const variables = { 
+      id: match.params.guild_id
+    }
 
     return (
       <div className="guild-content">
-        <Query query={CHANNELLIST_QUERY} variables={{ id: match.params.guild_id }}>
+        <Query query={CHANNELLIST_QUERY} variables={variables}>
           { ({ loading, data }) => {
-            
             if (loading) {
-              return <div>Fetching</div> 
+              return <Loading/>;
             }
       
             return (
               <div>
-                <ChannelList channels={data.channels || []} match={match}/>
+                <ChannelNav name={data.guild.name}/>
+                <ChannelList channels={data.channels || []} guild_id={data.guild.id} match={match}/>
               </div>
-            )
+            );
   
-            }
-          }
+          }}
         </Query>
       </div>
     );

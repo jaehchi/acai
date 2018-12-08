@@ -5,6 +5,7 @@ import { createGuild } from './createGuild';
 import { joinGuild } from './joinGuild';
 import { createChannel } from './channels/createChannel';
 import { updateChannelPosition } from './channels/updateChannelPosition';
+import { createChannelInCategory } from './channels/createChannelInCategory';
 import { createMessage } from './createMessage';
 import { createSlug } from './createSlug';
 
@@ -19,4 +20,5 @@ export default {
   createMessage,
   createSlug,
   updateChannelPosition,
+  createChannelInCategory,
 };

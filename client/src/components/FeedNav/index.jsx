@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import './feedNav.sass';
 
 const FeedNav = (props) => {
-  console.log('feedNav', props)
   return (
     <div className="feedNav">
       <div className="hashtag">

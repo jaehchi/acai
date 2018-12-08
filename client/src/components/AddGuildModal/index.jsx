@@ -3,14 +3,14 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import Modal from '../globals/Modal';
-import CreateServer from '../CreateServer';
-import JoinServer from '../JoinServer';
-import ServerOptions from '../ServerOptions';
+import CreateServerModal from '../CreateServerModal';
+import JoinServerModal from '../JoinServerModal';
+import ServerOptionsModal from '../ServerOptionsModal';
 
 import './addGuild.sass';
 import '../GuildEntry/guildEntry.sass';
 
-class AddGuild extends Component {
+class AddGuildModal extends Component {
   constructor(props) {
     super(props);
 
@@ -55,12 +55,12 @@ class AddGuild extends Component {
 
   render() {
     const showServerActions = (this.state.showCreateServer && !this.state.showJoinServer) ? (
-      <CreateServer createModal={this.createModal} toggleModal={this.toggleModal}/>
+      <CreateServerModal createModal={this.createModal} toggleModal={this.toggleModal}/>
     ) : ( 
-      <JoinServer joinModal={this.joinModal} toggleModal={this.toggleModal}/>
+      <JoinServerModal joinModal={this.joinModal} toggleModal={this.toggleModal}/>
     );
 
-    const showServerOptions = <ServerOptions joinModal={this.joinModal} createModal={this.createModal}/> 
+    const showServerOptions = <ServerOptionsModal joinModal={this.joinModal} createModal={this.createModal}/> 
   
     const showModal = this.state.showModal ? (
       <Modal>
@@ -86,4 +86,4 @@ class AddGuild extends Component {
   };
 }
 
-export default AddGuild;
+export default AddGuildModal;

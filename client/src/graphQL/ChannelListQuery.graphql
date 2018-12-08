@@ -5,16 +5,15 @@ query ($id: ID!) {
     type
     position
 
-    belongsTo {
-      id
-      name
-    }
-
     children {
       id
       name
       type
       position
     }
+  },
+  guild (id: $id) {
+    id
+    name
   }
 }

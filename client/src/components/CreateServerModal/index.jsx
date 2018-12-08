@@ -9,7 +9,7 @@ import GUILDLIST_QUERY from '../../graphQL/GuildListQuery.graphql';
 
 import './CreateServer.sass';
 
-class CreateServer extends Component {
+class CreateServerModal extends Component {
   constructor(props) {
     super(props);
 
@@ -88,7 +88,6 @@ class CreateServer extends Component {
 
           // pushes newly created guilds in all guilds array
           data.guilds.push(createGuild);
-
 
           // updates the all guilds back in the cache
           store.writeQuery({ query: GUILDLIST_QUERY, variables: {
@@ -172,4 +171,4 @@ const addGuildMutation = gql`
   }
 `;
 
-export default compose(withRouter, graphql(addGuildMutation))(CreateServer);
+export default compose(withRouter, graphql(addGuildMutation))(CreateServerModal);

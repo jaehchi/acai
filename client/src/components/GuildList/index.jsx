@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { propType } from 'graphql-anywhere';
 
 import GuildEntry from '../GuildEntry';
-import AddGuild from '../AddGuild';
+import AddGuildModal from '../AddGuildModal';
 
 const GuildList = ({ guilds = [] }) => {
   return (
@@ -11,7 +11,7 @@ const GuildList = ({ guilds = [] }) => {
       {
         guilds && guilds.map(guild => ( <GuildEntry key={guild.id} guild={guild}/> ))
       }
-      <AddGuild/>
+      <AddGuildModal/>
     </div>
   );
 };
