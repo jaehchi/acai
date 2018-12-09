@@ -2,7 +2,7 @@ import React, { Component }from 'react';
 import { graphql, Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import GuildList from '../../components/GuildList';
+import GuildList from '../../components/Home/GuildList';
 import Loading from '../../components/globals/Loading';
 import GUILDLIST_QUERY from '../../graphQL/GuildListQuery.graphql';
 

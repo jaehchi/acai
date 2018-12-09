@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import FeedNav from '../../components/FeedNav';
-import AddMessage from '../../components/AddMessage';
-import MessageList from '../../components/MessageList';
-import Members from '../../components/Members';
+import FeedNav from '../../components/Home/FeedNav';
+import AddMessage from '../../components/Home/AddMessage';
+import MessageList from '../../components/Home/MessageList';
+import Members from '../../components/Home/Members';
 import Loading from '../../components/globals/Loading';
 
 import MESSAGES_QUERY from '../../graphQL/MessagesQuery.graphql';
@@ -45,7 +45,6 @@ class FeedPage extends Component {
             </div>
           </div>
         )
-
       }}
      </Query>
     );

@@ -1,0 +1,67 @@
+@import '../../globals/global.sass'
+
+
+.guildItem 
+  margin: 10px auto 
+  width: 50px
+  height: 50px
+
+  .g-avatar 
+    display: grid
+    background-color: #2f3136
+    width: 50px
+    height: 50px
+    border-radius: 50%
+    transition: border-radius ease-in .25s 
+
+    img
+      border-radius: 50%
+      width: 50px
+      height: 50px
+      transition: border-radius linear .25s
+      position: relative
+
+    p
+      margin: auto 0
+      height: 50px
+      position: relative
+      line-height: 50px
+      color: white
+      font-size: 20px
+      text-decoration: none
+      text-align: center
+      transition: border-radius linear .25s
+
+    &:hover 
+      background-color: $discordBlue
+      border-radius: 15px
+      img
+        border-radius: 15px
+
+      span
+        border-radius: 15px
+      
+
+  .g-active
+    border-radius: 15px
+    background-color: $discordBlue
+    margin: 0 
+
+    &:after 
+      content: ' '
+      width: 0
+      height: 0 
+      border-bottom: 10px solid transparent
+      border-top: 10px solid transparent
+      border-left: 10px solid white
+      top: -35px
+      left: -15px
+      position: relative
+    
+    img
+      border-radius: 15px
+
+
+    span
+      border-radius: 15px
+      margin: auto 0

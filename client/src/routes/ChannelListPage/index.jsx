@@ -5,9 +5,9 @@ import { graphql, Query } from 'react-apollo';
 
 import CHANNELLIST_QUERY from '../../graphQL/ChannelListQuery.graphql';
 
-import ChannelNav from '../../components/ChannelNav/index';
-import ChannelList from '../../components/ChannelList';
-import Loading from '../../components/globals/Loading'
+import ChannelNav from '../../components/Home/ChannelNav';
+import ChannelList from '../../components/Home/ChannelList';
+import Loading from '../../components/globals/Loading';
 
 import './guildContent.sass';
 

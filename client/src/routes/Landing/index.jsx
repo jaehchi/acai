@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Canva from '../../components/Canva';
-import LandingNav from '../../components/LandingNav';
-import Hero from '../../components/Hero';
-import Footer from '../../components/Footer';
+import Canva from '../../components/Landing/Canva';
+import LandingNav from '../../components/Landing/LandingNav';
+import Hero from '../../components/Landing/Hero';
+import Footer from '../../components/Landing/Footer';
 
 import './landing.sass';
 
