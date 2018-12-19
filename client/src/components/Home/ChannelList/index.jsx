@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import Channel from '../Channel';
+import ChannelEntry from '../ChannelEntry';
 import Category from '../Category';
 import ChannelNav from '../ChannelNav';
  
@@ -13,9 +13,9 @@ const ChannelList = ({ channels = [], guild_id, match }) => {
     <ul className="channels">
       {
         channels && channels.map( channel => (
-          <div className="test">
-            { channel.type === 4 ? <Category guild_id={guild_id} key={channel.id} channel={channel} match={match}/> : <Channel key={channel.id} channel={channel} match={match}/> }
-            { channel.children && channel.children.map( child => ( <Channel key={child.id} channel={child} match={match} />)) }
+          <div key={channel.id} className="test">
+            { channel.type === 4 ? <Category  channel={channel} match={match}/> : <ChannelEntry  channel={channel} match={match}/> }
+            { channel.children && channel.children.map( child => ( <ChannelEntry key={child.id} channel={child} match={match} />)) }
           </div>
         ))
       }

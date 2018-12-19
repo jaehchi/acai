@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 
-import CREATE_CHANNEL_MUTATION from '../../../graphQL/CreateChannelInCategory.graphql'
+import CREATE_CHANNEL_MUTATION from '../../../graphQL/CreateChannelInCategory.graphql';
+import CHANNEL_LIST_QUERY from '../../../graphQL/ChannelListQuery.graphql';
+// import CHANNEL_ENTRY_QUERY from '../../../graphQL/ChannelEntry.graphql';
 import './createChannelModal.sass';
 
 class CreateChannel extends Component {
@@ -41,6 +44,7 @@ class CreateChannel extends Component {
   }
 
   render() {
+    // console.log(this.props)
     const variables = { 
       id: this.props.id, 
       type: this.state.type === "Text Channel" ? 0 : 1,
@@ -109,6 +113,23 @@ class CreateChannel extends Component {
           <Mutation 
             mutation={CREATE_CHANNEL_MUTATION} 
             variables={variables}
+            update={(store, { data: { createChannelInCategory} }) => {
+              const data = store.readQuery({
+                query: CHANNEL_LIST_QUERY,
+                variables: { id: this.props.match.params.guild_id },
+              })
+
+          
+              store.writeQuery({
+                query: CHANNEL_LIST_QUERY,
+                data,
+                variables: { id: this.props.match.params.guild_id },
+              });
+
+              this.props.history.push(`${this.props.match.url}/${createChannelInCategory.id}`);
+              this.props.toggleModal();
+
+            }}
           >
             { createChannelMutation => ( <button onClick={createChannelMutation} className='cc-create'>Create Channel</button> )}
           </Mutation>
@@ -118,4 +139,4 @@ class CreateChannel extends Component {
   }
 }
 
-export default CreateChannel;
+export default withRouter(CreateChannel);

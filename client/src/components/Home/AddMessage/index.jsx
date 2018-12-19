@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import { AllMessages } from '../../../routes/FeedPage';
+import MESSAGES_QUERY from '../../../graphQL/MessagesQuery.graphql';
 import './addMessage.sass';
 
 class AddMessage extends Component {
@@ -28,7 +28,7 @@ class AddMessage extends Component {
     e.preventDefault();
 
     try {
-      const message = await this.props.mutate({
+      await this.props.mutate({
         variables: {
           id: this.props.channel_id,
           content: this.state.content
@@ -36,20 +36,24 @@ class AddMessage extends Component {
         update: (store, { data: { createMessage }}) => {
           // reads all messages in this specific channel from cache
           const data = store.readQuery({
-            query: AllMessages,
+            query: MESSAGES_QUERY,
             variables: {
               id: this.props.channel_id
             } 
           });
 
-  
+
           // pushes newly created messages in all messages array
-          data.allMessages.push(createMessage);
+          data.messages.push(createMessage);
   
           // updates the all messages back in the cache
-          store.writeQuery({ query: AllMessages, variables: {
-            id: this.props.channel_id,
-          }, data });
+          store.writeQuery({ 
+            query: MESSAGES_QUERY,
+            data: data,
+            variables: {
+              id: this.props.channel_id,
+            }
+          });
         }
 
       });

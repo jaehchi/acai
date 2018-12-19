@@ -10,7 +10,7 @@ class Category extends Component {
   }
 
   render() {
-    const { channel, guild_id, match } = this.props;
+    const { channel, match } = this.props;
 
     return (
       <div>

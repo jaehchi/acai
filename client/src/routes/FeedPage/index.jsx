@@ -10,7 +10,7 @@ import Loading from '../../components/globals/Loading';
 
 import MESSAGES_QUERY from '../../graphQL/MessagesQuery.graphql';
 
-import './feed.sass';
+import './feedPage.sass';
 
 class FeedPage extends Component {
   constructor(props) {
@@ -21,27 +21,25 @@ class FeedPage extends Component {
     const { match } = this.props;
     
   return (
-    <Query query={MESSAGES_QUERY} variables={{ id: match.params.channel_id }}>
+    <Query query={MESSAGES_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy="cache-first">
       { ({loading, data}) => {
         if (loading) {
           return <Loading/>
         }
 
         return (
-          <div>
-            <div className="feed">
-              <div className="feed__nav">
-                {
-                  data.channel ? <FeedNav name={data.channel.name}/> : null
-                }
-              </div>
-              <div className="feed__content">
-                <MessageList messages={data.messages}/>
-                <AddMessage channel_id={match.params.channel_id} channel_name={data.channel.name} />
-              </div>
-              <div className="feed__members">
-                <Members/>
-              </div>
+          <div className="feed">
+            <div className="feed__nav">
+              {
+                data.channel ? <FeedNav name={data.channel.name}/> : null
+              }
+            </div>
+            <div className="feed__content">
+              <MessageList messages={data.messages}/>
+              <AddMessage channel_id={match.params.channel_id} channel_name={data.channel.name} />
+            </div>
+            <div className="feed__members">
+              <Members/>
             </div>
           </div>
         )

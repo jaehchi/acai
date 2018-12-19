@@ -5,10 +5,10 @@ import { withApollo } from 'react-apollo';
 import MESSAGES_QUERY from '../../../graphQL/MessagesQuery.graphql';
 
 
-import './channel.sass';
+import './channelEntry.sass';
 import Category from '../Category';
 
-class Channel extends Component {
+class ChannelEntry extends Component {
   constructor(props) {
     super(props);
 
@@ -41,4 +41,4 @@ class Channel extends Component {
   }
 }
 
-export default withApollo(Channel);
+export default withApollo(ChannelEntry);

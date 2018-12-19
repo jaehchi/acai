@@ -3,21 +3,22 @@
   display: grid
   grid-template-columns: auto 240px
   grid-template-rows: 50px auto 
-  grid-template-areas: "feed-navs feed-navs" "feed-content feed-members"
+  grid-template-areas: "feed-nav feed-nav" "feed-content feed-members"
   height: 100vh
   z-index: 1
   position: relative
 
   .feed__nav
-    grid-area: feed-navs
+    grid-area: feed-nav
     z-index: 99
     position: relative
     
   .feed__content
     grid-area: feed-content
+    overflow-y: scroll  
     display: grid
     grid-template-columns: auto 
-    grid-template-rows: auto 125px
+    grid-template-rows: auto 100px
     z-index: 10
     position: relative
 
