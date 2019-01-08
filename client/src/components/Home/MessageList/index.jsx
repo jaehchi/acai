@@ -57,17 +57,35 @@ const separateMessagesByDate = (messages) => {
   return apply(map);
 }
 
+class MessageList extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-const MessageList = ({ messages }) => {  
-  return (
-    <div className="messageList">
-      { 
-        separateMessagesByDate(messages).map((messagesByDate, index ) => ( 
-          <MessageDivider key={index} messages={messagesByDate}/> 
-        )) 
-      }
-    </div>
-  );
-};
+  componentDidMount() {
+    const messageList = document.getElementById('messageList');
+    messageList.scrollTop = messageList.scrollHeight;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const messageList = document.getElementById('messageList');
+
+    this.props.messages > prevProps.messages ?  messageList.scrollTop = messageList.scrollHeight : null;
+  }  
+
+  render() {
+    const { messages } = this.props;
+
+    return (
+      <div id="messageList">
+        { 
+          separateMessagesByDate(messages).map((messagesByDate, index ) => ( 
+            <MessageDivider key={index} messages={messagesByDate}/> 
+          )) 
+        }
+      </div>
+    );
+  }
+}
 
 export default MessageList;
