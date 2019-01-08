@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Modal from '../../globals/Modal';
 import CreateChannel from '../CreateChannel';
 
-
 import './AddChannelModal.sass';
 
 class AddChannel extends Component {

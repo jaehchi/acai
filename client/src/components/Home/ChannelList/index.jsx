@@ -9,6 +9,7 @@ import ChannelNav from '../ChannelNav';
 import './channelList.sass';
 
 const ChannelList = ({ channels = [], guild_id, match }) => {
+
   return  (
     <ul className="channels">
       {

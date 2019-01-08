@@ -119,7 +119,11 @@ class CreateChannel extends Component {
                 variables: { id: this.props.match.params.guild_id },
               })
 
-          
+              for ( let i = 0; i < data.channels.length; i++ ) {
+                if ( data.channels[i].id === this.props.id ) {
+                  data.channels[i].children.push(createChannelInCategory);
+                }
+              }
               store.writeQuery({
                 query: CHANNEL_LIST_QUERY,
                 data,

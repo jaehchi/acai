@@ -16,7 +16,6 @@ const apply =  (map) => {
 }
 
 const separateMessagesByDate = (messages) => {
-  console.log(messages);
   const map = {};
   let array;
   let date;
@@ -75,11 +74,6 @@ class MessageList extends Component {
 
   render() {
     const { messages } = this.props;
-
-    console.log(
-      'asdf',
-      messages
-    )
 
     return (
       <div id="messageList">

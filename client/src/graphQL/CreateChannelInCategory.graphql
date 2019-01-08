@@ -3,5 +3,6 @@ mutation createChannelInCategoryMutation ($id: ID!, $type: Int!, $name: String!)
     id
     name
     type
+    position
   }
 }

@@ -1,0 +1,15 @@
+query ($id: ID!) {
+  channel(id: $id) {
+    id
+    name
+    type
+    position
+
+    children {
+      id
+      name
+      type
+      position
+    }
+  }
+}
