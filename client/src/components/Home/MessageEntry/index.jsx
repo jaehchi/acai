@@ -2,7 +2,7 @@ import React from 'react';
 
 import './messageEntry.sass';
 
-const MessageEntry = ({ message}) => {
+const MessageEntry = ({ message }) => {
 
   return (
     <div className="message">

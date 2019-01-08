@@ -16,6 +16,7 @@ const apply =  (map) => {
 }
 
 const separateMessagesByDate = (messages) => {
+  console.log(messages);
   const map = {};
   let array;
   let date;
@@ -23,7 +24,6 @@ const separateMessagesByDate = (messages) => {
   let user;
 
   each( messages, ( message ) => {
-    
     let time = message.createdAt;
     let createdAt =  moment(message.createdAt).format('MMMM Do, YYYY| h:mm A').split('| ');
   
@@ -75,6 +75,11 @@ class MessageList extends Component {
 
   render() {
     const { messages } = this.props;
+
+    console.log(
+      'asdf',
+      messages
+    )
 
     return (
       <div id="messageList">

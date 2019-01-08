@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
 import TimeDivider from '../TimeDivider';
+import { withRouter } from 'react-router-dom';
+
 import './messageDivider.sass';
 
-const MessageDivider = ({ messages }) =>  {
+const MessageDivider = ({ messages, match }) =>  {
   return (
     <div>
       <h1 className='md-container'>
@@ -11,10 +13,10 @@ const MessageDivider = ({ messages }) =>  {
           {messages[0][0].createdAt.date}
         </span>
       </h1>
-      { messages.map( (messages) => ( <TimeDivider messages={messages} /> )) }
+      { messages.map( (messages) => ( <TimeDivider key={`${match.url}/${messages[0].id}`} messages={messages} /> )) }
     </div>
   );
 }
 
 
-export default MessageDivider;
+export default withRouter(MessageDivider);
