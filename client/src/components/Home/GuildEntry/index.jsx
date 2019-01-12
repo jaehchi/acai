@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import ApolloClient from 'apollo-client';
 import { withApollo, compose } from 'react-apollo';
 
 import CHANNELLIST_QUERY from '../../../graphQL/ChannelListQuery.graphql';
@@ -18,7 +17,7 @@ class GuildEntry extends Component {
   }
 
   async prefetchChannels () {
-    const { guild: { id }, client} = this.props;
+    const { guild: { id }, client } = this.props;
     await client.query({
       query: CHANNELLIST_QUERY,
       variables: { id },

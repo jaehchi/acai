@@ -1,4 +1,4 @@
-import newMessage from './NewMessageSubscribe';
+import { newMessage } from './NewMessageSubscribe';
 
 export default {
   newMessage,

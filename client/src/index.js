@@ -34,7 +34,7 @@ const wsLink = new WebSocketLink({
 })
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql'
+  uri: `http://localhost:4000/graphql`
 });
 
 const link = split(
@@ -44,7 +44,7 @@ const link = split(
   },
   wsLink,
   authLink.concat(httpLink),
-)
+);
 
 
 const client = new ApolloClient({

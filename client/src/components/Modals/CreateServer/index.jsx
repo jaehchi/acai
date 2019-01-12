@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import request from 'superagent';
 import { withRouter } from 'react-router-dom';
 
-import GUILDLIST_QUERY from '../../../graphQL/GuildListQuery.graphql';
+import GUILDLIST_QUERY from '../../../graphQL/queries/guildList.graphql';
 
 import './CreateServer.sass';
 

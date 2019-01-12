@@ -27,11 +27,28 @@ class AddMessage extends Component {
   async onSubmit (e) {
     e.preventDefault();
 
+    const variables = {
+      id: this.props.channel_id,
+      content: this.state.content
+    };
+    
+
     try {
       await this.props.mutate({
-        variables: {
-          id: this.props.channel_id,
-          content: this.state.content
+        variables,
+        optimisiticResponse: {
+          __typename: 'Mutation',
+          createMessage: {
+            id: Math.round(Math.random() * -1000000),
+            author: {
+              id: localStorage._id,
+              username: localStorage.username,
+              __typename: 'User'
+            },
+            createdAt: new Date(),
+            content: variables.comment,
+            __typename: "Message",
+          }
         },
         update: (store, { data: { createMessage }}) => {
           // reads all messages in this specific channel from cache
@@ -41,7 +58,6 @@ class AddMessage extends Component {
               id: this.props.channel_id
             } 
           });
-
 
           // pushes newly created messages in all messages array
           data.messages.push(createMessage);
@@ -54,8 +70,9 @@ class AddMessage extends Component {
               id: this.props.channel_id,
             }
           });
+          
+          this.setState({ content: '' });
         }
-
       });
     } catch (err) {
       console.log(err);
@@ -70,6 +87,7 @@ class AddMessage extends Component {
           <input
             type="text"
             name="content"
+            value={this.state.content}
             placeholder={`Message #${this.props.channel_name}`}
             onChange={this.onChange}
           />

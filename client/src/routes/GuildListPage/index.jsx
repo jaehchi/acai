@@ -1,10 +1,10 @@
 import React, { Component }from 'react';
-import { graphql, Mutation, Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 
 import GuildList from '../../components/Home/GuildList';
 import Loading from '../../components/globals/Loading';
-import GUILDLIST_QUERY from '../../graphQL/GuildListQuery.graphql';
+
+import GUILDLIST_QUERY from '../../graphQL/queries/guildList.graphql';
 
 import './guildList.sass';
 
@@ -19,7 +19,7 @@ class GuildListPage extends Component {
         <Query query={GUILDLIST_QUERY}>
           { ({ loading, data }) => (
             <div>
-              <GuildList guilds={data.guilds || []} />
+              <GuildList guilds={data.guilds || []}/>
               {loading ? <Loading /> : null}
             </div>
           )}

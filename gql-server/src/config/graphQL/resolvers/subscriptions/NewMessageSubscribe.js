@@ -1,14 +1,12 @@
 const newMessageSubscribe = (parent, args, ctx, info) => {
   return ctx.db.subscription.message({
     where: {
-      mutation_in: ['CREATED']
+      mutation_in: ['CREATED', 'UPDATED']
     }
   }, info);
 };
 
-const newMessage = {
+export const newMessage = {
   subscribe: newMessageSubscribe,
-}
-
-export default newMessage;
+};
 

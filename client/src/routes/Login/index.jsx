@@ -44,9 +44,10 @@ class Login extends Component {
     }
   }
 
-  async _saveUserData ({ token, user}) {
+  async _saveUserData ({ token, user }) {
+    console.log(user);
     localStorage.access_token = token;
-    localStorage.user = user;
+    localStorage.username = user.username;
   }
 
   render() {

@@ -71,6 +71,7 @@ class MessageList extends Component {
 
     this.props.messages > prevProps.messages ?  messageList.scrollTop = messageList.scrollHeight : null;
   }  
+  
 
   render() {
     const { messages } = this.props;
