@@ -12,68 +12,24 @@ import MESSAGES_QUERY from '../../graphQL/MessagesQuery.graphql';
 
 import './feedPage.sass';
 
-const sub = gql`
-  subscription {
-    newMessage {
-      node {
-        id
-        content
-        author { 
-          id
-          username
-        }
-        createdAt
-        
-      }
-    }
-  }
-`
+
 
 class FeedPage extends Component {
   constructor(props) {
     super(props);
-
-    this._subscribeToNewMessage = this._subscribeToNewMessage.bind(this);
   }
 
-  async _subscribeToNewMessage (subscribe) {
-    subscribe({
-      document: sub,
-      updateQuery: ( prev, { subscriptionData } ) => {
-        if (!subscriptionData.data) {
-          return prev;
-        } 
 
-        const newMessage = subscriptionData.data.newMessage.node;
-
-        const isDuplicate = prev.messages.filter(message => {
-          return message.id === newMessage.id;
-        }).length > 0;
-
-        if ( !isDuplicate ) {
-          prev.messages.push(newMessage)
-        }
-
-  
-        return Object.assign({}, prev, {
-          messages: prev.messages,
-          channel: prev.channel
-        })
-      }
-    });
-  }
 
   render() {
     const { match } = this.props;
     
   return (
     <Query query={MESSAGES_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy="cache-first">
-      { ({ loading, subscribeToMore, data }) => {
+      { ({ loading, subscribeToMore, refetch, data }) => {
         if (loading) {
           return <Loading/>;
-        }
-
-        // this._subscribeToNewMessage(subscribeToMore);
+        } 
       
         return (
           <div className="feed">
@@ -81,7 +37,7 @@ class FeedPage extends Component {
               <FeedNav name={data.channel.name}/>
             </div>
             <div className="feed__content">
-              <MessageList messages={data.messages} />
+              <MessageList messages={data.messages} subscribeToMore={subscribeToMore} refetch={refetch} channel_id={data.channel.id}/>
               <AddMessage channel_id={match.params.channel_id} channel_name={data.channel.name} />
             </div>
             <div className="feed__members">

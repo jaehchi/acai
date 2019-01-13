@@ -54,5 +54,5 @@ type Query {
 }
 
 type Subscription {
-  newMessage: MessageSubscriptionPayload
+  newMessage (id: ID!, where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
 }

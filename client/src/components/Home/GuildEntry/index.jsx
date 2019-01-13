@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { withApollo, compose } from 'react-apollo';
+import { withApollo } from 'react-apollo';
 
 import CHANNELLIST_QUERY from '../../../graphQL/ChannelListQuery.graphql';
 import './guildEntry.sass';

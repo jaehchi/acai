@@ -1,7 +1,12 @@
-const newMessageSubscribe = (parent, args, ctx, info) => {
+const newMessageSubscribe = (parent, { id }, ctx, info) => {
   return ctx.db.subscription.message({
     where: {
-      mutation_in: ['CREATED', 'UPDATED']
+      mutation_in: ['CREATED', 'UPDATED'],
+      node: {
+        channel: {
+          id,
+        }
+      }
     }
   }, info);
 };
