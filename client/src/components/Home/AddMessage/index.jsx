@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 
-import MESSAGES_QUERY from '../../../graphQL/MessagesQuery.graphql';
+
+import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
+import CREATE_MESSAGE_MUTATION from '../../../graphql/mutations/CreateMessage.graphql';
 import './addMessage.sass';
 
 class AddMessage extends Component {
@@ -53,7 +54,7 @@ class AddMessage extends Component {
         update: (store, { data: { createMessage }}) => {
           // reads all messages in this specific channel from cache
           const data = store.readQuery({
-            query: MESSAGES_QUERY,
+            query: MESSAGE_LIST_QUERY,
             variables: {
               id: this.props.channel_id
             } 
@@ -64,7 +65,7 @@ class AddMessage extends Component {
   
           // updates the all messages back in the cache
           store.writeQuery({ 
-            query: MESSAGES_QUERY,
+            query: MESSAGE_LIST_QUERY,
             data: data,
             variables: {
               id: this.props.channel_id,
@@ -97,20 +98,4 @@ class AddMessage extends Component {
   }
 };
 
-const AddMessageMutation = gql`
-  mutation AddMessageMutation ($id: ID!, $content: String!) {
-    createMessage(id: $id, content: $content) {
-      id
-      content
-      createdAt
-      
-      author {
-        id
-        username
-        avatar
-      }
-    }
-  }
-`;
-
-export default graphql(AddMessageMutation)(AddMessage);
+export default graphql(CREATE_MESSAGE_MUTATION)(AddMessage);

@@ -5,7 +5,8 @@ import gql from 'graphql-tag';
 import request from 'superagent';
 import { withRouter } from 'react-router-dom';
 
-import GUILDLIST_QUERY from '../../../graphQL/queries/guildList.graphql';
+import GUILD_LIST_QUERY from '../../../graphQL/queries/GuildList.graphql';
+import CREATE_GUILD_MUTATION from '../../../graphQL/mutations/CreateGuild.graphql';
 
 import './CreateServer.sass';
 
@@ -80,7 +81,7 @@ class CreateServer extends Component {
         update: (store, { data: { createGuild }}) => {
           // reads all guilds in this specific channel from cache
           const data = store.readQuery({
-            query: GUILDLIST_QUERY,
+            query: GUILD_LIST_QUERY,
             variables: {
               id: localStorage._id
             } 
@@ -90,7 +91,7 @@ class CreateServer extends Component {
           data.guilds.push(createGuild);
 
           // updates the all guilds back in the cache
-          store.writeQuery({ query: GUILDLIST_QUERY, variables: {
+          store.writeQuery({ query: GUILD_LIST_QUERY, variables: {
             id: localStorage._id
           }, data });
 
@@ -150,25 +151,4 @@ class CreateServer extends Component {
 };
 
 
-const addGuildMutation = gql`
-  mutation AddGuildMutation ($name: String!, $avatar: String) {
-    createGuild(name: $name, avatar: $avatar) {
-      id
-      name
-      avatar
-      
-      channels {
-        id
-        name
-
-        children {
-          id
-          name
-        }
-      }
-      
-    }
-  }
-`;
-
-export default compose(withRouter, graphql(addGuildMutation))(CreateServer);
+export default compose(withRouter, graphql(CREATE_GUILD_MUTATION))(CreateServer);

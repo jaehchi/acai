@@ -1,0 +1,8 @@
+mutation CreateChannel ($id: ID!, $type: Int!, $name: String!) {
+  createChannel(id: $id, type: $type, name: $name) {
+    id
+    name
+    type
+    position
+  }
+}

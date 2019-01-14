@@ -1,0 +1,13 @@
+mutation CreateMessage ($id: ID!, $content: String!) {
+  createMessage(id: $id, content: $content) {
+    id
+    content
+    createdAt
+    
+    author {
+      id
+      username
+      avatar
+    }
+  }
+}

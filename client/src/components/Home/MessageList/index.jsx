@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { each } from 'lodash';
 import moment from 'moment';
-import gql from 'graphql-tag';
 
 import MessageDivider from '../MessageDivider';
+import NEW_MESSAGE_SUBSCRIPTION from '../../../graphQL/subscriptions/NewMessage.graphql';
 import './messageList.sass';
 
 const apply =  (map) => {
@@ -57,22 +57,6 @@ const separateMessagesByDate = (messages) => {
   return apply(map);
 }
 
-const sub = gql`
-  subscription onNewMessage ($id: ID!){
-    newMessage (id: $id){
-    node {
-      id
-      content
-      createdAt
-      author { 
-        id
-        username
-      }
-    }
-    }
-  }
-`
-
 class MessageList extends Component {
   constructor(props) {
     super(props);
@@ -86,28 +70,28 @@ class MessageList extends Component {
     messageList.scrollTop = messageList.scrollHeight;
 
     this._subscribeToNewMessage();
-    
   }
 
   componentDidUpdate(prevProps, prevState) {
- 
     const messageList = document.getElementById('messageList');
     
     this.props.messages > prevProps.messages ?  messageList.scrollTop = messageList.scrollHeight : null;
     
-    if ( this.props.channel_id !== prevProps.channel_id ) {
-
-      this.subscription();
-      this._refetchMessages();
-      this._subscribeToNewMessage();
+    if ( this.props.channel_id !== prevProps.channel_id ) { // If we changed channels, ...
+      this.subscription();                                  // Unsubscribe to the previous channel
+      this._refetchMessages();                              // refetch message for the current channel
+      this._subscribeToNewMessage();                        // and Subscribe to the new channel
     }
   }
+
   _refetchMessages () {
     this.props.refetch();
   }
+
   _subscribeToNewMessage () {
+    // subscribeToMore returns an unsubscribe function, so this.subscription() unsubscribes to from the current channel.
     this.subscription = this.props.subscribeToMore({
-      document: sub,
+      document: NEW_MESSAGE_SUBSCRIPTION,
       variables: {
         id: this.props.channel_id
       },

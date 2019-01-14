@@ -13,6 +13,7 @@ type User {
   username: String!
   avatar: String
   lastSeenOn: String
+  status: String!
   
   ownerOfGuild: [Guild!]!
   memberOf: [Guild!]!
@@ -35,7 +36,6 @@ type Mutation {
   # Channels
   createChannel(id: ID!, type: Int!, name: String!) : Channel
   updateChannelPosition(from: Int!, to: Int!, id: ID!): [Channel!]!
-  createChannelInCategory(id: ID!, type: Int!, name: String!): Channel
 
   # Messages
   createMessage(id: ID!, content: String!): Message

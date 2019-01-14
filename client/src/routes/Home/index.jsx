@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import GuildListPage from '../GuildListPage';
 import ChannelListPage from '../ChannelListPage';
 import FeedPage from '../FeedPage';
+
 import './home.sass';
 
 class Home extends Component {

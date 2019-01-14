@@ -3,31 +3,27 @@ import { getUserID } from '../../../../utils/jwt';
 export const createChannel = async (parent, { id, type, name }, ctx, info) => {
   const userID = await getUserID(ctx.request);
   
-  const { owner } =  await ctx.db.query.guild({
-    where: {
-      id,
-    }
-  }, `{ owner { id } }`);
+  // const { owner } =  await ctx.db.query.guild({
+  //   where: {
+  //     id,
+  //   }
+  // }, `{ owner { id } }`);
 
-  // will have roles later on for validating correct user to create channels
+  // if ( owner.id !== userID ) {
+  //   throw new Error('Only the owner is allowed to create channels');
+  // }
 
-  if ( owner.id !== userID ) {
-    throw new Error('Only the owner is allowed to create channels');
-  }
-
-  // Get all channels that we'll need to increase their position
-	const channelsPositionsToIncrement = await ctx.db.query.channels({
+   // Get all channels that we'll need to increase their position
+	const channelsPositionsToIncrement = await ctx.db.query.channel({
 		orderBy: 'position_ASC',
 		where: {
-      belongsTo: {
-        id,
-      }
-		}
-  }, `{ id type name position }`);
+      id,
+    }
+  }, `{ id type name position children { id type name position } }`);
 
   const channelsPositionToIncrementMutations = [];
   
-	for (const channel of channelsPositionsToIncrement) {
+	for (const channel of channelsPositionsToIncrement.children) {
 		channelsPositionToIncrementMutations.push(
 			ctx.db.mutation.updateChannel({
         where: { 
@@ -44,14 +40,17 @@ export const createChannel = async (parent, { id, type, name }, ctx, info) => {
   await Promise.all(channelsPositionToIncrementMutations);
 
   // create new channel in current position
-  return await ctx.db.mutation.createChannel({
-    data: { 
+
+  return ctx.db.mutation.createChannel({
+    data: {
       type,
       name,
       position: 0,
-      belongsTo: {
-        connect: { id, }
-      },
-    },
-  }, info);
+      parent_id: {
+        connect: {
+          id,
+        }
+      }
+    }
+  })
 };

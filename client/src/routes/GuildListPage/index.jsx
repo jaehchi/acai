@@ -4,7 +4,7 @@ import { Query } from 'react-apollo';
 import GuildList from '../../components/Home/GuildList';
 import Loading from '../../components/globals/Loading';
 
-import GUILDLIST_QUERY from '../../graphQL/queries/guildList.graphql';
+import GUILD_LIST_QUERY from '../../graphQL/queries/GuildList.graphql';
 
 import './guildList.sass';
 
@@ -16,7 +16,7 @@ class GuildListPage extends Component {
   render() {
     return (
       <div className="guildList">
-        <Query query={GUILDLIST_QUERY}>
+        <Query query={GUILD_LIST_QUERY}>
           { ({ loading, data }) => (
             <div>
               <GuildList guilds={data.guilds || []}/>

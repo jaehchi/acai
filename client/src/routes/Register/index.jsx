@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import registerMutation  from '../../graphQL/register.graphql';
+import REGISTER_MUTATION from '../../graphQL/mutations/Register.graphql';
 
 import './register.sass';
 
@@ -88,4 +88,4 @@ class Register extends Component {
   }
 }
 
-export default graphql(registerMutation)(Register); 
+export default graphql(REGISTER_MUTATION)(Register); 

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { graphql, Query } from 'react-apollo';
 
 
-import CHANNEL_LIST_QUERY from '../../graphQL/ChannelListQuery.graphql';
+import CHANNEL_LIST_QUERY from '../../graphQL/queries/ChannelList.graphql';
 
 import ChannelNav from '../../components/Home/ChannelNav';
 import ChannelList from '../../components/Home/ChannelList';

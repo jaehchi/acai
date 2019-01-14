@@ -5,7 +5,7 @@ export const login = async (parent, { email, password }, ctx, info) => {
   const user = await ctx.db.query.user({
     where: {
       email,
-    } 
+    },
   }, ` { id password } `);
 
   if (!user) {
@@ -14,10 +14,18 @@ export const login = async (parent, { email, password }, ctx, info) => {
 
   const isValid = await comparePasswords(password, user.password);
 
-
   if (!isValid) {
     throw new Error('Invalid password');
   }
+
+  const isOnline = await ctx.db.mutation.updateUser({
+    where: {
+      id: user.id
+    },
+    data: {
+      status: 'online'
+    }
+  });
 
   const token = await generateToken(user.id);
 
@@ -25,4 +33,4 @@ export const login = async (parent, { email, password }, ctx, info) => {
     token,
     user,
   }
-}
+};

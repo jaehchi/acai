@@ -1,8 +1,0 @@
-mutation createChannelInCategoryMutation ($id: ID!, $type: Int!, $name: String!) {
-  createChannelInCategory(id: $id, type: $type, name: $name) {
-    id
-    name
-    type
-    position
-  }
-}

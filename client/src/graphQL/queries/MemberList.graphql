@@ -1,5 +1,5 @@
 query ($id: ID!) {
-  channel(id: $id) {
+  guild(id: $id) {
     id
     name
     type

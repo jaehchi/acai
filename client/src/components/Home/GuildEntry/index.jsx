@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { withApollo } from 'react-apollo';
 
-import CHANNELLIST_QUERY from '../../../graphQL/ChannelListQuery.graphql';
+import CHANNEL_LIST_QUERY from '../../../graphQL/queries/ChannelList.graphql';
 import './guildEntry.sass';
 
 class GuildEntry extends Component {
@@ -19,7 +19,7 @@ class GuildEntry extends Component {
   async prefetchChannels () {
     const { guild: { id }, client } = this.props;
     await client.query({
-      query: CHANNELLIST_QUERY,
+      query: CHANNEL_LIST_QUERY,
       variables: { id },
     });
   };

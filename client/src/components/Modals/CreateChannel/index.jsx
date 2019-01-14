@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom';
 
-import CREATE_CHANNEL_MUTATION from '../../../graphQL/CreateChannelInCategory.graphql';
-import CHANNEL_LIST_QUERY from '../../../graphQL/ChannelListQuery.graphql';
-// import CHANNEL_ENTRY_QUERY from '../../../graphQL/ChannelEntry.graphql';
+import CREATE_CHANNEL_MUTATION from '../../../graphQL/mutations/CreateChannel.graphql';
+import CHANNEL_LIST_QUERY from '../../../graphQL/queries/ChannelList.graphql';
 import './createChannelModal.sass';
 
 class CreateChannel extends Component {
@@ -113,7 +112,7 @@ class CreateChannel extends Component {
           <Mutation 
             mutation={CREATE_CHANNEL_MUTATION} 
             variables={variables}
-            update={(store, { data: { createChannelInCategory} }) => {
+            update={(store, { data: { createChannel} }) => {
               const data = store.readQuery({
                 query: CHANNEL_LIST_QUERY,
                 variables: { id: this.props.match.params.guild_id },
@@ -121,7 +120,7 @@ class CreateChannel extends Component {
 
               for ( let i = 0; i < data.channels.length; i++ ) {
                 if ( data.channels[i].id === this.props.id ) {
-                  data.channels[i].children.push(createChannelInCategory);
+                  data.channels[i].children.push(createChannel);
                 }
               }
               store.writeQuery({
@@ -130,7 +129,7 @@ class CreateChannel extends Component {
                 variables: { id: this.props.match.params.guild_id },
               });
 
-              this.props.history.push(`${this.props.match.url}/${createChannelInCategory.id}`);
+              this.props.history.push(`${this.props.match.url}/${createChannel.id}`);
               this.props.toggleModal();
 
             }}

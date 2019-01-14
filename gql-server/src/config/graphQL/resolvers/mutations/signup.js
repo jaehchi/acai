@@ -8,9 +8,10 @@ export const signup = async (parent, args, ctx, info) => {
   const user = await ctx.db.mutation.createUser({
     data: {
       ...args,
+      status: 'online',
       password
     }
-  }, `{ id email username}`);
+  }, `{ id email username status }`);
   
   const token = await generateToken(user.id);
 

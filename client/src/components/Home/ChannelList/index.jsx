@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+
 
 import ChannelEntry from '../ChannelEntry';
 import Category from '../Category';
-import ChannelNav from '../ChannelNav';
  
 import './channelList.sass';
 

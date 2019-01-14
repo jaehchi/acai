@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
 
-import loginMutation from '../../graphQL/login.graphql';
+import LOGIN_MUTATION from '../../graphQL/mutations/Login.graphql';
 import './login.sass';
 
 class Login extends Component {
@@ -90,4 +90,4 @@ class Login extends Component {
   }
 }
 
-export default graphql(loginMutation)(Login); 
+export default graphql(LOGIN_MUTATION)(Login); 

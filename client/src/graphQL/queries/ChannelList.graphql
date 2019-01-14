@@ -1,16 +1,8 @@
+#import '../fragments/ChannelInfo.graphql'
+
 query ($id: ID!) {
   channels(id: $id, orderBy: type_ASC) {
-    id
-    name
-    type
-    position
-
-    children {
-      id
-      name
-      type
-      position
-    }
+    ...ChannelInfo
   },
   guild (id: $id) {
     id

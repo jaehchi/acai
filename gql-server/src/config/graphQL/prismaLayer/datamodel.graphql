@@ -59,6 +59,8 @@ type User {
   password: String!
   avatar: String
   lastSeenOn: String
+
+  status: String!
   
   ownerOfGuild: [Guild!]! @relation(name: "GuildOwner", onDelete: CASCADE)  
   memberOf: [Guild!]! @relation(name: "GuildMember", onDelete: SET_NULL)

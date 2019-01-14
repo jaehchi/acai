@@ -1,0 +1,13 @@
+subscription NewMessage ($id: ID!){
+  newMessage (id: $id){
+    node {
+      id
+      content
+      createdAt
+      author { 
+        id
+        username
+      }
+    }   
+  }
+}

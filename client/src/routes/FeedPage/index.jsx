@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import { graphql, Query } from 'react-apollo';
-import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 
 import FeedNav from '../../components/Home/FeedNav';
 import AddMessage from '../../components/Home/AddMessage';
 import MessageList from '../../components/Home/MessageList';
-import Members from '../../components/Home/Members';
+import MemberList from '../../components/Home/MemberList';
 import Loading from '../../components/globals/Loading';
 
-import MESSAGES_QUERY from '../../graphQL/MessagesQuery.graphql';
+import MESSAGE_LIST_QUERY from '../../graphQL/queries/MessageList.graphql';
 
 import './feedPage.sass';
-
-
 
 class FeedPage extends Component {
   constructor(props) {
@@ -25,7 +22,7 @@ class FeedPage extends Component {
     const { match } = this.props;
     
   return (
-    <Query query={MESSAGES_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy="cache-first">
+    <Query query={MESSAGE_LIST_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy="cache-first">
       { ({ loading, subscribeToMore, refetch, data }) => {
         if (loading) {
           return <Loading/>;
@@ -41,7 +38,7 @@ class FeedPage extends Component {
               <AddMessage channel_id={match.params.channel_id} channel_name={data.channel.name} />
             </div>
             <div className="feed__members">
-              <Members/>
+              <MemberList/>
             </div>
           </div>
         );

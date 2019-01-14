@@ -1,4 +1,4 @@
-mutation AddGuildMutation ($name: String!, $avatar: String) {
+mutation CreateGuild ($name: String!, $avatar: String) {
   createGuild(name: $name, avatar: $avatar) {
     id
     name

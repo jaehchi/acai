@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { withApollo } from 'react-apollo';
 
-import MESSAGES_QUERY from '../../../graphQL/MessagesQuery.graphql';
-
+import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
 
 import './channelEntry.sass';
-import Category from '../Category';
 
 class ChannelEntry extends Component {
   constructor(props) {
@@ -18,7 +16,7 @@ class ChannelEntry extends Component {
   async prefetchMessages () {
     const { channel: { id }, client } = this.props;
     const data = await client.query({
-      query: MESSAGES_QUERY,
+      query: MESSAGE_LIST_QUERY,
       variables: { id },
     });
   };

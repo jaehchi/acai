@@ -1,0 +1,13 @@
+fragment ChannelInfo on Channel {
+  id
+  name
+  type
+  position
+
+  children {
+    id
+    name
+    type
+    position
+  }
+}
