@@ -17,8 +17,6 @@ class FeedPage extends Component {
     super(props);
   }
 
-
-
   render() {
     const { match } = this.props;
 
@@ -36,15 +34,18 @@ class FeedPage extends Component {
                   return <Loading/>
                 }
 
-                console.log(guild)
-
                 return (
                   <div className="feed">
                     <div className="feed__nav">
                       <FeedNav name={channel.name}/>
                     </div>
                     <div className="feed__content">
-                      <MessageList messages={messages} subscribeToMore={subscribeToMore} refetch={refetch} channel_id={channel.id}/>
+                      <MessageList 
+                        messages={messages} 
+                        subscribeToMore={subscribeToMore} 
+                        refetch={refetch} 
+                        channel_id={channel.id}
+                      />
                       <AddMessage channel_id={match.params.channel_id} channel_name={channel.name} />
                     </div>
                     <div className="feed__members">

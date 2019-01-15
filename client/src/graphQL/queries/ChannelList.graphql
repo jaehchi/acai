@@ -1,11 +1,7 @@
-#import '../fragments/ChannelInfo.graphql'
+#import '../fragments/ChannelEntry.graphql'
 
 query ($id: ID!) {
   channels(id: $id, orderBy: type_ASC) {
-    ...ChannelInfo
-  },
-  guild (id: $id) {
-    id
-    name
+    ...ChannelEntry
   }
 }

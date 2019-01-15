@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { withApollo } from 'react-apollo';
 
+import { propType } from 'graphql-anywhere';
+
+import gql from 'graphql-tag';
+
 import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
 
 import './channelEntry.sass';
@@ -37,6 +41,21 @@ class ChannelEntry extends Component {
       </div>
     );
   }
+};
+
+ChannelEntry.fragments = {
+  entry: gql`
+    fragment ChannelInfo on Channel {
+      id 
+      name
+      type
+      position
+    }
+  `,
+};
+
+ChannelEntry.propType = {
+  channel: propType(ChannelEntry.fragments.entry).isRequired,
 }
 
 export default withApollo(ChannelEntry);

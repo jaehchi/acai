@@ -2,7 +2,7 @@ import React from 'react';
 
 import MemberEntry from '../MemberEntry';
 
-const MemberList = ({ members }) => {
+const MemberList = ({ members = [] }) => {
   const membersOnline = members.filter( member => member.status === 'online');
   const membersOffline = members.filter( member => member.status === 'offline');
   

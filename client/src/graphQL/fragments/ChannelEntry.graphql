@@ -1,0 +1,26 @@
+fragment ChannelEntry on Channel {
+  ...CategoryInfo
+
+  children {
+    ...ChannelInfo
+  }
+}
+
+fragment CategoryInfo on Channel {
+  id 
+  name
+  type
+  position
+
+  belongsTo {
+    id
+    name
+  }
+}
+
+fragment ChannelInfo on Channel {
+  id 
+  name
+  type
+  position
+}

@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
-import { graphql, Query } from 'react-apollo';
-
+import { Query } from 'react-apollo';
 
 import CHANNEL_LIST_QUERY from '../../graphQL/queries/ChannelList.graphql';
 
@@ -18,22 +17,19 @@ class ChannelListPage extends Component {
 
   render() {
     const { match } = this.props;
-    const variables = { 
-      id: match.params.guild_id
-    }
-
+    
     return (
-      <Query query={CHANNEL_LIST_QUERY} variables={variables}>
-        { ({ loading, data }) => {
+      <Query query={CHANNEL_LIST_QUERY} variables={{ id: match.params.guild_id }}>
+        { ({ loading, data: { channels } }) => {
           if (loading) {
             return <Loading/>;
           }
 
           return (
             <div className="guild-content">
-              <ChannelNav name={data.guild.name}/>
+              <ChannelNav name={channels[0].belongsTo.name}/>
               <div className="channel__list">
-                <ChannelList channels={data.channels || []} guild_id={data.guild.id} match={match}/>
+                <ChannelList channels={channels || []} match={match}/>
               </div>
               <div>USER SHITS</div>
             </div>
@@ -42,6 +38,6 @@ class ChannelListPage extends Component {
       </Query>
     );
   }
-}
+};
 
 export default ChannelListPage;
