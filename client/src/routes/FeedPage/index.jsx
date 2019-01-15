@@ -8,6 +8,7 @@ import MemberList from '../../components/Home/MemberList';
 import Loading from '../../components/globals/Loading';
 
 import MESSAGE_LIST_QUERY from '../../graphQL/queries/MessageList.graphql';
+import MEMBER_LIST_QUERY from '../../graphQL/queries/MemberList.graphql';
 
 import './feedPage.sass';
 
@@ -20,32 +21,44 @@ class FeedPage extends Component {
 
   render() {
     const { match } = this.props;
-    
-  return (
-    <Query query={MESSAGE_LIST_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy="cache-first">
-      { ({ loading, subscribeToMore, refetch, data }) => {
-        if (loading) {
-          return <Loading/>;
-        } 
-      
-        return (
-          <div className="feed">
-            <div className="feed__nav">
-              <FeedNav name={data.channel.name}/>
-            </div>
-            <div className="feed__content">
-              <MessageList messages={data.messages} subscribeToMore={subscribeToMore} refetch={refetch} channel_id={data.channel.id}/>
-              <AddMessage channel_id={match.params.channel_id} channel_name={data.channel.name} />
-            </div>
-            <div className="feed__members">
-              <MemberList/>
-            </div>
-          </div>
-        );
-      }}
-    </Query>
-    );
 
+    return (
+      <Query query={MESSAGE_LIST_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy="cache-first">
+        { ({ loading, subscribeToMore, refetch, data: { channel, messages } }) => {
+          if (loading) {
+            return <Loading/>;
+          } 
+
+          return (
+            <Query query={MEMBER_LIST_QUERY} variables={{ id: match.params.guild_id }}>
+              { ({loading, data: { guild } } ) => {
+                if (loading ) {
+                  return <Loading/>
+                }
+
+                console.log(guild)
+
+                return (
+                  <div className="feed">
+                    <div className="feed__nav">
+                      <FeedNav name={channel.name}/>
+                    </div>
+                    <div className="feed__content">
+                      <MessageList messages={messages} subscribeToMore={subscribeToMore} refetch={refetch} channel_id={channel.id}/>
+                      <AddMessage channel_id={match.params.channel_id} channel_name={channel.name} />
+                    </div>
+                    <div className="feed__members">
+                      <MemberList members={guild.members|| []}/>
+                    </div>
+                  </div>
+                );
+              }}
+              
+            </Query>
+          );
+        }}
+      </Query>
+    );
   }
 }
 

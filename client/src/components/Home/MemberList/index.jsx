@@ -1,23 +1,22 @@
-import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 
+import MemberEntry from '../MemberEntry';
 
-
-class MemberList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { match : { params: { guild_id }} } = this.props;
-
-    return (
-      <div>
-      hey
+const MemberList = ({ members }) => {
+  const membersOnline = members.filter( member => member.status === 'online');
+  const membersOffline = members.filter( member => member.status === 'offline');
+  
+  return (
+    <div>
+      <div className="members__online">
+        { membersOnline.map( member => ( <MemberEntry key={member.id} member={member}/> )) }
       </div>
-    );
-  }
-}
+      <div className="members__online">
+        { membersOffline.map( member => ( <MemberEntry key={member.id} member={member}/> )) }
+      </div>
+    </div>
+  );
+};
 
-export default withRouter(MemberList);
+
+export default MemberList;

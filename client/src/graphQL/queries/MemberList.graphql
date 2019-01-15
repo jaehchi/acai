@@ -1,15 +1,13 @@
-query ($id: ID!) {
+
+query MemberList($id: ID!) {
   guild(id: $id) {
     id
-    name
-    type
-    position
-
-    children {
+    
+    members {
       id
-      name
-      type
-      position
+      username
+      status
+      avatar
     }
   }
 }

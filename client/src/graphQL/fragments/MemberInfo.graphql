@@ -1,4 +1,4 @@
-fragment UserInfo on User {
+fragment MemberInfo on Users {
   id
   username
   status

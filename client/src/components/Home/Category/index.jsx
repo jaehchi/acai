@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
 import AddChannel from '../../Modals/AddChannel';
 
 import './category.sass';
@@ -23,7 +22,7 @@ class Category extends Component {
             </g>
           </svg>
           <div>{channel.name}</div>
-          <AddChannel  id={channel.id} name={channel.name}/>
+          <AddChannel id={channel.id} name={channel.name}/>
         </div>
       </div>
     );
