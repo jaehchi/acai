@@ -21,15 +21,15 @@ class FeedPage extends Component {
     const { match } = this.props;
 
     return (
-      <Query query={MESSAGE_LIST_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy="cache-first">
-        { ({ loading, subscribeToMore, refetch, data: { channel, messages } }) => {
+      <Query query={MEMBER_LIST_QUERY} variables={{ id: match.params.guild_id }} pollInterval={1000}>
+        {  ({ loading, data: { guild } } ) => {
           if (loading) {
             return <Loading/>;
           } 
 
           return (
-            <Query query={MEMBER_LIST_QUERY} variables={{ id: match.params.guild_id }}>
-              { ({loading, data: { guild } } ) => {
+            <Query query={MESSAGE_LIST_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy="cache-first">
+              { ({ loading, subscribeToMore, refetch, data: { channel, messages } }) => {
                 if (loading ) {
                   return <Loading/>
                 }
