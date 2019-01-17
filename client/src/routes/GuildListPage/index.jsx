@@ -8,25 +8,19 @@ import GUILD_LIST_QUERY from '../../graphQL/queries/GuildList.graphql';
 
 import './guildList.sass';
 
-class GuildListPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="guildList">
-        <Query query={GUILD_LIST_QUERY}>
-          { ({ loading, data }) => (
-            <div>
-              <GuildList guilds={data.guilds || []}/>
-              {loading ? <Loading /> : null}
-            </div>
-          )}
-        </Query>
-      </div>
-    )
-  }
+const  GuildListPage = (props) => {
+  return (
+    <div className="guildList">
+      <Query query={GUILD_LIST_QUERY}>
+        { ({ loading, data }) => (
+          <div>
+            <GuildList guilds={data.guilds || []}/>
+            {loading ? <Loading /> : null}
+          </div>
+        )}
+      </Query>
+    </div>
+  )
 }
 
 export default GuildListPage;

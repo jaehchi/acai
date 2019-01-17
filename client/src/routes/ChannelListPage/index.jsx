@@ -4,7 +4,6 @@ import { Query } from 'react-apollo';
 
 import CHANNEL_LIST_QUERY from '../../graphQL/queries/ChannelList.graphql';
 
-import ChannelNav from '../../components/Home/ChannelNav';
 import ChannelList from '../../components/Home/ChannelList';
 import Loading from '../../components/globals/Loading';
 
@@ -27,7 +26,9 @@ class ChannelListPage extends Component {
 
           return (
             <div className="guild-content">
-              <ChannelNav name={channels[0].belongsTo.name}/>
+              <div className="channel__nav">
+                <div>{channels[0].belongsTo.name}</div>
+              </div>
               <div className="channel__list">
                 <ChannelList channels={channels || []} match={match}/>
               </div>
