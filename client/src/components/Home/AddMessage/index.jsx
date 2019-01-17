@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import { propType } from 'graphql-anywhere';
+import PropTypes from 'prop-types';
 
 
 import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
 import CREATE_MESSAGE_MUTATION from '../../../graphql/mutations/CreateMessage.graphql';
+
 import './addMessage.sass';
 
 class AddMessage extends Component {
@@ -62,7 +65,7 @@ class AddMessage extends Component {
 
           // pushes newly created messages in all messages array
           data.messages.push(createMessage);
-  
+
           // updates the all messages back in the cache
           store.writeQuery({ 
             query: MESSAGE_LIST_QUERY,
@@ -81,7 +84,6 @@ class AddMessage extends Component {
   }
 
   render() {  
-    
     return (
       <div className="add__message">
         <form onSubmit={this.onSubmit}>
@@ -96,6 +98,11 @@ class AddMessage extends Component {
       </div>
     );
   }
+};
+
+AddMessage.propType = {
+  mutate: PropTypes.func.isRequired,
+  channel_name: PropTypes.string.isRequired,
 };
 
 export default graphql(CREATE_MESSAGE_MUTATION)(AddMessage);

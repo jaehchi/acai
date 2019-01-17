@@ -1,4 +1,4 @@
-fragment MemberInfo on Users {
+fragment MemberInfo on Guild {
   id
   username
   status

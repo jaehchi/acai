@@ -1,9 +1,7 @@
-
+#import '../fragments/GuildEntry.graphql'
 query {
   guilds {
-    id
-    name
-    avatar 
+    ...GuildEntry
 
     channels {
       id

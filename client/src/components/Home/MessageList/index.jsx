@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { each } from 'lodash';
 import moment from 'moment';
+import { propType } from 'graphql-anywhere';
+import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
 
 import MessageDivider from '../MessageDivider';
 import NEW_MESSAGE_SUBSCRIPTION from '../../../graphQL/subscriptions/NewMessage.graphql';
@@ -132,6 +135,28 @@ class MessageList extends Component {
       </div>
     );
   }
+};
+
+MessageList.fragments = {
+  messages: gql`
+    fragment MessageInfo on Message {
+      id
+      content
+      createdAt
+
+      author {
+        id
+        username
+        avatar
+      }
+    }
+  `
+}
+
+MessageList.propTypes = {
+  messages: PropTypes.arrayOf(propType(MessageList.fragments.messages).isRequired),
+  refetch: PropTypes.func.isRequired,
+  subscribeToMore: PropTypes.func.isRequired,
 }
 
 export default MessageList;

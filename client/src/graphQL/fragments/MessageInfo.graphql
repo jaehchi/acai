@@ -1,0 +1,11 @@
+fragment MessageInfo on Message {
+  id
+  content
+  createdAt
+
+  author {
+    id
+    username
+    avatar
+  }
+}

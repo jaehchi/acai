@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { withApollo } from 'react-apollo';
+import ApolloClient from 'apollo-client';
+import PropTypes from 'prop-types';
+import { propType } from 'graphql-anywhere';
+import gql from 'graphql-tag';
 
 import CHANNEL_LIST_QUERY from '../../../graphQL/queries/ChannelList.graphql';
+
 import './guildEntry.sass';
 
 class GuildEntry extends Component {
@@ -31,6 +36,7 @@ class GuildEntry extends Component {
   }
   
   render() {
+    console.log('guild shit ', this.props)
     const { guild: { id, name, avatar, channels: [{ children }] }} = this.props;
     const path = `/channels/${id}/${children[0].id}`;
 
@@ -50,5 +56,23 @@ class GuildEntry extends Component {
     );
   };
 };
+
+
+GuildEntry.fragments = {
+  entry: gql`
+    fragment GuildInfo on Channel {
+      id
+      name
+      avatar
+    }
+  `,
+};
+
+GuildEntry.propType = {
+  guild: propType(GuildEntry.fragments.entry).isRequired,
+  client: PropTypes.instanceOf(ApolloClient).isRequired,
+}
+
+
 
 export default withRouter(withApollo(GuildEntry));

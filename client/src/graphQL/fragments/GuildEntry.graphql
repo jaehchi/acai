@@ -1,0 +1,9 @@
+fragment GuildEntry on Guild {
+  ...GuildInfo
+}
+
+fragment GuildInfo on Guild {
+  id
+  name
+  avatar
+}
