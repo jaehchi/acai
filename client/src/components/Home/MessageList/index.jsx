@@ -64,6 +64,8 @@ class MessageList extends Component {
   constructor(props) {
     super(props);
 
+    this.subscribe = null;
+
     this._subscribeToNewMessage = this._subscribeToNewMessage.bind(this);
     this._refetchMessages = this._refetchMessages.bind(this);
   }
@@ -110,7 +112,7 @@ class MessageList extends Component {
         }).length > 0;
 
         if ( !isDuplicate ) {
-          prev.messages.push(newMessage)
+          prev.messages.push(newMessage);
         }
   
         return Object.assign({}, prev, {
@@ -157,6 +159,7 @@ MessageList.propTypes = {
   messages: PropTypes.arrayOf(propType(MessageList.fragments.messages).isRequired),
   refetch: PropTypes.func.isRequired,
   subscribeToMore: PropTypes.func.isRequired,
+  channel_id: PropTypes.string.isRequired,
 }
 
 export default MessageList;

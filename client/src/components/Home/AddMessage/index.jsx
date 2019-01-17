@@ -66,10 +66,11 @@ class AddMessage extends Component {
           // pushes newly created messages in all messages array
           data.messages.push(createMessage);
 
+
           // updates the all messages back in the cache
           store.writeQuery({ 
             query: MESSAGE_LIST_QUERY,
-            data: data,
+            data,
             variables: {
               id: this.props.channel_id,
             }

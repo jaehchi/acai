@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { withApollo } from 'react-apollo';
-
 import { propType } from 'graphql-anywhere';
-
 import gql from 'graphql-tag';
 
 import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
@@ -26,7 +24,10 @@ class ChannelEntry extends Component {
   };
 
   render() {
-    const { channel: { id, name, type }, match } = this.props;
+    const { 
+      channel: { id, name, type }, 
+      match 
+    } = this.props;
     const path = `${match.url}/${id}`;
   
     return (
@@ -42,6 +43,7 @@ class ChannelEntry extends Component {
     );
   }
 };
+
 
 ChannelEntry.fragments = {
   entry: gql`

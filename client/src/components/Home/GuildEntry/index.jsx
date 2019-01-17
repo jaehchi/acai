@@ -36,7 +36,6 @@ class GuildEntry extends Component {
   }
   
   render() {
-    console.log('guild shit ', this.props)
     const { guild: { id, name, avatar, channels: [{ children }] }} = this.props;
     const path = `/channels/${id}/${children[0].id}`;
 
