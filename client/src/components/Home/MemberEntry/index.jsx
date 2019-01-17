@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
+import './memberEntry.sass';
 
 
-class MemberEntry extends Component {
-  constructor (props) {
-    super(props);
-
-  }
-
-  render() {
-    const { member } = this.props;
-  
-    return (
-      <div>
-        {member.username}
+const MemberEntry = ({ member }) => {
+  return (
+    <div className="member">
+      <div className="member__avatar">
+        <div className="member__status"></div>
       </div>
-    );
-  }
+      <div className="member__name">{member.username}</div>
+    </div>
+  );
 }
+
 
 
 

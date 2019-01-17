@@ -1,0 +1,30 @@
+@import '../../globals/global.sass'
+
+.member
+  border-radius: 3px
+  box-sizing: border-box
+  display: flex
+  flex-direction: row
+  height: 32px
+  margin: 1px 8px 1px 8px
+  overflow: hidden
+  padding: 0 8px
+  justify-content: start
+  align-items: center
+
+  .member__name
+    font-size: 15px
+    line-height: 32px
+    color: #b9bbbe
+    min-width: 0
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+    font-weight: 500
+
+
+  &:hover 
+    background-color: rgba(79,84,92,.6)
+
+    .member__name
+      color: #FFF
