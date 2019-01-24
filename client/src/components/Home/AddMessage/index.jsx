@@ -3,7 +3,6 @@ import { graphql } from 'react-apollo';
 import { propType } from 'graphql-anywhere';
 import PropTypes from 'prop-types';
 
-
 import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
 import CREATE_MESSAGE_MUTATION from '../../../graphql/mutations/CreateMessage.graphql';
 
@@ -62,10 +61,16 @@ class AddMessage extends Component {
               id: this.props.channel_id
             } 
           });
+          
+          createMessage.__typename = "Message";
+          const node = {
+            cursor: createMessage.id,
+            node: createMessage,
+            __typename: "MessageEdge"
+          }
 
           // pushes newly created messages in all messages array
-          data.messages.push(createMessage);
-
+          data.messages.edges.push(node);
 
           // updates the all messages back in the cache
           store.writeQuery({ 

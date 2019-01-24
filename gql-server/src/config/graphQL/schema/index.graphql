@@ -50,7 +50,7 @@ type Query {
   guild(id: ID!): Guild!
   channels(id: ID!, orderBy: ChannelOrderByInput): [Channel!]!
   channel(id: ID!): Channel
-  messages(id: ID!, orderBy: MessageOrderByInput, last: Int): [Message!]!
+  messages(id: ID!, before: ID, last: Int) : MessageConnection!
 }
 
 type Subscription {

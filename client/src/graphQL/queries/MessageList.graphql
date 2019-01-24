@@ -1,13 +1,21 @@
-query messages($id: ID!) {
-  messages(id: $id, orderBy: createdAt_ASC) {
-    id
-    content
-    createdAt
-
-    author {
-      id
-      username
-      avatar
+query Messages($id: ID!, $cursor: ID) {
+  messages(id: $id, before: $cursor, last: 50 ) {
+    pageInfo {
+      startCursor
+      hasPreviousPage
+    }
+    edges {
+      node {
+        id
+        content
+        createdAt
+        author {
+          id
+          username
+          avatar
+        }
+      }
+      cursor
     }
   },
   channel(id: $id) {

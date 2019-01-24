@@ -19,8 +19,6 @@ class FeedPage extends Component {
   render() {
     const { match } = this.props;
 
-    console.log('hey')
-
     return (
       <Query query={MEMBER_LIST_QUERY} variables={{ id: match.params.guild_id }} pollInterval={1000000}>
         {  ({ loading, data: { guild } } ) => {
@@ -29,12 +27,12 @@ class FeedPage extends Component {
           } 
 
           return (
-            <Query query={MESSAGE_LIST_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy="cache-first">
-              { ({ loading, subscribeToMore, refetch, data: { channel, messages } }) => {
+            <Query query={MESSAGE_LIST_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy='cache-first'>
+              { ({ loading, subscribeToMore, refetch, fetchMore, data: { messages, channel}}) => {
                 if (loading ) {
-                  return <Loading/>
+                  return <Loading/>;
                 }
-                
+
                 return (
                   <div className="feed">
                     <div className="feed__nav">
@@ -46,9 +44,11 @@ class FeedPage extends Component {
                     </div>
                     <div className="feed__content">
                       <MessageList 
-                        messages={messages || []} 
+                        messages={messages.edges || []} 
+                        pageInfo = {messages.pageInfo}
                         subscribeToMore={subscribeToMore} 
                         refetch={refetch}
+                        fetchMore={fetchMore}
                         channel_id={channel.id}
                       />
                       <AddMessage channel_id={match.params.channel_id} channel_name={channel.name} />
@@ -58,6 +58,7 @@ class FeedPage extends Component {
                     </div>
                   </div>
                 );
+
               }}
             </Query>
           );
