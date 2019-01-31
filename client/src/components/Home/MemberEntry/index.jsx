@@ -12,9 +12,6 @@ const MemberEntry = ({ member }) => {
       <div className="member__name">{member.username}</div>
     </div>
   );
-}
-
-
-
+};
 
 export default MemberEntry;

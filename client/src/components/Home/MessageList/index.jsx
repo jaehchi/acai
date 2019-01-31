@@ -24,47 +24,39 @@ const apply = (map) => {
   return arr;
 }
 
-const separateMessagesByDate = (messages) => {
-  const map = {};
-  let array;
-  let date;
-  let prevTime; 
-  let user;
+const transformMessages = (messages) => {
+  const list = {};
+  let messageLinks = [];
+  let currentDate;
+  let currentTime;
+  let currentUser;
 
-  each( messages, ( node ) => {
-    const message = node.node
-    let time = message.createdAt;
-    let createdAt =  moment(message.createdAt).format('MMMM Do, YYYY| h:mm A').split('| ');
-  
-    message.createdAt = {
-      date: createdAt[0],
-      time: createdAt[1]
-    };
+  each( messages, ( { node } ) => {
+    const message = node;
+    currentDate = moment(message.createdAt).format('MMMM Do, YYYY');
 
-    date = message.createdAt.date;
-  
-    if ( map[date] === undefined ) {
-      array = [];
-      user = message.author.username;
-      prevTime = time;
-      array.push( message );
-      map[date] = [array];
+    if ( list[ currentDate ] === undefined ) {
+      messageLinks = [];
+      currentUser = message.author.username;
+      currentTime = message.createdAt;
+      messageLinks.push( message );
+      list[ currentDate ] = [ messageLinks ];
     } else {
-      if( user === message.author.username && moment.duration( moment(time).diff(moment(prevTime)) ).asMinutes() <= 2 ) {
-        array.push(message);
-        prevTime = time;
+      if ( currentUser === message.author.username && moment.duration(moment(message.createdAt).diff(moment(currentTime)) ).asMinutes() <= 2 ) {
+        messageLinks.push( message );
+        currentTime = message.createdAt; 
       } else {
-        array = [];
-        user = message.author.username;
-        prevTime = time;
-        array.push(message);
-        map[date].push(array);
+        messageLinks = [];
+        currentUser = message.author.username;
+        currentTime = message.createdAt;
+        messageLinks.push( message );
+        list[ currentDate ].push( messageLinks );
       }
     }
   });
-  
-  return apply(map);
-}
+
+  return apply( list );
+};
 
 class MessageList extends Component {
   constructor(props) {
@@ -105,7 +97,7 @@ class MessageList extends Component {
   getSnapshotBeforeUpdate( prevProps, prevState ) {
     if (prevProps.messages.length < this.props.messages.length) {
       const list = this.list.current;
-      return list.scrollHeight + ( list.clientHeight / 3 );
+      return list.scrollHeight + ( list.clientHeight / 2 );
     }
     return null;
   }
@@ -137,9 +129,7 @@ class MessageList extends Component {
           : prev;
         }, 
       });
-
     }
-    
   }
 
   _subscribeToNewMessage () {
@@ -193,8 +183,8 @@ class MessageList extends Component {
     return (
       <div id="messageList" onScroll={this._onScrollHandler} ref={this.list}>
         { 
-          messages && separateMessagesByDate(messages).map( ( messagesByDate, index ) => ( 
-            <MessageDivider key={index} messages={messagesByDate}/>
+          messages && transformMessages(messages).map( ( messagesByDate, index ) => ( 
+            <MessageDivider key={index} messages={messagesByDate} date={messagesByDate[0][0].createdAt}/>
           )) 
         }
       </div>
@@ -226,3 +216,49 @@ MessageList.fragments = {
 // }
 
 export default withRouter(MessageList);
+
+
+const separateMessagesByDate = (messages) => {
+  const map = {};
+  let array;
+  let date;
+  let prevTime; 
+  let user;
+
+  each( messages, ( node ) => {
+    const message = node.node
+    let time = message.createdAt;
+    let createdAt =  moment(message.createdAt).format('MMMM Do, YYYY| h:mm A').split('| ');
+    
+    message.createdAt = {
+      date: createdAt[0],
+      time: createdAt[1]
+    };
+
+    
+    // console.log('yo', moment.duration(moment('2019-01-22T10:33:41.275Z').diff(moment('2019-01-22T10:31:40.886Z')) ).asMinutes() );
+    // console.log('asdf', moment('2019-01-20T10:33:41.275Z').calendar(null))
+    date = message.createdAt.date;
+  
+    if ( map[date] === undefined ) { // if no date is in map then ....
+      array = [];
+      user = message.author.username;
+      prevTime = time;
+      array.push( message );
+      map[date] = [array];
+    } else {  /// if the date is already in map, we ....
+      if( user === message.author.username && moment.duration( moment(time).diff(moment(prevTime)) ).asMinutes() <= 2 ) { // check if its from the same user and the time differnece is relatively close
+        array.push(message);
+        prevTime = time;
+      } else {
+        array = [];
+        user = message.author.username;
+        prevTime = time;
+        array.push(message);
+        map[date].push(array);
+      }
+    }
+  });
+  
+  return apply(map);
+}

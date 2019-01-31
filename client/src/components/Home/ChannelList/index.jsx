@@ -9,7 +9,6 @@ import Category from '../Category';
 import './channelList.sass';
 
 const ChannelList = ({ channels = [],  match }) => {
-  console.log(channels)
   return  (
     <ul className="channels">
       {
