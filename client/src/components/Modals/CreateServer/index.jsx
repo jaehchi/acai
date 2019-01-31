@@ -52,7 +52,7 @@ class CreateServer extends Component {
 
   async onUpload (file) {
     try {
-      const { text } = await request.post(`http://localhost:3100/api/uploads/avatar`)
+      const { text } = await request.post(`http://localhost:3100/api/uploads/guild/avatar`)
         .attach('avatar', file, file.name);
 
       this.setState({

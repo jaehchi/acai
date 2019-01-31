@@ -10,13 +10,13 @@ const filename = (req, file, cb) => {
 };
 
 const storage = multer.diskStorage({
-  destination: './src/uploads/avatar',
+  destination: './src/uploads/guild/avatar',
   filename,
 });
 
 const upload = multer({ storage, });
   
-router.post('/avatar', upload.single('avatar'), ( req, res ) => {
+router.post('/guild/avatar', upload.single('avatar'), ( req, res ) => {
   if (!req.file) {
     return res.send({ sucess: false });
   }

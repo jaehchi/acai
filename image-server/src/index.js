@@ -6,7 +6,7 @@ import App from './config/express';
 
 const app = App.express;
 
-app.use('/',  express.static(join(__dirname, './uploads/avatar')));
+app.use('/',  express.static(join(__dirname, './uploads/guild/avatar')));
 
 const server = createServer( app );
 const PORT = process.env.PORT || 3100;
