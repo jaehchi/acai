@@ -133,7 +133,7 @@ class MessageList extends Component {
   }
 
   _subscribeToNewMessage () {
-    // subscribeToMore returns an unsubscribe function, so this.unsubscribe() unsubscribes to from the current channel.
+    // subscribeToMore returns an unsubscribe function, so this.unsubscribe() unsubscribes from the current channel.
     this.unsubscribe = this.props.subscribeToMore({
       document: NEW_MESSAGE_SUBSCRIPTION,
       variables: {
@@ -142,7 +142,7 @@ class MessageList extends Component {
       updateQuery: ( prev, { subscriptionData } ) => {
         if (!subscriptionData.data) {
           return prev;
-        } 
+        }
 
         const node = {
           node: subscriptionData.data.newMessage.node,

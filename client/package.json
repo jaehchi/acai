@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@atlaskit/tree": "^4.1.8",
     "apollo-boost": "^0.1.16",
+    "apollo-client": "^2.4.5",
     "apollo-link-context": "^1.0.9",
     "apollo-link-ws": "^1.0.12",
     "dotenv": "^6.1.0",
@@ -20,7 +20,6 @@
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-apollo": "^2.2.4",
-    "react-beautiful-dnd": "^10.0.2",
     "react-dom": "^16.5.2",
     "react-dropzone": "^7.0.1",
     "react-router-dom": "^4.3.1",
