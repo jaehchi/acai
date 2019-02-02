@@ -42,7 +42,7 @@ const transformMessages = (messages) => {
       messageLinks.push( message );
       list[ currentDate ] = [ messageLinks ];
     } else {
-      if ( currentUser === message.author.username && moment.duration(moment(message.createdAt).diff(moment(currentTime)) ).asMinutes() <= 2 ) {
+      if ( currentUser === message.author.username && moment.duration(moment(message.createdAt).diff(moment(currentTime))).asMinutes() <= 5 ) {
         messageLinks.push( message );
         currentTime = message.createdAt; 
       } else {

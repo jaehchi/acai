@@ -33,6 +33,7 @@
     "moment": "^2.23.0",
     "pg": "^7.5.0",
     "prisma-binding": "^2.2.14",
+    "randomcolor": "^0.5.3",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {

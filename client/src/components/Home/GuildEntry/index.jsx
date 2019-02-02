@@ -47,7 +47,7 @@ class GuildEntry extends Component {
               <img 
                 src={`http://localhost:3100/${avatar}`} 
                 onError={this.onBrokenImage} 
-              /> : <p>{name[0]}</p>
+              /> : <div>{name[0]}</div>
           }
         </NavLink>
         <div className="g-selector"></div>

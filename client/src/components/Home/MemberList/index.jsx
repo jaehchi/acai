@@ -1,22 +1,36 @@
 import React from 'react';
+import { each } from 'lodash';
 
 import MemberEntry from '../MemberEntry';
 
 import './memberList.sass';
 
+const filterMembers = ( members ) => {
+  let onlineMembers = [];
+  let offlineMembers = [];
+
+  each( members, ( member ) => {
+    member.status !== 'offline' ? onlineMembers.push(member) : offlineMembers.push(member)
+  });
+
+  return {
+    onlineMembers,
+    offlineMembers,
+  };
+};
+
 const MemberList = ({ members = [] }) => {
-  const membersOnline = members.filter( member => member.status === 'online');
-  const membersOffline = members.filter( member => member.status === 'offline');
+  const { onlineMembers, offlineMembers } = filterMembers(members);
   
   return (
     <div className="member__list">
       <div>
-        <div className="ml__presence">{`Online-${membersOnline.length}`}</div>
-        { membersOnline && membersOnline.map( member => ( <MemberEntry key={member.id} member={member}/> )) }
+        <div className="ml__presence">{`ONLINE – ${onlineMembers.length}`}</div>
+        {  onlineMembers.map( member => ( <MemberEntry key={member.id} member={member}/> )) }
       </div>
       <div>
-        <div className="ml__presence">{membersOffline.length ? `Offline-${membersOffline.length}` : null}</div>
-        { membersOffline && membersOffline.map( member => ( <MemberEntry key={member.id} member={member}/> )) }
+        <div className="ml__presence">{offlineMembers.length ? `OFFLINE – ${offlineMembers.length}` : null}</div>
+        {   offlineMembers.map( member => ( <MemberEntry key={member.id} member={member}/> )) }
       </div>
     </div>
   );

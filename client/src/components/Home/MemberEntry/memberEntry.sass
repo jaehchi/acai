@@ -5,15 +5,28 @@
   box-sizing: border-box
   display: flex
   flex-direction: row
-  height: 32px
+  height: 40px
   margin: 1px 8px 1px 8px
   overflow: hidden
   padding: 0 8px
   justify-content: start
   align-items: center
 
+  .member__avatar 
+    margin-right: 10px
+    
+    img
+      height: 30px
+      width: 30px
+      border-radius: 50%
+  
+  .member-default-avatar
+    height: 30px
+    width: 30px
+    border-radius: 50%
+
   .member__name
-    font-size: 15px
+    font-size: 16px
     line-height: 32px
     color: #b9bbbe
     min-width: 0
@@ -21,7 +34,6 @@
     text-overflow: ellipsis
     white-space: nowrap
     font-weight: 500
-
 
   &:hover 
     background-color: rgba(79,84,92,.6)
