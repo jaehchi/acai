@@ -21,7 +21,7 @@ const filterMembers = ( members ) => {
 
 const MemberList = ({ members = [] }) => {
   const { onlineMembers, offlineMembers } = filterMembers(members);
-  
+
   return (
     <div className="member__list">
       <div>

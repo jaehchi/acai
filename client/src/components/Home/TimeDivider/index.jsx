@@ -27,7 +27,7 @@ const TimeDivider = ({ messages = [], match }) => {
         <div className="t-message">
           {
             messages && messages.map( (message, i) => ( 
-              <div className="t-child" key={message.id}>
+              <div key={message.id}>
                 <MessageEntry message={message}/>
               </div>
             ))
