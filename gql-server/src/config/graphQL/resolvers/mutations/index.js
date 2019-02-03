@@ -1,22 +1,43 @@
-import { signup } from './signup';
-import { login } from './login';
-import { logout } from './logout';
-import { createGuild } from './createGuild';
-import { joinGuild } from './joinGuild';
-import { updateChannelPosition } from './channels/updateChannelPosition';
-import { createChannel } from './channels/createChannel';
-import { createMessage } from './createMessage';
-import { createSlug } from './createSlug';
+import { signup } from './user/signup';
+import { login } from './user/login';
+import { logout } from './user/logout';
+import { deleteUser } from './user/deleteUser';
+
+import { createGuild } from './guild/createGuild';
+import { joinGuild } from './guild/joinGuild';
+import { updateGuild } from './guild/updateGuild';
+import { deleteGuild } from './guild/deleteGuild';
+
+import { updateChannelPosition } from './channel/updateChannelPosition';
+import { createChannel } from './channel/createChannel';
+import { updateChannel } from './channel/updateChannel';
+import { deleteChannel } from './channel/deleteChannel';
+
+import { createMessage } from './message/createMessage';
+import { updateMessage } from './message/updateMessage';
+import { deleteMessage } from './message/deleteMessage';
+
+import { createSlug } from './slug/createSlug';
 
 
 export default {
   signup,
   login,
   logout,
+
   createGuild,
   joinGuild,
+  updateGuild,
+  deleteGuild,
+  
   createChannel,
-  createMessage,
-  createSlug,
   updateChannelPosition,
+  updateChannel,
+  deleteChannel,
+
+  createMessage,
+  updateMessage,
+  deleteMessage,
+
+  createSlug,
 };

@@ -82,9 +82,13 @@ class MessageList extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     const list = this.list.current;
 
-    if (snapshot) {
+    if (snapshot && prevProps.pageInfo.hasPreviousPage) {
       list.scrollTop = list.scrollHeight - snapshot;
     }
+
+    // if ( this.props.messages.length % 50 !== 0 && !prevProps.pageInfo.hasPreviousPage ) { // if you want new message to bring the clientView to the bottom of the list
+    //   list.scrollTop = list.scrollHeight;
+    // }
     
     if ( this.props.channel_id !== prevProps.channel_id ) {    // If we changed channels, ...
       this.unsubscribe();                                      // Unsubscribe to the previous channel
@@ -179,6 +183,7 @@ class MessageList extends Component {
 
   render() {
     const { messages } = this.props;
+    console.log(messages.length, this.props.pageInfo.hasPreviousPage)
 
     return (
       <div id="messageList" onScroll={this._onScrollHandler} ref={this.list}>

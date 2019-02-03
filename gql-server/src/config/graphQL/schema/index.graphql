@@ -28,17 +28,25 @@ type Mutation {
   signup(email: String!, password: String!, username: String!, avatar: String) : AuthPayload
   login(email: String!, password: String!): AuthPayload
   logout(lastSeenOn: String!): User
-
+  
+  #
+  deleteUser(id: ID!) : User
   # Guilds
   createGuild(name: String!, avatar: String): Guild
   joinGuild(slug: String!): Guild
+  updateGuild(id: ID!): Guild
+  deleteGuild(id: ID!): Guild
   
   # Channels
   createChannel(id: ID!, type: Int!, name: String!) : Channel
   updateChannelPosition(from: Int!, to: Int!, id: ID!): [Channel!]!
+  updateChannel(id: ID!): Channel
+  deleteChannel(id: ID!): Channel
 
   # Messages
   createMessage(id: ID!, content: String!): Message
+  updateMessage(id: ID!): Message
+  deleteMessage(id: ID!): Message
 
   # Invites
   createSlug(id: ID!): Slug

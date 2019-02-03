@@ -5,6 +5,7 @@ import GuildListPage from '../GuildListPage';
 import ChannelListPage from '../ChannelListPage';
 import FeedPage from '../FeedPage';
 
+
 import './home.sass';
 
 class Home extends Component {

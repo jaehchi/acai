@@ -1,7 +1,7 @@
 import randomColor from 'randomcolor';
  
-import { hashPassword } from '../../../utils/bcrypt';
-import { generateToken } from '../../../utils/jwt';
+import { hashPassword } from '../../../../utils/bcrypt';
+import { generateToken } from '../../../../utils/jwt';
 
 export const signup = async (parent, args, ctx, info) => {
 
@@ -15,7 +15,7 @@ export const signup = async (parent, args, ctx, info) => {
       status: 'online',
       password
     }
-  }, `{ id email username status }`);
+  }, `{ id email username status, avatar }`);
   
   const token = await generateToken(user.id);
 

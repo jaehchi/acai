@@ -20,7 +20,8 @@ class FeedPage extends Component {
     const { match } = this.props;
 
     return (
-      <Query query={MEMBER_LIST_QUERY} variables={{ id: match.params.guild_id }} pollInterval={1000000}>
+      // 5000
+      <Query query={MEMBER_LIST_QUERY} variables={{ id: match.params.guild_id }} pollInterval={100000}> 
         {  ({ loading, data: { guild } } ) => {
           if (loading) {
             return <Loading/>;

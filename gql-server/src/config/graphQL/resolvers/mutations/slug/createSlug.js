@@ -1,5 +1,5 @@
-import { getUserID } from '../../../utils/jwt';
-import { encrypt, decrypt } from '../../../utils/crypto';
+import { getUserID } from '../../../../utils/jwt';
+import { encrypt, decrypt } from '../../../../utils/crypto';
 
 export const createSlug = async ( parent, { id }, ctx, info ) => {
   const userID = await getUserID(ctx.request);

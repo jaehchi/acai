@@ -1,5 +1,5 @@
-import { getUserID } from '../../../utils/jwt';
-import { decrypt } from '../../../utils/crypto';
+import { getUserID } from '../../../../utils/jwt';
+import { decrypt } from '../../../../utils/crypto';
 
 export const joinGuild = async (parent, { slug }, ctx, info) => {
   const userID = await getUserID(ctx.request);

@@ -1,4 +1,4 @@
-import { getUserID } from '../../../utils/jwt';
+import { getUserID } from '../../../../utils/jwt';
 
 export const logout = async (parent, { lastSeenOn }, ctx, info) => {
   const userID = getUserID(ctx.request);

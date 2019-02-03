@@ -63,8 +63,6 @@ export const updateChannelPosition = async (parent, args, ctx, info) => {
     );
   })
   
-
-
   // Update all sections in parallel
   await Promise.all(channelsPositionToReorderMutations);
 
