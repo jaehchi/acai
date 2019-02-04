@@ -29,6 +29,7 @@ class Login extends Component {
     e.preventDefault();
     
     try {
+      await localStorage.clear();
       const { data: { login } } = await this.props.mutate({
         variables: this.state
       });
@@ -46,6 +47,7 @@ class Login extends Component {
 
   async _saveUserData ({ token, user }) {
     console.log(user);
+    localStorage._id = user.id
     localStorage.access_token = token;
     localStorage.username = user.username;
   }
