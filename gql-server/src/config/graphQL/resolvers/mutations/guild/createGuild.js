@@ -8,11 +8,21 @@ export const createGuild = async (parent, args, ctx, info) => {
       type: 4,    // category
       name: 'Text Channel', 
       position: 0,
+      owner: {
+        connect: {
+          id: userID
+        }
+      },
       children: {
         create: {
           type: 0, // category default channel
           position: 0,
-          name: 'general'
+          name: 'general',
+          owner: {
+            connect: {
+              id: userID
+            }
+          },
         }
       }
     }

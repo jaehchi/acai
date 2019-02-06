@@ -6,7 +6,7 @@ export const generateToken = async (id) => {
     // exp: (Date.now() / 1000) + 604800,
     userID : id,
   };
-
+  
   const token = sign(payload, process.env.TOKEN_SECRET_KEY);
 
   return token;
@@ -21,5 +21,5 @@ export const getUserID = async (req) => {
     return userID;
   }
 
-  throw new Error('Not authenticated');
+  throw new Error('Not Authenticated');
 };

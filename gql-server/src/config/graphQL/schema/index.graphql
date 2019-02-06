@@ -34,13 +34,14 @@ type Mutation {
   # Guilds
   createGuild(name: String!, avatar: String): Guild
   joinGuild(slug: String!): Guild
-  updateGuild(id: ID!): Guild
+  leaveGuild(id: ID!): Guild
+  updateGuild(id: ID!, name: String, avatar: String, newOwner: ID ): Guild
   deleteGuild(id: ID!): Guild
   
   # Channels
   createChannel(id: ID!, type: Int!, name: String!) : Channel
   updateChannelPosition(from: Int!, to: Int!, id: ID!): [Channel!]!
-  updateChannel(id: ID!): Channel
+  updateChannel(id: ID!, name: String, topic: String): Channel
   deleteChannel(id: ID!): Channel
 
   # Messages

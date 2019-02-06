@@ -5,6 +5,7 @@ import { deleteUser } from './user/deleteUser';
 
 import { createGuild } from './guild/createGuild';
 import { joinGuild } from './guild/joinGuild';
+import { leaveGuild } from './guild/leaveGuild';
 import { updateGuild } from './guild/updateGuild';
 import { deleteGuild } from './guild/deleteGuild';
 
@@ -27,6 +28,7 @@ export default {
 
   createGuild,
   joinGuild,
+  leaveGuild,
   updateGuild,
   deleteGuild,
   
