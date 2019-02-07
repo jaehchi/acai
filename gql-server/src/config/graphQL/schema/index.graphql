@@ -33,7 +33,7 @@ type Mutation {
   deleteUser(id: ID!) : User
   # Guilds
   createGuild(name: String!, avatar: String): Guild
-  joinGuild(slug: String!): Guild
+  joinGuild(invite: String!): Guild
   leaveGuild(id: ID!): Guild
   updateGuild(id: ID!, name: String, avatar: String, newOwner: ID ): Guild
   deleteGuild(id: ID!): Guild
@@ -50,7 +50,7 @@ type Mutation {
   deleteMessage(id: ID!): Message
 
   # Invites
-  createSlug(id: ID!): Slug
+  createInvite(id: ID!): Invite
 }
 
 type Query {

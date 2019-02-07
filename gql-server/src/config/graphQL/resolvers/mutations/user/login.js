@@ -1,4 +1,4 @@
-import { comparePasswords } from '../../../../utils/bcrypt';
+import { comparePasswords, hashPassword } from '../../../../utils/bcrypt';
 import { generateToken } from '../../../../utils/jwt';
 
 export const login = async (parent, { email, password }, ctx, info) => {
@@ -13,6 +13,8 @@ export const login = async (parent, { email, password }, ctx, info) => {
   }
 
   const isValid = await comparePasswords(password, user.password);
+
+  console.log(isValid)
 
   if (!isValid) {
     throw new Error('Invalid password');

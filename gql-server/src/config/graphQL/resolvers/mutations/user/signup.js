@@ -6,6 +6,7 @@ import { generateToken } from '../../../../utils/jwt';
 export const signup = async (parent, args, ctx, info) => {
 
   const password = await hashPassword(args.password);
+  console.log('password', password);
 
   args.avatar = args.avatar ? args.avatar : randomColor({ luminosity: 'light', hue: 'random' });
   

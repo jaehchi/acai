@@ -1,22 +1,23 @@
 import { getUserID } from '../../../../utils/jwt';
 import { decrypt } from '../../../../utils/crypto';
 
-export const joinGuild = async (parent, { slug }, ctx, info) => {
+export const joinGuild = async (parent, { invite }, ctx, info) => {
   const userID = await getUserID(ctx.request);
 
-  const slugData = await ctx.db.query.slugs({
+  const inviteData = await ctx.db.query.invites({
     where: {
-      code: slug
+      code: invite
     }
-  }, `{ id, code, key guild { id }}`);
+  }, `{ id, code, guild { id }}`);
 
 
-  const dec = await decrypt(slugData[0].code + slugData[0].key);
 
-  if ( dec === slugData[0].id ) {
+  const isValidInvite = inviteData[0].code === invite;
+
+  if ( isValidInvite ) {
     return await ctx.db.mutation.updateGuild({
       where: {
-        id: slugData[0].guild.id
+        id: inviteData[0].guild.id
       },
       data: {
         members: {
@@ -26,5 +27,6 @@ export const joinGuild = async (parent, { slug }, ctx, info) => {
         }
       }
     }, info);
-  };
+  }
+
 };
