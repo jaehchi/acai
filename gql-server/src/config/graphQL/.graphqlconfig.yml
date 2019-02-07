@@ -2,7 +2,7 @@ projects:
   database:
     schemaPath: schema/generated/prisma.graphql
     extensions:
-      prisma: prismaLayer/prisma.yml
+      prisma: database/prisma.yml
   app:
     schemaPath: schema/index.graphql
     extensions:

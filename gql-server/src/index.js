@@ -1,7 +1,6 @@
 import server from './config/graphQL';
 import { success } from './lib/logger'
 
-
 const PORT = process.env.PORT || 4000;
 
 const options = {

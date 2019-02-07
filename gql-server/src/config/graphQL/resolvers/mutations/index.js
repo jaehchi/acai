@@ -18,13 +18,14 @@ import { createMessage } from './message/createMessage';
 import { updateMessage } from './message/updateMessage';
 import { deleteMessage } from './message/deleteMessage';
 
-import { createSlug } from './slug/createSlug';
+import { createInvite } from './invite/createInvite';
 
 
 export default {
   signup,
   login,
   logout,
+  deleteUser,
 
   createGuild,
   joinGuild,
@@ -41,5 +42,5 @@ export default {
   updateMessage,
   deleteMessage,
 
-  createSlug,
+  createInvite,
 };

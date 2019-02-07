@@ -1,10 +1,10 @@
-type Slug {
+type Invite {
   id: ID! @unique
   createdAt: DateTime!
   code: String
+  expiresIn: String
 
-  key: String
-  guild: Guild! 
+  guild: Guild
   channel: Channel
 }
 
@@ -23,7 +23,7 @@ type Channel {
   recipients: [User!]! @relation(name: "DMS", onDelete: SET_NULL)
   parent_id: Channel @relation(name: "ParentChannel", onDelete: SET_NULL)
   children: [Channel!]! @relation(name: "ParentChannel", onDelete: SET_NULL)
-  slugs: [Slug!]!
+  invites: [Invite!]!
 }
 
 type Guild  {
@@ -36,7 +36,7 @@ type Guild  {
   avatar: String
 
   channels: [Channel!]! @relation(name: "GuildChannels", onDelete: CASCADE)
-  slugs: [Slug!]!
+  invites: [Invite!]!
   members: [User!]! @relation(name: "GuildMember", onDelete: SET_NULL)
 }
 
