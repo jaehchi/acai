@@ -15,7 +15,7 @@ const ChannelList = ({ channels = [],  match }) => {
         channels && channels.map( channel => (
           <div key={channel.id}>
             { channel.type === 4 ? <Category channel={channel} match={match}/> : <ChannelEntry channel={channel} match={match}/> }
-            { channel.children && channel.children.map( child => ( <ChannelEntry key={child.id} channel={child} match={match} /> )) }
+            { channel.children && channel.children.map( child => ( <ChannelEntry key={child.id} channel={child} match={match}/> )) }
           </div>
         ))
       }

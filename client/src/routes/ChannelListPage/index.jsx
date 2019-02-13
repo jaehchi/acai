@@ -16,8 +16,8 @@ class ChannelListPage extends Component {
 
   render() {
     const { match } = this.props;
-    
-    return (
+
+    const channels = match.path === `/channels/:guild_id/` ? (
       <Query query={CHANNEL_LIST_QUERY} variables={{ id: match.params.guild_id }}>
         { ({ loading, data: { channels } }) => {
           if (loading) {
@@ -25,7 +25,7 @@ class ChannelListPage extends Component {
           }
 
           return (
-            <div className="guild-content">
+            <div id="channels__content">
               <div className="channel__nav">
                 <div>{channels[0].belongsTo.name}</div>
               </div>
@@ -37,6 +37,16 @@ class ChannelListPage extends Component {
           );
         }}
       </Query>
+    ) : (
+      <div id="channels__content">
+        hey
+      </div>
+    );
+    
+    return (
+      <div>
+        {channels}
+      </div>
     );
   }
 };

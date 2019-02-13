@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import GuildListPage from '../GuildListPage';
 import ChannelListPage from '../ChannelListPage';
+import DMPage from '../DMPage';
 import FeedPage from '../FeedPage';
 
 
@@ -14,23 +15,29 @@ class Home extends Component {
   }
 
   render() {
-    if ( this.props.match.path === '/channels/:guild_id/:channel_id') {
-      return (
+    const { match } = this.props; 
+
+    console.log(match)
+    const content = match.path === `/channels/@me` ? (
+        <div id="home">
+          <GuildListPage/>
+          <Route path={`/channels/@me`} component={ChannelListPage}/>
+          {/* <Route path={`channels/@me/:channel_id`} component={DMFeedPage}/> */}  
+        </div>
+      ) : ( 
         <div id="home">
           <GuildListPage/>
           <Route path={`/channels/:guild_id/`} component={ChannelListPage}/>
-          <Route path={`/channels/:guild_id/:channel_id`} component={FeedPage}/>
+          <Route path={`/channels/:guild_id/:channel_id`} component={FeedPage}/>  
         </div>
       );
-    } else {
+
       return (
-        <div id="home">
-          <GuildListPage/>
-          {/* <Route path={`channels/@me/:channel_id`} component={DirectMessages}/>
-          <Route path={`channels/@me/:channel_id`} component={DirectMessages}/> */}
+        <div>
+          {content}
         </div>
-      )
-    }
+      );
+
   }
 };
 
