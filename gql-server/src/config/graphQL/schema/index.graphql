@@ -15,6 +15,7 @@ type User {
   lastSeenOn: String
   status: String!
   
+  friends: [User!]!
   ownerOfGuild: [Guild!]!
   memberOf: [Guild!]!
   ownerOfDMs: [Channel!]!
@@ -29,8 +30,10 @@ type Mutation {
   login(email: String!, password: String!): AuthPayload
   logout(lastSeenOn: String!): User
   
-  #
+  # Users
   deleteUser(id: ID!) : User
+  addFriend(friend_id: ID!): User
+
   # Guilds
   createGuild(name: String!, avatar: String): Guild
   joinGuild(invite: String!): Guild

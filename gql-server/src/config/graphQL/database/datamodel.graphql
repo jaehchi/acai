@@ -17,7 +17,6 @@ type Channel {
   name: String!
   topic: String
 
-  owner: User @relation(name: "DMOwner", onDelete: SET_NULL)
   belongsTo: Guild @relation(name: "GuildChannels", onDelete: SET_NULL)
   messages: [Message!]! @relation(name: "ChannelMessages", onDelete: CASCADE)
   recipients: [User!]! @relation(name: "DMS", onDelete: SET_NULL)
@@ -61,10 +60,11 @@ type User {
   lastSeenOn: String
 
   status: String!
-  
+
+
+  friends: [User!]! @relation(name: "Friends", onDelete: SET_NULL)
   ownerOfGuild: [Guild!]! @relation(name: "GuildOwner", onDelete: CASCADE)  
   memberOf: [Guild!]! @relation(name: "GuildMember", onDelete: SET_NULL)
-  ownerOfDMs: [Channel!]! @relation(name: "DMOwner", onDelete: CASCADE)
   dmChannels: [Channel!]! @relation(name: "DMS", onDelete: CASCADE)
   messages: [Message!]!
 }

@@ -51,6 +51,7 @@ const createUsers = async () => {
 
       users[i].id = user.id;
     }
+    
   } catch (e) {
     console.log(e);
   }

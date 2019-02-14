@@ -25,6 +25,12 @@ const routes = [
     component: Home,
   },
   {
+    path: '/channels/@me/:channel_id',
+    name: 'me',
+    exact: true,
+    component: Home,
+  },
+  {
     path: '/channels/:guild_id/:channel_id',
     name: 'home',
     exact: true,

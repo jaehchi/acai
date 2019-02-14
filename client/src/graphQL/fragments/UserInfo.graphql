@@ -3,4 +3,12 @@ fragment UserInfo on User {
   username
   status
   avatar
+
+  ...FriendInfo
+}
+
+fragment FriendInfo on User {
+  id
+  username
+  email
 }

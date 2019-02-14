@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
-class DMPage extends Component {
+class DMFeedPage extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+
     return (
       <div>
-        hey
+         DM FEED PAGE
+
       </div>
     );
   }
 }
 
-export default DMPage;
+export default withRouter(DMFeedPage);

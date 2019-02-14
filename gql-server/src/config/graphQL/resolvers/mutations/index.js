@@ -2,6 +2,7 @@ import { signup } from './user/signup';
 import { login } from './user/login';
 import { logout } from './user/logout';
 import { deleteUser } from './user/deleteUser';
+import { addFriend } from './user/addFriend';
 
 import { createGuild } from './guild/createGuild';
 import { joinGuild } from './guild/joinGuild';
@@ -26,6 +27,7 @@ export default {
   login,
   logout,
   deleteUser,
+  addFriend,
 
   createGuild,
   joinGuild,
