@@ -3,7 +3,7 @@ import { getUserID } from '../../../../utils/jwt';
 export const addFriend = async (parent, { friend_id }, ctx, info) => {
   const userID = await getUserID(ctx.request);
   
-  await ctx.db.mutation.updateUser({
+  const friend = await ctx.db.mutation.updateUser({
     where: { id: friend_id },
     data: {
       friends: {
@@ -12,9 +12,9 @@ export const addFriend = async (parent, { friend_id }, ctx, info) => {
         }
       }
     }
-  }, info);
+  }, `{ id }`);
 
-  return await ctx.db.mutation.updateUser({ 
+  const user = await ctx.db.mutation.updateUser({ 
     where: { id: userID },
     data: { 
       friends: {
@@ -24,4 +24,15 @@ export const addFriend = async (parent, { friend_id }, ctx, info) => {
       }
     }
   }, info);
+
+  await ctx.db.mutation.createChannel({
+    data: {
+      type: 1,
+      recipients: {
+        connect: [{ id: user.id }, { id: friend.id }]
+      }
+    }
+  })
+
+  return user;
 };

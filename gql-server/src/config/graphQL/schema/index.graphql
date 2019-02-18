@@ -18,6 +18,7 @@ type User {
   friends: [User!]!
   ownerOfGuild: [Guild!]!
   memberOf: [Guild!]!
+  activeDMs: [Channel!]!
   ownerOfDMs: [Channel!]!
   dmChannels: [Channel!]!
   messages: [Message!]!
@@ -46,6 +47,7 @@ type Mutation {
   updateChannelPosition(from: Int!, to: Int!, id: ID!): [Channel!]!
   updateChannel(id: ID!, name: String, topic: String): Channel
   deleteChannel(id: ID!): Channel
+  createDMChannel(friend_id: ID!): Channel  
 
   # Messages
   createMessage(id: ID!, content: String!): Message

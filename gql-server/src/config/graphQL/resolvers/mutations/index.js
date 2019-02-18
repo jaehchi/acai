@@ -14,6 +14,7 @@ import { updateChannelPosition } from './channel/updateChannelPosition';
 import { createChannel } from './channel/createChannel';
 import { updateChannel } from './channel/updateChannel';
 import { deleteChannel } from './channel/deleteChannel';
+import { createDMChannel } from './channel/createDMChannel';
 
 import { createMessage } from './message/createMessage';
 import { updateMessage } from './message/updateMessage';
@@ -39,6 +40,7 @@ export default {
   updateChannelPosition,
   updateChannel,
   deleteChannel,
+  createDMChannel,
 
   createMessage,
   updateMessage,

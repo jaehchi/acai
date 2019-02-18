@@ -1,0 +1,11 @@
+#import '../fragments/UserInfo.graphql'
+
+query {
+  user {
+    id 
+    
+    friends {
+      ...UserInfo
+    }
+  }
+}

@@ -1,0 +1,14 @@
+query {
+  user {
+    dmChannels {
+      id
+      recipients {
+        id
+        username
+        status
+        avatar
+      }
+      
+    }
+  }
+}

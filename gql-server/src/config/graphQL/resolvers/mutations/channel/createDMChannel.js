@@ -1,9 +1,14 @@
 import { getUserID } from '../../../../utils/jwt';
 
-export const createChannel = async (parent, { id, type, name }, ctx, info) => {
+export const createDMChannel = async (parent, { friend_id, type, }, ctx, info) => {
   const userID = await getUserID(ctx.request);
   
   return await ctx.db.mutation.createChannel({
-
-  }, info)
+    data: {
+      type,
+      recipients: {
+        connect: [{ id: userID }, { id: friend_id }]
+      }
+    }
+  }, info);
 };

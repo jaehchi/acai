@@ -5,6 +5,7 @@ import GuildListPage from '../GuildListPage';
 import ChannelListPage from '../ChannelListPage';
 import DMListPage from '../DMListPage';
 import DMFeedPage from '../DMFeedPage';
+import FriendList from '../../components/Home/FriendList/index.jsx';
 import FeedPage from '../FeedPage';
 
 import './home.sass';
@@ -16,7 +17,7 @@ class Home extends Component {
 
   render() {
     const { match } = this.props; 
-    const friends = !this.props.match.params.channel_id ? <div>friends list</div> : null
+    const friends = !this.props.match.params.channel_id ? <FriendList/> : null
 
     const content = match.path === `/channels/:guild_id/:channel_id` ? (
       <div id="home">

@@ -7,7 +7,7 @@
     "start": "nodemon bin/entry.js",
     "db:setup": "babel-node src/lib/postgres/setup",
     "prisma:deploy": "cd src/config/graphQL/database && prisma deploy -e '../../../../.env'",
-    "prisma:reset": "cd src/config/graphQL/database && prisma reset -e '../../../../.env'",
+    "prisma:reset": "cd src/config/graphQL/database && prisma reset -f -e '../../../../.env'",
     "prisma:seed": "cd src/config/graphQL/database && prisma seed -e '../../../../.env' --reset",
     "get-schema": "cd src/config/graphQl && graphql get-schema -e '../../../../.env'"
   },

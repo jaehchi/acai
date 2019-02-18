@@ -29,7 +29,7 @@ class FeedPage extends Component {
 
           return (
             <Query query={MESSAGE_LIST_QUERY} variables={{ id: match.params.channel_id }} fetchPolicy='cache-first'>
-              { ({ loading, subscribeToMore, refetch, fetchMore, data: { messages, channel}}) => {
+              { ({ loading, subscribeToMore, refetch, fetchMore, data: { messages, channel }}) => {
                 if (loading ) {
                   return <Loading/>;
                 }

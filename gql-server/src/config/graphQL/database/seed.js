@@ -64,27 +64,17 @@ const createGuilds = async () => {
         type: 4,
         name: 'Text Channel', 
         position: 0,
-        owner: {
-          connect: {
-            id: users[0].id
-          }
-        },
+      
         children: {
           create: {
             type: 0, 
             position: 0,
             name: 'general',
-            owner: {
-              connect: {
-                id: users[0].id
-              }
-            },
           }
         }
       }
     };
 
-    
     const dota2 = await db.createGuild({
       ...guild,
       owner: {
@@ -103,9 +93,49 @@ const createGuilds = async () => {
   }
 };
 
+//temp
+const addFriends = async () => {
+  try { 
+    let counter = users.length;
+    let max = users.length - 1; 
+
+    while ( counter > 0 ) {
+      await db.updateUser({ where: { id: users[max].id }, data: { 
+        friends: {
+          connect: [{ id: users[max - 1].id }, { id: users[max - 2].id }]
+        } 
+      }
+    });
+
+      counter--;
+      let popped = users.pop();
+      users.unshift(popped);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const createDMChannels = async () => {
+  try {
+    for ( let i = 1; i < users.length; i++ ) {
+      await db.createChannel({ 
+        type: 1,
+        recipients: {
+          connect: [{ id: users[0].id }, { id: users[i].id }]
+        }
+      })
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const setup = async () => {
   await createUsers();
   await createGuilds();
+  await addFriends();
+  await createDMChannels();
 
   return;
 }

@@ -14,7 +14,7 @@ export const login = async (parent, { email, password }, ctx, info) => {
 
   const isValid = await comparePasswords(password, user.password);
 
-  console.log(isValid)
+  console.log('hey', isValid)
 
   if (!isValid) {
     throw new Error('Invalid password');

@@ -90,6 +90,8 @@ class AddMessage extends Component {
   }
 
   render() {  
+    const to = this.props.channel_name ? `#${this.props.channel_name}` : `@${this.props.username}`;
+    
     return (
       <div className="add__message">
         <form onSubmit={this.onSubmit}>
@@ -97,7 +99,7 @@ class AddMessage extends Component {
             type="text"
             name="content"
             value={this.state.content}
-            placeholder={`Message #${this.props.channel_name}`}
+            placeholder={`Message ${to}`}
             onChange={this.onChange}
           />
         </form>
@@ -108,7 +110,7 @@ class AddMessage extends Component {
 
 AddMessage.propType = {
   mutate: PropTypes.func.isRequired,
-  channel_name: PropTypes.string.isRequired,
+  channel_id: PropTypes.string.isRequired,
 };
 
 export default graphql(CREATE_MESSAGE_MUTATION)(AddMessage);

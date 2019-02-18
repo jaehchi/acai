@@ -7,7 +7,7 @@ export default async (parent, { id, orderBy }, ctx, info) => {
     where: {
       belongsTo: {
         id,
-      }
+      },
     },
     orderBy,
   }, info);

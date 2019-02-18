@@ -21,5 +21,12 @@ query Messages($id: ID!, $cursor: ID) {
   channel(id: $id) {
     id
     name
+
+    recipients {
+      id
+      username
+      avatar
+      status
+    }
   }
 }

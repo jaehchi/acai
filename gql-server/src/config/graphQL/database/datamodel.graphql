@@ -13,15 +13,15 @@ type Channel {
   createdAt: DateTime!
   updatedAt: DateTime!
   type: Int!
-  position: Int!
-  name: String!
+  position: Int
+  name: String
   topic: String
 
   belongsTo: Guild @relation(name: "GuildChannels", onDelete: SET_NULL)
   messages: [Message!]! @relation(name: "ChannelMessages", onDelete: CASCADE)
   recipients: [User!]! @relation(name: "DMS", onDelete: SET_NULL)
   parent_id: Channel @relation(name: "ParentChannel", onDelete: SET_NULL)
-  children: [Channel!]! @relation(name: "ParentChannel", onDelete: SET_NULL)
+  children: [Channel!]! @relation(name: "ParentChannel", onDelete: CASCADE)
   invites: [Invite!]!
 }
 
@@ -61,11 +61,10 @@ type User {
 
   status: String!
 
-
+  activeDms: [Channel!]! @relation(name: "ActiveDMs", onDelete: SET_NULL)
   friends: [User!]! @relation(name: "Friends", onDelete: SET_NULL)
   ownerOfGuild: [Guild!]! @relation(name: "GuildOwner", onDelete: CASCADE)  
   memberOf: [Guild!]! @relation(name: "GuildMember", onDelete: SET_NULL)
   dmChannels: [Channel!]! @relation(name: "DMS", onDelete: CASCADE)
   messages: [Message!]!
 }
-
