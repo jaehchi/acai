@@ -1,0 +1,65 @@
+@import '../../globals/global.sass'
+
+#friend__list 
+  background-color: #36393f
+  display: grid
+  grid-template-columns: auto
+  grid-template-rows: 50px auto 
+  grid-template-areas: "friend-feed-nav" "friend-feed-content"
+  height: 100vh
+  z-index: 1
+  position: relative
+
+  .friend__list__nav
+    grid-area: friend-feed-nav
+    z-index: 99
+    position: relative
+    box-shadow: 0 1px 0 rgba(0,0,0,.3), 0 2px 0 rgba(0,0,0,.06)
+    box-sizing: border-box
+    color: #fff
+    height: 50px
+    font-weight: 500
+    font-size: 16px
+    display: flex
+    align-items: center
+    padding: 0 12px 0 16px
+      
+    div 
+      padding: 0 2px 3px 2px
+      letter-spacing: 0.5px
+  
+  .friendList__content
+    grid-area: friend-feed-content
+    display: grid
+    grid-template-columns: auto 
+    grid-template-rows: 40px auto
+    z-index: 10
+    margin-top: 20px
+    
+    position: relative
+
+    .friendList__infomation
+      display: grid
+      grid-template-columns: 250px 250px 400px
+      grid-template-rows: auto
+      padding-left: 10px
+      border-bottom: 1px solid hsla(0,0%,100%,.1)
+
+      .friendList__info
+        color: hsla(0, 0%, 100%, .3)
+        text-transform: uppercase
+        place-self: center
+        width: 220px
+        margin-left: 19px
+        height: 24px
+        font-size: 12px
+        line-height: 24px
+        border-right: 1px solid hsla(0, 0%, 100%, .1)
+        letter-spacing: 1px
+
+      .friendList__info:last-child
+        width: 380px
+    
+    .friend__list 
+      overflow-y: scroll
+        

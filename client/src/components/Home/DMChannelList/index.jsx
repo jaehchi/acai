@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom'
 
 import DMChannelEntry from '../DMChannelEntry';
 
+import './dmChannelList.sass';
+
 const DMChannelList = ({ channels = [], match }) => {
-  console.log(channels)
+
   return (
     <div>
-      <div>Direct Messages</div>
+      <div className="dm__list">Direct Messages</div>
       {
         channels && channels.map( channel => (  
           <div key={channel.id}>

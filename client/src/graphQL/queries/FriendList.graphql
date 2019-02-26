@@ -2,10 +2,44 @@
 
 query {
   user {
-    id 
-    
+    ...UserInfo
+
+    memberOf {
+      id
+      name
+      avatar
+
+      channels {
+        id
+        children {
+          id
+        }
+      }
+    }
+      
     friends {
       ...UserInfo
+      
+      memberOf {
+        id
+        name
+        avatar
+
+        channels {
+          id
+          children {
+            id
+          }
+        }
+      }
+      
+      dmChannels {
+        id
+        recipients {
+          id
+          username
+        }
+      }
     }
   }
 }

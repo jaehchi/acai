@@ -7,7 +7,7 @@ import gql from 'graphql-tag';
 import MemberEntry from '../MemberEntry';
 import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
 
-// import './channelEntry.sass';
+import './dmChannelEntry.sass';
 
 class DMChannelEntry extends Component {
   constructor(props) {
@@ -30,13 +30,13 @@ class DMChannelEntry extends Component {
       match 
     } = this.props;
     
-    const path = `${match.url}/${id}`;
-    const to = recipients.find( user => ( user.id !== localStorage._id ))
+    const path = `${match.path}/${id}`;
+    const to = recipients.find( user => ( user.id !== localStorage._id ));
   
     return (
       <div key={id}>
-        <NavLink to={path} className="" activeClassName="" onMouseOver={this.prefetchMessages}>
-          <MemberEntry member={to}/>
+        <NavLink to={path} className="dm__entry" activeClassName="dm-active" onMouseOver={this.prefetchMessages}>
+          <MemberEntry member={to} />   
         </NavLink>
       </div>
     );

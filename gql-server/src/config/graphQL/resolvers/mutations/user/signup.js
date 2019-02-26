@@ -13,7 +13,7 @@ export const signup = async (parent, args, ctx, info) => {
   const user = await ctx.db.mutation.createUser({
     data: {
       ...args,
-      status: 'online',
+      status: 'Online',
       password
     }
   }, `{ id email username status, avatar }`);

@@ -18,7 +18,6 @@ class Home extends Component {
   render() {
     const { match } = this.props; 
     const friends = !this.props.match.params.channel_id ? <FriendList/> : null
-
     const content = match.path === `/channels/:guild_id/:channel_id` ? (
       <div id="home">
         <GuildListPage/>

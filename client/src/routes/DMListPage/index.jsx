@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import { Query } from 'react-apollo';
 
 import DM_CHANNEL_LIST_QUERY from '../../graphQL/queries/DMChannelList.graphql';
@@ -21,6 +21,10 @@ class DMListPage extends Component {
             return <Loading/>
           }
 
+          if ( error ) {
+            console.log(error)
+          }
+
           const channels = data.user.dmChannels;
     
           return (
@@ -28,8 +32,11 @@ class DMListPage extends Component {
               <div className="DMchannel__nav">
                 <div>SearchBar</div>
               </div>
-              <div>
-                CLICK TO GO TO FRIENDSLIST
+            
+              <div className="DMchannel__friends">
+                <NavLink to={`/channels/@me`} exact={true} className="channel" activeClassName="c-active">
+                  <div className="c-name">Friends</div>
+                </NavLink>  
               </div>
               <div className="DMchannel__list">
                 <DMChannelList channels={channels || []} match={this.props.match}/>

@@ -7,6 +7,7 @@ import guild from './guild';
 
 export default {
   user,
+
   guilds,
   guild,
   channels,

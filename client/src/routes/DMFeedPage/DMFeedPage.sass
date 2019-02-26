@@ -3,13 +3,13 @@
   display: grid
   grid-template-columns: auto
   grid-template-rows: 50px auto 
-  grid-template-areas: "feed-nav" "feed-content"
+  grid-template-areas: "dm-feed-nav" "dm-feed-content"
   height: 100vh
   z-index: 1
   position: relative
 
   .DMfeed__nav
-    grid-area: feed-nav
+    grid-area: dm-feed-nav
     z-index: 99
     position: relative
     box-shadow: 0 1px 0 rgba(0,0,0,.3), 0 2px 0 rgba(0,0,0,.06)
@@ -27,7 +27,7 @@
       letter-spacing: 0.5px
   
   .DMfeed__content
-    grid-area: feed-content
+    grid-area: dm-feed-content
     overflow-y: scroll  
     display: grid
     grid-template-columns: auto 

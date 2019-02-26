@@ -10,7 +10,7 @@ const filterMembers = ( members ) => {
   let offlineMembers = [];
 
   each( members, ( member ) => {
-    member.status !== 'offline' ? onlineMembers.push(member) : offlineMembers.push(member)
+    member.status !== 'Offline' ? onlineMembers.push(member) : offlineMembers.push(member)
   });
 
   return {

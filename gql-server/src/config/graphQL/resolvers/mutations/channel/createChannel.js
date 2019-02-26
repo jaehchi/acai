@@ -51,11 +51,6 @@ export const createChannel = async (parent, { id, type, name }, ctx, info) => {
           id,
         }
       },
-      owner: {
-        connect: {
-          id: userID
-        }
-      }
     }
   })
 };
