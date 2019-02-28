@@ -17,7 +17,7 @@ class FriendEntry extends Component {
     
     return (
       <div id="friend__entry">
-        <NavLink to={path} className="" activeClassName="">
+        <NavLink to={path}>
           <div className="friend__content">
             <div className="friend__username">
               {
@@ -27,16 +27,16 @@ class FriendEntry extends Component {
               }
               <div>{friend.username}</div>
             </div>
-            <div className="friend__status">{ friend.status } </div>
+            <div className={`friend__status__icon ${friend.status}`}></div>
+            <div className="friend__status">{friend.status} </div>
             <div className="friend__mutual">
               {
                 friend.memberOf.map( guild => { 
                   return (
-                    <div>
-                      <NavLink to={`/channels/${guild.id}/${guild.channels[0].children[0].id}`} key={`mutualGuild/${guild.id}`}>
+                    <div key={`mutualGuild/${guild.id}`}>
+                      <NavLink to={`/channels/${guild.id}/${guild.channels[0].children[0].id}`}>
                         <img src={`http://localhost:3100/${guild.avatar}`}/>    
                       </NavLink>
-
                     </div>
                   )
                 })

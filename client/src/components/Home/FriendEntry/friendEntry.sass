@@ -11,6 +11,7 @@
     font-size: 16px
     margin: 0 15px
     border-bottom: 1px solid hsla(0,0%,100%,.1)
+    letter-spacing: 1px
   
     .friend__username
       display: flex
@@ -44,6 +45,21 @@
       height: 40px
       margin-right: 20px
       color: hsla(0,0%,100%,.4)
+
+    .friend__status__icon
+      border-radius: 7px
+      position: relative
+      bottom: -25px
+      right: 0px
+      height: 10px
+      width: 10px
+      z-index: 999
+
+    .Online 
+      background-color: #32CD32
+
+    .Offline 
+      background-color: red
     
     .friend__mutual
       width: 380px
@@ -55,8 +71,8 @@
       overflow-x: scroll
 
       img 
-        width: 30px
-        height: 30px
+        width: 35px
+        height: 35px
         margin-right: 9px
         border-radius: 50%
 

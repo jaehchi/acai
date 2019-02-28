@@ -2,41 +2,40 @@ import { Prisma } from './generated/prisma';
 import randomColor from 'randomcolor';
 import { hashPassword } from '../../utils/bcrypt';
 
+
 const db = new Prisma({ 
   endpoint: process.env.PRISMA_ENDPOINT,
   seceret: process.env.PRISMA_SECRET
 });
 
-// mockData
-
-const users = [
+let users = [ 
   {
     username: "jae",
     password: "jae",
     email: "jae@gmail.com",
     avatar: randomColor({ luminosity: 'light', hue: 'random' }),
-    status: "Online"
+    status: "Online",
   },
   {
     username: "alicia",
     password: "alicia",
     email: "alicia@gmail.com",
     avatar: randomColor({ luminosity: 'light', hue: 'random' }),
-    status: "Online"
+    status: "Online",
   },
   {
     username: "kevin",
     password: "kevin",
     email: "kevin@gmail.com",
     avatar: randomColor({ luminosity: 'light', hue: 'random' }),
-    status: "Online"
+    status: "Online",
   },
   {
     username: "dan",
     password: "dan",
     email: "dan@gmail.com",
     avatar: randomColor({ luminosity: 'light', hue: 'random' }),
-    status: "Online"
+    status: "Online",
   }
 ];
 

@@ -14,12 +14,12 @@ type User {
   avatar: String
   lastSeenOn: String
   status: String!
-  
+
   friends: [User!]!
+  incomingRequests: [FriendRequest!]!
+  outgoingRequests: [FriendRequest!]!
   ownerOfGuild: [Guild!]!
   memberOf: [Guild!]!
-  activeDMs: [Channel!]!
-  ownerOfDMs: [Channel!]!
   dmChannels: [Channel!]!
   messages: [Message!]!
 }
@@ -56,6 +56,9 @@ type Mutation {
 
   # Invites
   createInvite(id: ID!): Invite
+
+  # FriendRequests 
+  createFriendRequest( username: String! ) : FriendRequest 
 }
 
 type Query {

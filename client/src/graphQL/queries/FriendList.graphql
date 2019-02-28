@@ -41,5 +41,46 @@ query {
         }
       }
     }
+
+    incomingRequests {
+      id 
+
+      from {
+        ...UserInfo
+      
+        memberOf {
+          id
+          name
+          avatar
+
+          channels {
+            id
+            children {
+              id
+            }
+          }
+        }
+      }   
+    }
+
+    outgoingRequests {
+      to {
+        ...UserInfo
+      
+        memberOf {
+          id
+          name
+          avatar
+
+          channels {
+            id
+            children {
+              id
+            }
+          }
+        }
+      }   
+    }
+    
   }
 }

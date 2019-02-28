@@ -22,6 +22,8 @@ import { deleteMessage } from './message/deleteMessage';
 
 import { createInvite } from './invite/createInvite';
 
+import { createFriendRequest } from './user/createFriendRequest'
+
 
 export default {
   signup,
@@ -47,4 +49,6 @@ export default {
   deleteMessage,
 
   createInvite,
+
+  createFriendRequest,
 };

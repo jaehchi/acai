@@ -58,13 +58,21 @@ type User {
   password: String!
   avatar: String
   lastSeenOn: String
-
   status: String!
 
-  activeDms: [Channel!]! @relation(name: "ActiveDMs", onDelete: SET_NULL)
   friends: [User!]! @relation(name: "Friends", onDelete: SET_NULL)
+  incomingRequests: [FriendRequest!]! @relation(name: "IncomingRequests", onDelete: SET_NULL)
+  outgoingRequests: [FriendRequest!]! @relation(name: "OutgoingRequests", onDelete: SET_NULL)
   ownerOfGuild: [Guild!]! @relation(name: "GuildOwner", onDelete: CASCADE)  
   memberOf: [Guild!]! @relation(name: "GuildMember", onDelete: SET_NULL)
   dmChannels: [Channel!]! @relation(name: "DMS", onDelete: CASCADE)
   messages: [Message!]!
+}
+
+type FriendRequest {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  from: User @relation(name: "OutgoingRequests", onDelete: SET_NULL) 
+  to: User @relation(name: "IncomingRequests", onDelete: SET_NULL) 
 }

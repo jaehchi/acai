@@ -10,13 +10,14 @@ const MemberEntry = ({ member }) => {
     </div>
   );
 
+
   
   return (
     <div className="member">
       <div className="member__avatar">
         { avatar }
-        <div className="member__status"></div>
       </div>
+      <div className={`member__status ${member.status}`}></div>
       <div className="member__name">{member.username}</div>
     </div>
   );

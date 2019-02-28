@@ -4,50 +4,61 @@ import { Query } from 'react-apollo';
 import FRIEND_LIST_QUERY from '../../../graphQL/queries/FriendList.graphql';
 import Loading from '../../globals/Loading';
 import FriendEntry  from '../FriendEntry';
+import AddFriend from '../../Modals/AddFriend';
+import FriendRequest from '../FriendRequest';
 
 import './friendList.sass';
 
 class FriendList extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      current: 'all',
+      friends: this.props.friends
+    }
+  }
+
+  all () {
+    this.setState({
+      current: 'all'
+    })
+  }
+  change () {
+    
+    this.setState({ 
+      current: 'online',
+      friends: this.state.friends.filter(el =>( el.status === 'Online'))
+    })
+  }
+  pending() {
+    this.setState({ 
+      current: 'pending',
+      
+    })
   }
 
   render() {
-    return (
-      <div>
-        <Query query={FRIEND_LIST_QUERY}>
-          {
-            ({ loading, error, data: { user } }) => {
-              if ( loading ) { 
-                return <Loading/> 
-              }
-
-              if ( error ) { return <div>{error}</div> }
-              
-              for ( let i = 0; i < user.friends.length; i++ ) {
-                user.friends[i].dmChannels = [user.friends[i].dmChannels.find( channel => { return channel.recipients.find( recipient => { return recipient.id === localStorage._id })})]
-                user.friends[i].memberOf = user.memberOf.filter(guild => JSON.stringify(user.friends[i].memberOf).includes(JSON.stringify(guild)));
-              }
-        
-              return (
-                <div id="friend__list">
-                  <div className="friend__list__nav">Nav</div>
-                  <div className="friendList__content">
-                    <div className="friendList__infomation">
-                      <div className="friendList__info">Name</div>
-                      <div className="friendList__info">Status</div>
-                      <div className="friendList__info">Mutual Servers</div>
-                    </div>
-                    <div className="friend__list">
-                      { user && user.friends.map( friend => ( <FriendEntry key={friend.id} friend={friend}/> )) }
-                    </div>
-                  </div>
-                </div>
-              );
-            }
-          }
-        </Query>
-
+    return (         
+      <div id="friend__list">
+        <div className="friend__list__nav">
+          <AddFriend/>
+          <div onClick={this.all.bind(this)}>ALL</div>
+          <div onClick={this.change.bind(this)}>Online</div>
+          <div onClick={this.pending.bind(this)}>Pending</div>
+        </div>
+        <div className="friendList__content">
+          <div className="friendList__infomation">
+            <div className="friendList__info">Name</div>
+            <div className="friendList__info">Status</div>
+            <div className="friendList__info">Mutual Servers</div>
+          </div>
+          <div className="friend__list">
+            { this.state.current === 'all' && this.props.friends.map( friend => ( <FriendEntry key={friend.id} friend={friend}/> )) }
+            { this.state.current === 'online' && this.state.friends.map( friend => ( <FriendEntry key={friend.id} friend={friend}/> )) }
+            { this.state.current === 'pending' && this.props.requests.map( request => (  <FriendRequest key={request.id} request={request}/> ))}
+          </div>
+        </div>
       </div>
     );
   }
