@@ -1,4 +1,4 @@
-import { getUserID } from '../../../utils/jwt';
+import { getUserID } from '../../../../utils/jwt';
 import { each } from 'lodash';
 import moment from 'moment';
 

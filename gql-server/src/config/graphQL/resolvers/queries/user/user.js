@@ -1,4 +1,4 @@
-import { getUserID } from '../../../utils/jwt';
+import { getUserID } from '../../../../utils/jwt';
 
 export default async (parent, { id }, ctx, info) => {
   let user; 

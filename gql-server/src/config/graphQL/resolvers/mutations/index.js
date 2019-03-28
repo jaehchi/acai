@@ -2,7 +2,9 @@ import { signup } from './user/signup';
 import { login } from './user/login';
 import { logout } from './user/logout';
 import { deleteUser } from './user/deleteUser';
-import { addFriend } from './user/addFriend';
+
+import { createRelation } from './relation/createRelation';
+import { updateRelation } from './relation/updateRelation';
 
 import { createGuild } from './guild/createGuild';
 import { joinGuild } from './guild/joinGuild';
@@ -22,15 +24,14 @@ import { deleteMessage } from './message/deleteMessage';
 
 import { createInvite } from './invite/createInvite';
 
-import { createFriendRequest } from './user/createFriendRequest'
-
-
 export default {
   signup,
   login,
   logout,
   deleteUser,
-  addFriend,
+
+  createRelation,
+  updateRelation,
 
   createGuild,
   joinGuild,
@@ -49,6 +50,4 @@ export default {
   deleteMessage,
 
   createInvite,
-
-  createFriendRequest,
 };
