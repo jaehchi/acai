@@ -15,7 +15,7 @@ type User {
   lastSeenOn: String
   status: String!
 
-  friends: [FriendRelation!]!
+  relations: [Relation!]! 
   ownerOfGuild: [Guild!]!
   memberOf: [Guild!]!
   dmChannels: [Channel!]!
@@ -30,8 +30,12 @@ type Mutation {
   logout(lastSeenOn: String!): User
   
   # Users
-  deleteUser(id: ID!) : User
+  deleteUser(id: ID!): User
   addFriend(friend_id: ID!): User
+
+  # Relation
+  createRelation( friend_id: ID!, action: Int!): Relation
+  updateRelation( id: ID!, action: Int!): Relation
 
   # Guilds
   createGuild(name: String!, avatar: String): Guild
@@ -54,17 +58,25 @@ type Mutation {
 
   # Invites
   createInvite(id: ID!): Invite
-
-
   
 }
 
 type Query {
+  # User
   user(id: ID): User
+
+  # Relation
+  getAllRelations(id: ID, filter: String): [Relation!]!
+
+  # Guild 
   guilds: [Guild!]!
   guild(id: ID!): Guild!
+
+  # Channel
   channels(id: ID!, orderBy: ChannelOrderByInput): [Channel!]!
   channel(id: ID!): Channel
+
+  # Message
   messages(id: ID!, before: ID, last: Int) : MessageConnection!
 }
 

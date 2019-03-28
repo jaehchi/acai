@@ -35,7 +35,7 @@ let users = [
     password: "dan",
     email: "dan@gmail.com",
     avatar: randomColor({ luminosity: 'light', hue: 'random' }),
-    status: "Online",
+    status: "Offline",
   }
 ];
 
@@ -45,13 +45,13 @@ const guild = {
 };
 
 //helpers
-const addFriend = async (user, friend1) => {
-  await db.createFriendRelation({ 
-    friends: {
-      connect: [{ id: user.id }, { id: friend1.id }]
+const addFriend = async (user1, user2) => {
+  await db.createRelation({ 
+    link: {
+      connect: [{ id: user1.id }, { id: user2.id }]
     },
     status: 'Accepted',
-    requester: user.id,
+    action_id: user2.id,
   });
 };
 

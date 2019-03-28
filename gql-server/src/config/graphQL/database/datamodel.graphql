@@ -60,20 +60,20 @@ type User {
   lastSeenOn: String
   status: String!
 
-  friends: [FriendRelation!]! @relation(name: "Friendships", onDelete: SET_NULL)
+  relations: [Relation!]! @relation(name: "Linkage", onDelete: SET_NULL)
   ownerOfGuild: [Guild!]! @relation(name: "GuildOwner", onDelete: CASCADE)  
   memberOf: [Guild!]! @relation(name: "GuildMember", onDelete: SET_NULL)
   dmChannels: [Channel!]! @relation(name: "DMS", onDelete: CASCADE)
   messages: [Message!]!
 }
 
-type FriendRelation {
+type Relation {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
-  friends: [User!]! @relation(name: "Friendships", onDelete: SET_NULL) 
+  link: [User!]! @relation(name: "Linkage", onDelete: SET_NULL) 
   status: RelationStatus!
-  requester: ID
+  action_id: ID
 }
 
 enum RelationStatus {

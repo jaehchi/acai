@@ -8,7 +8,7 @@ generate:
   - generator: javascript-client
     output: ./generated/prisma
   - generator: graphql-schema
-    output: ../schema/generated/
+    output: ../schema/generated/prisma.graphql
 
 hooks:
   post-deploy:
