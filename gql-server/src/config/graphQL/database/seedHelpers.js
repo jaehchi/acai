@@ -46,15 +46,12 @@ const guild = {
 
 //helpers
 const addFriend = async (user, friend1) => {
-  await db.updateUser({ 
-    where: { id: user.id },
-    data: { 
-      friends: {
-        connect: {
-          id: friend1.id
-        }
-      }
-    }
+  await db.createFriendRelation({ 
+    friends: {
+      connect: [{ id: user.id }, { id: friend1.id }]
+    },
+    status: 'Accepted',
+    requester: user.id,
   });
 };
 
@@ -67,7 +64,6 @@ const createDMChannel = async (user1, user2) => {
     }
   })
 };
-
 
 export const createUsers = async () => {
   try {
@@ -133,11 +129,7 @@ export const addFriends = async () => {
     await addFriend(users[0], users[1]);
     await addFriend(users[0], users[2]);
     await addFriend(users[0], users[3]);
-    await addFriend(users[1], users[0]);
     await addFriend(users[1], users[2]);
-    await addFriend(users[2], users[0]);
-    await addFriend(users[2], users[1]);
-    await addFriend(users[3], users[0])
   } catch (e) {
     console.log('Add Friends Error,', e);
   }
@@ -154,3 +146,4 @@ export const createDMChannels = async () => {
     console.log('Create DM Channel Error', e);
   }
 };
+

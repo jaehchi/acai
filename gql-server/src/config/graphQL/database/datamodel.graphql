@@ -60,19 +60,25 @@ type User {
   lastSeenOn: String
   status: String!
 
-  friends: [User!]! @relation(name: "Friends", onDelete: SET_NULL)
-  incomingRequests: [FriendRequest!]! @relation(name: "IncomingRequests", onDelete: SET_NULL)
-  outgoingRequests: [FriendRequest!]! @relation(name: "OutgoingRequests", onDelete: SET_NULL)
+  friends: [FriendRelation!]! @relation(name: "Friendships", onDelete: SET_NULL)
   ownerOfGuild: [Guild!]! @relation(name: "GuildOwner", onDelete: CASCADE)  
   memberOf: [Guild!]! @relation(name: "GuildMember", onDelete: SET_NULL)
   dmChannels: [Channel!]! @relation(name: "DMS", onDelete: CASCADE)
   messages: [Message!]!
 }
 
-type FriendRequest {
+type FriendRelation {
   id: ID! @unique
   createdAt: DateTime!
   updatedAt: DateTime!
-  from: User @relation(name: "OutgoingRequests", onDelete: SET_NULL) 
-  to: User @relation(name: "IncomingRequests", onDelete: SET_NULL) 
+  friends: [User!]! @relation(name: "Friendships", onDelete: SET_NULL) 
+  status: RelationStatus!
+  requester: ID
+}
+
+enum RelationStatus {
+  Pending,
+  Accepted, 
+  Blocked,
+  Declined,
 }
