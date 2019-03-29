@@ -1,0 +1,11 @@
+mutation CreateRelation ($friend_username: String!, $action: Int!) {
+  createRelation(friend_username: $friend_username, action: $action) {
+    id
+    link {
+      id
+      username
+    }
+    action_id
+    status
+  }
+}

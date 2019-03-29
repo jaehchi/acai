@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import Modal from '../../globals/Modal';
 
-import SEND_FRIEND_REQUEST_MUTATION from '../../../graphQL/mutations/SendFriendRequest.graphql';
+import CREATE_RELATION_MUTATION from '../../../graphQL/mutations/CreateRelation.graphql';
 
 import './addFriend.sass';
 
@@ -35,8 +35,6 @@ class AddFriend extends Component {
     });
   }
 
-
-
   render() {
 
     const showModal = this.state.showModal ? (
@@ -45,8 +43,8 @@ class AddFriend extends Component {
           <div className="add-friend-container" ref={ node => { this.node = node; }}>
             <div>Add a friend!</div>
             <input name="username" type="text" onChange={this.onChange}/>
-            <Mutation mutation={SEND_FRIEND_REQUEST_MUTATION} variables={{ username: this.state.username }}>
-              { sendFriendRequestMutation => ( <button onClick={sendFriendRequestMutation} className='cc-create'>Send Request</button> )}
+            <Mutation mutation={CREATE_RELATION_MUTATION} variables={{ friend_username: this.state.username, action: 0 }}>
+              { createRelationMutation => ( <button onClick={createRelationMutation} className='cc-create'>Send Request</button> )}
             </Mutation>
           </div>
         </div>

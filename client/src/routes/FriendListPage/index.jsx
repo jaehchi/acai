@@ -15,7 +15,7 @@ class FriendListPage extends Component {
     return (
       <Query query={FRIEND_LIST_QUERY} fetchPolicy='cache-first'>
         {
-          ({ loading, error, data }) => {
+          ({ loading, error, refetch, data: { getAllRelations } }) => {
             if ( loading ) { 
               return <Loading/> 
             }
@@ -23,7 +23,7 @@ class FriendListPage extends Component {
             if ( error ) { return <div>{error}</div> }
 
             return (
-              <FriendList relations={data.getAllRelations}/>
+              <FriendList relations={getAllRelations} refetch={refetch}/>
             )
           }
         }
