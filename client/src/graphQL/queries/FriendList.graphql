@@ -1,23 +1,12 @@
 #import '../fragments/UserInfo.graphql'
 
-query {
-  user {
-    ...UserInfo
-
-    memberOf {
-      id
-      name
-      avatar
-
-      channels {
-        id
-        children {
-          id
-        }
-      }
-    }
-      
-    friends {
+query getAllRelation ($id: ID, $filter: String) {
+  getAllRelations (id: $id, filter: $filter ){
+    id
+    status
+    action_id
+    
+    link {
       ...UserInfo
       
       memberOf {
@@ -41,46 +30,5 @@ query {
         }
       }
     }
-
-    incomingRequests {
-      id 
-
-      from {
-        ...UserInfo
-      
-        memberOf {
-          id
-          name
-          avatar
-
-          channels {
-            id
-            children {
-              id
-            }
-          }
-        }
-      }   
-    }
-
-    outgoingRequests {
-      to {
-        ...UserInfo
-      
-        memberOf {
-          id
-          name
-          avatar
-
-          channels {
-            id
-            children {
-              id
-            }
-          }
-        }
-      }   
-    }
-    
   }
 }

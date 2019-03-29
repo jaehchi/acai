@@ -1,0 +1,16 @@
+mutation SendFriendRequest ($username: String!) {
+  createFriendRequest(username: $username) {
+    id 
+    createdAt
+    updatedAt
+    to {
+      id
+    	username
+    }
+    
+    from {
+      id
+    	username
+    }
+  }
+}

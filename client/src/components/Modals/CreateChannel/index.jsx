@@ -43,7 +43,6 @@ class CreateChannel extends Component {
   }
 
   render() {
-    // console.log(this.props)
     const variables = { 
       id: this.props.id, 
       type: this.state.type === "Text Channel" ? 0 : 1,

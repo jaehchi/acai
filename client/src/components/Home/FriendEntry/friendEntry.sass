@@ -2,6 +2,8 @@
 
 #friend__entry 
   margin: 0 15px
+  position: relative
+  z-index: 1
 
   .friend__content
     display: flex
@@ -12,11 +14,13 @@
     margin: 0 15px
     border-bottom: 1px solid hsla(0,0%,100%,.1)
     letter-spacing: 1px
+    position: relative
+    z-index: 4
   
     .friend__username
       display: flex
       flex-direction: row
-      width: 200px
+      width: 210px
       padding: 10px
       margin-right: 20px
       line-height: 40px
@@ -39,7 +43,7 @@
         margin-right: 10px
 
     .friend__status
-      width: 200px
+      width: 320px
       padding: 10px
       line-height: 40px
       height: 40px
@@ -59,7 +63,7 @@
       background-color: #32CD32
 
     .Offline 
-      background-color: red
+      background-color: #b9bbbe
     
     .friend__mutual
       width: 380px
@@ -69,6 +73,9 @@
       padding: 10px
       margin-right: 20px
       overflow-x: scroll
+      z-index: 999
+      position: relative
+
 
       img 
         width: 35px

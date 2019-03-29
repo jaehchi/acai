@@ -1,0 +1,7 @@
+
+mutation HandleFriendRequest ($response: Boolean!, $request_id: ID! $username: String!) {
+  handleFriendRequest(response: $response, request_id: $request_id, username: $username) {
+    id
+  }
+}
+

@@ -34,7 +34,7 @@ type Mutation {
   addFriend(friend_id: ID!): User
 
   # Relation
-  createRelation( friend_id: ID!, action: Int!): Relation
+  createRelation( friend_username: String!, action: Int!): Relation
   updateRelation( id: ID!, action: Int!): Relation
 
   # Guilds

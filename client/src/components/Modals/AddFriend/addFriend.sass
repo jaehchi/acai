@@ -1,0 +1,54 @@
+@import '../../globals/global.sass'
+
+.addFriend
+  color: #99aab5
+  height: 25px
+  width: 25px
+  border-width: 1px
+  font-weight: 300
+  text-align: center
+  transition: color .5s ease, border-color .5s ease
+
+  span 
+    font-size: 20px
+    line-height: 20px
+  
+  &:hover
+    color: $white
+    border-color: $white
+
+.add-friend-wrapper
+  background-color: rgba(0,0,0,0.5)
+  position: fixed
+  height: 100%
+  width: 100%
+  top: 0
+  left: 0
+  z-index: 988
+  display: grid
+  align-self: center
+  justify-items: center
+
+  .add-friend-container
+    background-color: #2f3136
+    align-self: center
+    border: 1px solid #2f3136
+    border-radius: 5px
+    width: 400px
+    height: 220px
+    position: relative
+
+    input
+      width: 100%
+      outline: none
+      border-radius: 3px
+      border-style: solid
+      border-width: 1px
+      box-sizing: border-box
+      transition: background-color .15s ease,border .15s ease
+      background-color: rgba(0,0,0,.1)
+      border-color: rgba(0,0,0,.3)
+      color: #f6f6f7
+      height: 40px
+      padding: 10px
+      font-size: 14px

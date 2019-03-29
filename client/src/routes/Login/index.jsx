@@ -36,7 +36,7 @@ class Login extends Component {
 
       //addlogin auto 
 
-      this.props.history.push(`/channels/${login.user.memberOf[0].id}/${login.user.memberOf[0].channels[0].children[0].id}`);
+      this.props.history.push(`/channels/@me`);
 
       await this._saveUserData(login);
     
@@ -46,7 +46,6 @@ class Login extends Component {
   }
 
   async _saveUserData ({ token, user }) {
-    console.log(user);
     localStorage._id = user.id
     localStorage.access_token = token;
     localStorage.username = user.username;
