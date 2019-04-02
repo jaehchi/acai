@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Query } from 'react-apollo';
+import { each } from 'lodash';
 
 import FriendList from '../../components/Home/FriendList/index.jsx';
 import Loading from '../../components/globals/Loading';
@@ -22,8 +23,11 @@ class FriendListPage extends Component {
 
             if ( error ) { return <div>{error}</div> }
 
+            const relations = getAllRelations.filter( relation => { return relation.status === 'Accepted'});
+            console.log(getAllRelations.length - relations.length)
+
             return (
-              <FriendList relations={getAllRelations} refetch={refetch}/>
+              <FriendList relations={relations} requests={getAllRelations.length - relations.length} refetch={refetch}/>
             )
           }
         }

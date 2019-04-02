@@ -5,7 +5,7 @@ import FRIEND_LIST_QUERY from '../../../graphQL/queries/FriendList.graphql';
 import Loading from '../../globals/Loading';
 import FriendEntry  from '../FriendEntry';
 import AddFriend from '../../Modals/AddFriend';
-import FriendRequest from '../FriendRequest';
+
 
 import './friendList.sass';
 
@@ -15,13 +15,14 @@ class FriendList extends Component {
 
     this.state = {
       filter: 'All',
-      relations: this.props.relations
+      relations: this.props.relations,
+      requests: this.props.requests,
     };
 
     this.handleSortingFriends = this.handleSortingFriends.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     document.getElementsByClassName('friendlist__navItem')[0].classList.add('friendlist__active');
   }
 
@@ -44,14 +45,18 @@ class FriendList extends Component {
   }
 
   render() {
-
     return (         
       <div id="friend__list">
         <div className="friend__list__nav">
           <AddFriend/>
+          <div className="vert-separator"></div>
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="All">All</div>
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Online">Online</div>
-          <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Pending">Pending</div>
+          <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Pending">
+            Pending
+            <div className="friendlist__requests">{this.state.requests}</div>
+          </div>
+          <div className="vert-separator"></div>
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Blocked">Blocked</div>
         </div>
         <div className="friendList__content">

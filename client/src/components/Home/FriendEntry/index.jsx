@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
-import { Mutation, withApollo } from 'react-apollo';
-
-import HANDLE_FRIEND_REQUEST_MUTATION from '../../../graphQL/mutations/HandleFriendRequest.graphql';
-import FRIEND_LIST_QUERY from '../../../graphQL/queries/FriendList.graphql';
+import { withApollo } from 'react-apollo';
 
 import './friendEntry.sass';
 
@@ -21,6 +18,7 @@ class FriendEntry extends Component {
 
   render() {
     const { relation: { status, link, action_id }, match } = this.props;
+
     const path = `${match.path}/${link[0].dmChannels[0].id}`
     const stat = (status === 'Pending') ? ( (action_id === localStorage._id) ? 'Outgoing Friend Request' : 'Incoming Friend Request' ) : status
 

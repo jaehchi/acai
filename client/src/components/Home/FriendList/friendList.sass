@@ -24,13 +24,29 @@
     flex-direction: row
     align-items: center
     padding: 0 12px 0 16px
-      
+   
+    .vert-separator 
+      margin: 0 10px
+      width: 1px
+      height: 25px 
+      background-color: rgba(114,118,125,.3)
+          
     .friendlist__navItem 
-      text-align: center
+      justify-content: center
+      display: flex
       padding: 3px 8px 
       min-width: 45px
       margin: 0 8px
       letter-spacing: 0.5px
+      
+      .friendlist__requests 
+        display: flex
+        background-color: red 
+        font-size: 12px
+        padding: 2px 5px
+        margin-left: 8px
+        border-radius: 3px
+        color: $white
 
       &:hover
         background-color: #2f3136
@@ -79,4 +95,3 @@
     border-radius: 3px
     pointer-events: none
 
-  
