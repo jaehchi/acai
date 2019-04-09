@@ -24,7 +24,6 @@ class FriendListPage extends Component {
             if ( error ) { return <div>{error}</div> }
 
             const relations = getAllRelations.filter( relation => { return relation.status === 'Accepted'});
-            console.log(getAllRelations.length - relations.length)
 
             return (
               <FriendList relations={relations} requests={getAllRelations.length - relations.length} refetch={refetch}/>

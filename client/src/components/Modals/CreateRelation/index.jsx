@@ -30,7 +30,6 @@ class CreateRelation extends Component {
 
   render() {
 
-    console.log
     return (
       <div id="create__relation">
         <div className="cr-header">
@@ -38,7 +37,7 @@ class CreateRelation extends Component {
           <p>You can add a friend with their username.</p>
         </div>
         <div className="cr-input">
-          <input name="username" type="text" placeholder="" onChange={this.onChange}/>
+          <input name="username" type="text" placeholder="Enter an Username" onChange={this.onChange}/>
         </div>
         <div className="cr-footer">
           <button className="cr-cancel" onClick={this.toggleRelationModal}>

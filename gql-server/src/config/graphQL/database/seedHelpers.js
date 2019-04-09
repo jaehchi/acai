@@ -55,14 +55,16 @@ const addFriend = async (user1, user2) => {
   });
 };
 
-
 const createDMChannel = async (user1, user2) => {
-  await db.createChannel({ 
+  const channel = await db.createChannel({ 
     type: 1,
     recipients: {
       connect: [{ id: user1.id }, { id: user2.id }]
+    },
+    activeUsers: { 
+      connect: [{ id: user1.id }, { id: user2.id }]
     }
-  })
+  });
 };
 
 export const createUsers = async () => {

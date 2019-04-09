@@ -1,0 +1,11 @@
+mutation AddDMChannel ($id: ID!) {
+  addDMChannel(id: $id) {
+    id
+    recipients {
+      id
+      username
+      status
+      avatar
+    }
+  }
+}

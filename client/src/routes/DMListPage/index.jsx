@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 
 import DM_CHANNEL_LIST_QUERY from '../../graphQL/queries/DMChannelList.graphql';
 import DMChannelList from '../../components/Home/DMChannelList';
+import UserControl from '../../components/Home/UserControl';
 import Loading from '../../components/globals/Loading';
 
 import './DMListPage.sass';
@@ -25,7 +26,7 @@ class DMListPage extends Component {
             console.log(error)
           }
 
-          const channels = data.user.dmChannels;
+          const channels = data.user.activeDMs;
     
           return (
             <div id="DMchannels__content">
@@ -41,7 +42,9 @@ class DMListPage extends Component {
               <div className="DMchannel__list">
                 <DMChannelList channels={channels || []} match={this.props.match}/>
               </div>
-              <div>USER SHITS</div>
+              <div>
+                {/* <UserControl/> */}
+              </div>
             </div>
           )
         }}

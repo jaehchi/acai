@@ -1,0 +1,11 @@
+mutation RemoveDMChannel ($id: ID!) {
+  removeDMChannel(id: $id) {
+    id
+    recipients {
+      id
+      username
+      status
+      avatar
+    }
+  }
+}

@@ -8,6 +8,9 @@ export const createDMChannel = async (parent, { friend_id, type, }, ctx, info) =
       type,
       recipients: {
         connect: [{ id: userID }, { id: friend_id }]
+      },
+      activeUsers: { 
+        connect: [{ id: user1.id }, { id: user2.id }]
       }
     }
   }, info);

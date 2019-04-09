@@ -49,7 +49,9 @@ const link = split(
 
 const client = new ApolloClient({
   link,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({
+    dataIdFromObject: object => object.id,
+  })
 });
 
 render(

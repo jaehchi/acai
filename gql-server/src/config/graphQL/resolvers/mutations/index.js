@@ -17,6 +17,8 @@ import { createChannel } from './channel/createChannel';
 import { updateChannel } from './channel/updateChannel';
 import { deleteChannel } from './channel/deleteChannel';
 import { createDMChannel } from './channel/createDMChannel';
+import { addDMChannel } from './channel/addDMChannel';
+import { removeDMChannel } from './channel/removeDMChannel';
 
 import { createMessage } from './message/createMessage';
 import { updateMessage } from './message/updateMessage';
@@ -44,6 +46,8 @@ export default {
   updateChannel,
   deleteChannel,
   createDMChannel,
+  addDMChannel,
+  removeDMChannel,
 
   createMessage,
   updateMessage,

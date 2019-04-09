@@ -12,7 +12,7 @@ import './guildList.sass';
 
 const  GuildListPage = (props) => {
   return (
-    <div className="guildList">
+    <div className="guildList" onContextMenu={(e) => { e.preventDefault()} }>
       <Me/>
       <Query query={GUILD_LIST_QUERY}>
         { ({ loading, data }) => (

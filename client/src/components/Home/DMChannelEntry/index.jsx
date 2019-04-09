@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { withApollo } from 'react-apollo';
+import { NavLink, withRouter } from 'react-router-dom';
+import { withApollo, Mutation } from 'react-apollo';
 import { propType } from 'graphql-anywhere';
 import gql from 'graphql-tag';
+
+
+import REMOVE_DM_CHANNEL_MUTATION from '../../../graphQL/mutations/RemoveDMChannel.graphql';
+import DM_CHANNEL_LIST_QUERY from '../../../graphQL/queries/DMChannelList.graphql'
+
 
 import MemberEntry from '../MemberEntry';
 import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
@@ -31,12 +36,32 @@ class DMChannelEntry extends Component {
     } = this.props;
     
     const path = `${match.path}/${id}`;
-    const to = recipients.find( user => ( user.id !== localStorage._id ));
+    const member = recipients.find( user => ( user.id !== localStorage._id ));
+    const DM = id ? (
+      <Mutation 
+        mutation={REMOVE_DM_CHANNEL_MUTATION} 
+        variables={{ id,  }}
+        update={(store, { data: { removeDMChannel }}) => {
+          const data = store.readQuery({
+            query: DM_CHANNEL_LIST_QUERY,
+          });
+
+          data.user.activeDMs = data.user.activeDMs.filter((dm) => { return dm.id !== removeDMChannel.id }); 
+
+          store.writeQuery({ query: DM_CHANNEL_LIST_QUERY, data });
+
+          this.props.history.push(`/channels/@me/`);
+        }}
+      >
+        {(removeDMChannelMutation) => ( <div className="remove__dms" onClick={removeDMChannelMutation}>x</div> )}
+      </Mutation>
+    ) : null;
   
     return (
       <div key={id}>
         <NavLink to={path} className="dm__entry" activeClassName="dm-active" onMouseOver={this.prefetchMessages}>
-          <MemberEntry member={to} />   
+          <MemberEntry member={member} dm={id}/>
+          { DM }
         </NavLink>
       </div>
     );
@@ -44,4 +69,4 @@ class DMChannelEntry extends Component {
 };
 
 
-export default withApollo(DMChannelEntry);
+export default withApollo(withRouter(DMChannelEntry));

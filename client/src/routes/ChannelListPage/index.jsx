@@ -5,6 +5,7 @@ import { Query } from 'react-apollo';
 import CHANNEL_LIST_QUERY from '../../graphQL/queries/ChannelList.graphql';
 
 import ChannelList from '../../components/Home/ChannelList';
+import UserControl from '../../components/Home/UserControl';
 import Loading from '../../components/globals/Loading';
 
 import './channelListPage.sass';
@@ -24,6 +25,8 @@ class ChannelListPage extends Component {
             return <Loading/>;
           }
 
+          
+
           return (
             <div id="channels__content">
               <div className="channel__nav">
@@ -32,7 +35,9 @@ class ChannelListPage extends Component {
               <div className="channel__list">
                 <ChannelList channels={channels || []} match={match}/>
               </div>
-              <div>USER SHITS</div>
+              <div>
+                <UserControl/>
+              </div>
             </div>
           );
         }}

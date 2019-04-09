@@ -15,6 +15,7 @@ type User {
   lastSeenOn: String
   status: String!
 
+  activeDMs: [Channel!]!
   relations: [Relation!]! 
   ownerOfGuild: [Guild!]!
   memberOf: [Guild!]!
@@ -50,6 +51,8 @@ type Mutation {
   updateChannel(id: ID!, name: String, topic: String): Channel
   deleteChannel(id: ID!): Channel
   createDMChannel(friend_id: ID!): Channel  
+  addDMChannel(id: ID!): Channel
+  removeDMChannel( id: ID!): Channel
 
   # Messages
   createMessage(id: ID!, content: String!): Message

@@ -20,6 +20,7 @@ type Channel {
   belongsTo: Guild @relation(name: "GuildChannels", onDelete: SET_NULL)
   messages: [Message!]! @relation(name: "ChannelMessages", onDelete: CASCADE)
   recipients: [User!]! @relation(name: "DMS", onDelete: SET_NULL)
+  activeUsers: [User!]! @relation(name: "ActiveDMS", onDELETE: SET_NULL)
   parent_id: Channel @relation(name: "ParentChannel", onDelete: SET_NULL)
   children: [Channel!]! @relation(name: "ParentChannel", onDelete: CASCADE)
   invites: [Invite!]!
@@ -64,6 +65,7 @@ type User {
   ownerOfGuild: [Guild!]! @relation(name: "GuildOwner", onDelete: CASCADE)  
   memberOf: [Guild!]! @relation(name: "GuildMember", onDelete: SET_NULL)
   dmChannels: [Channel!]! @relation(name: "DMS", onDelete: CASCADE)
+  activeDMs: [Channel!]! @relation(name: "ActiveDMS", onDELETE: SET_NULL)
   messages: [Message!]!
 }
 
