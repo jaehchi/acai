@@ -36,12 +36,16 @@ class FriendEntry extends Component {
               query: DM_CHANNEL_LIST_QUERY
             });
 
-            data.user.activeDMs.push(addDMChannel);
+            const isDMAlreadyActive = data.user.activeDMs.find( DM => ( DM.id === addDMChannel.id ));
 
-            store.writeData({
-              query: DM_CHANNEL_LIST_QUERY,
-              data
-            });
+            if ( !isDMAlreadyActive ) {
+              data.user.activeDMs.push(addDMChannel);
+
+              store.writeData({
+                query: DM_CHANNEL_LIST_QUERY,
+                data
+              });
+            }
 
             this.props.history.push(`/channels/@me/${addDMChannel.id}`)
           }}
