@@ -53,7 +53,7 @@ class DMChannelEntry extends Component {
           this.props.history.push(`/channels/@me/`);
         }}
       >
-        {(removeDMChannelMutation) => ( <div className="remove__dms" onClick={removeDMChannelMutation}>x</div> )}
+        {(removeDMChannelMutation) => ( <div className="remove__dms" onClick={(e) =>{ e.preventDefault(); removeDMChannelMutation()}}>x</div> )}
       </Mutation>
     ) : null;
   

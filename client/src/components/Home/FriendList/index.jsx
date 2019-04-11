@@ -15,13 +15,23 @@ class FriendList extends Component {
 
     this.state = {
       filter: 'All',
-      relations: this.props.relations,
       requests: this.props.requests,
     };
 
     this.handleSortingFriends = this.handleSortingFriends.bind(this);
   }
 
+  async componentWillMount () {
+    const { data: { getAllRelations }} = await this.props.client.query({
+      query: FRIEND_LIST_QUERY,
+      variables: { filter: 'Pending' }
+    })
+
+
+    console.log(getAllRelations.length)
+
+    this.requests = getAllRelations.length
+  }
   async componentDidMount() {
     document.getElementsByClassName('friendlist__navItem')[0].classList.add('friendlist__active');
   }
@@ -33,18 +43,14 @@ class FriendList extends Component {
     document.getElementsByClassName('friendlist__active')[0].classList.remove('friendlist__active') : null;
     e.target.classList.add('friendlist__active');
 
-    const { data: { getAllRelations } } =  await this.props.client.query({
-      query: FRIEND_LIST_QUERY,
-      variables: { filter }
-    });
-
-    this.setState({ 
-      relations: getAllRelations,
+    await this.setState({
       filter,
-    });
+    })
+    await this.props.filterRel(filter);
   }
 
   render() {
+    console.log(this.requests)
     return (         
       <div id="friend__list">
         <div className="friend__list__nav">
@@ -54,7 +60,7 @@ class FriendList extends Component {
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Online">Online</div>
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Pending">
             Pending
-            <div className="friendlist__requests">{this.state.requests}</div>
+            <div className="friendlist__requests">{this.requests}</div>
           </div>
           <div className="vert-separator"></div>
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Blocked">Blocked</div>
@@ -66,7 +72,7 @@ class FriendList extends Component {
             <div className="friendList__info">Mutual Servers</div>
           </div>
           <div className="friend__list">
-            { this.state.relations.map( relation => ( <FriendEntry key={relation.id} relation={relation}/> )) }
+            { this.props.relations.map( relation => ( <FriendEntry key={relation.id} relation={relation}/> )) }
           </div>
         </div>
       </div>

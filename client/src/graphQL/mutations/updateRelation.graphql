@@ -1,7 +1,7 @@
-#import '../fragments/UserInfo.graphql'
 
-query getAllRelations ($filter: String) {
-  getAllRelations (filter: $filter ){
+#import '../fragments/UserInfo.graphql'
+mutation UpdateRelation ($id: ID!, $action: Int!) {
+  updateRelation(id: $id, action: $action) {
     id
     status
     action_id
