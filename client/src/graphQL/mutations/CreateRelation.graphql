@@ -1,11 +1,33 @@
+#import '../fragments/UserInfo.graphql'
 mutation CreateRelation ($friend_username: String!, $action: Int!) {
   createRelation(friend_username: $friend_username, action: $action) {
     id
-    link {
-      id
-      username
-    }
-    action_id
     status
+    action_id
+    
+    link {
+      ...UserInfo
+      
+      memberOf {
+        id
+        name
+        avatar
+
+        channels {
+          id
+          children {
+            id
+          }
+        }
+      }
+      
+      dmChannels {
+        id
+        recipients {
+          id
+          username
+        }
+      }
+    }
   }
 }

@@ -36,6 +36,8 @@ class FriendEntry extends Component {
             variables: { filter: 'Pending' }    
           });
 
+          console.log('hey', updateRelation)
+
           const result = data.relations.relations.filter( rel => ( rel.id !== updateRelation.id ));
 
           store.writeQuery({

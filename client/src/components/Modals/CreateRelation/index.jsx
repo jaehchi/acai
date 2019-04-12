@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 
 import CREATE_RELATION_MUTATION from '../../../graphQL/mutations/CreateRelation.graphql';
+import FRIEND_LIST_QUERY from '../../../graphQL/queries/FriendList.graphql';
 
 import './createRelationModal.sass';
 
@@ -43,7 +44,33 @@ class CreateRelation extends Component {
           <button className="cr-cancel" onClick={this.toggleRelationModal}>
             <span>Cancel</span>
           </button>
-          <Mutation mutation={CREATE_RELATION_MUTATION} variables={{ friend_username: this.state.username, action: 0 }}>
+          <Mutation 
+            mutation={CREATE_RELATION_MUTATION} 
+            variables={{ friend_username: this.state.username, action: 0 }}
+            update={(store, { data: { createRelation } }) => {
+              const data = store.readQuery({
+                query: FRIEND_LIST_QUERY,
+                variables: { filter: 'Pending' },
+              })
+
+              console.log('hey', data, createRelation, data.relations.count.length + 1,)
+              
+              store.writeQuery({
+                query: FRIEND_LIST_QUERY,
+                data: {
+                  relations: {
+                    relations: [...data.relations.relations, createRelation],
+                    count: data.relations.count + 1,
+                    __typename: "RelationPayload" 
+                  },
+                },
+                variables: { filter: 'Pending' }    
+              });
+
+              this.toggleRelationModal();
+
+            }}
+          >
             { createRelationMutation => ( <button onClick={createRelationMutation} className='cr-create'>Send Request</button> )}
           </Mutation>
         </div>

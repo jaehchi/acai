@@ -6,6 +6,7 @@ import FriendList from '../../components/Home/FriendList/index.jsx';
 import Loading from '../../components/globals/Loading';
 
 import PENDING_COUNT_QUERY from '../../graphQL/queries/PendingCount.graphql';
+import FRIEND_LIST_QUERY from '../../graphQL/queries/FriendList.graphql';
 
 class FriendListPage extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class FriendListPage extends Component {
   }
   render() {
     return (
-      <Query query={PENDING_COUNT_QUERY} fetchPolicy='cache-first' variables={{ filter: 'Pending' }}>
+      <Query query={FRIEND_LIST_QUERY} fetchPolicy='cache-first' variables={{ filter: 'Pending' }}>
         {
           ({ loading, error, refetch, data }) => {
             if ( loading ) { 
