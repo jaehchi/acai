@@ -34,15 +34,21 @@ class FriendEntry extends Component {
           const data = store.readQuery({
             query: FRIEND_LIST_QUERY,
             variables: { filter: 'Pending' }    
-          })
+          });
+
+          const result = data.relations.relations.filter( rel => ( rel.id !== updateRelation.id ));
 
           store.writeQuery({
             query: FRIEND_LIST_QUERY,
             data: {
-              getAllRelations: data.getAllRelations.filter( rel => ( rel.id !== updateRelation.id )),
+              relations: {
+                relations: result,
+                count: result.length,
+                __typename: "RelationPayload" 
+              },
             },
             variables: { filter: 'Pending' }    
-          })
+          });
         }}>
           {(updateRelationMutation) => ( <button onClick={updateRelationMutation}>x</button>)}
         </Mutation>

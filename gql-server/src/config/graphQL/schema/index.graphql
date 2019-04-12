@@ -5,6 +5,11 @@ type AuthPayload {
   user: User
 }
 
+type RelationPayload {
+  relations: [Relation!]!
+  count: Int!
+}
+
 type User {
   id: ID!
   createdAt: DateTime!
@@ -69,7 +74,7 @@ type Query {
   user(id: ID): User
 
   # Relation
-  getAllRelations(id: ID, filter: String): [Relation!]!
+  relations( filter: String): RelationPayload! 
 
   # Guild 
   guilds: [Guild!]!
@@ -86,3 +91,4 @@ type Query {
 type Subscription {
   newMessage (id: ID!, where: MessageSubscriptionWhereInput): MessageSubscriptionPayload
 }
+

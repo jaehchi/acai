@@ -1,0 +1,7 @@
+
+
+query Relations ($filter: String) {
+  relations (filter: $filter ){
+    count
+  }
+}

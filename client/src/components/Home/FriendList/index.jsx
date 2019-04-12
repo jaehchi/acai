@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withApollo } from 'react-apollo';
+import { Query } from 'react-apollo';
 
 import FRIEND_LIST_QUERY from '../../../graphQL/queries/FriendList.graphql';
 import Loading from '../../globals/Loading';
@@ -15,23 +15,11 @@ class FriendList extends Component {
 
     this.state = {
       filter: 'All',
-      requests: this.props.requests,
     };
 
     this.handleSortingFriends = this.handleSortingFriends.bind(this);
   }
 
-  async componentWillMount () {
-    const { data: { getAllRelations }} = await this.props.client.query({
-      query: FRIEND_LIST_QUERY,
-      variables: { filter: 'Pending' }
-    })
-
-
-    console.log(getAllRelations.length)
-
-    this.requests = getAllRelations.length
-  }
   async componentDidMount() {
     document.getElementsByClassName('friendlist__navItem')[0].classList.add('friendlist__active');
   }
@@ -46,11 +34,9 @@ class FriendList extends Component {
     await this.setState({
       filter,
     })
-    await this.props.filterRel(filter);
   }
 
   render() {
-    console.log(this.requests)
     return (         
       <div id="friend__list">
         <div className="friend__list__nav">
@@ -60,7 +46,7 @@ class FriendList extends Component {
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Online">Online</div>
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Pending">
             Pending
-            <div className="friendlist__requests">{this.requests}</div>
+            <div className="friendlist__requests">{this.props.count}</div>
           </div>
           <div className="vert-separator"></div>
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Blocked">Blocked</div>
@@ -72,7 +58,25 @@ class FriendList extends Component {
             <div className="friendList__info">Mutual Servers</div>
           </div>
           <div className="friend__list">
-            { this.props.relations.map( relation => ( <FriendEntry key={relation.id} relation={relation}/> )) }
+            <Query query={FRIEND_LIST_QUERY} fetchPolicy='cache-first' variables={{ filter: this.state.filter }}>
+              {
+                ({ loading, error, refetch, data: { relations }}) => {
+                  if ( loading ) { 
+                    return <Loading/> 
+                  }
+
+                  if ( error ) { return <div>{error}</div> }
+
+                  console.log(relations)
+
+                  return (
+                    <div> 
+                      { relations.relations.map( relation => ( <FriendEntry key={relation.id} relation={relation}/> )) }
+                    </div>
+                  )
+                }
+              }
+            </Query>
           </div>
         </div>
       </div>
@@ -80,4 +84,4 @@ class FriendList extends Component {
   }
 }
 
-export default withApollo(FriendList);
+export default FriendList;

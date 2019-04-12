@@ -1,34 +1,38 @@
 #import '../fragments/UserInfo.graphql'
 
-query getAllRelations ($filter: String) {
-  getAllRelations (filter: $filter ){
-    id
-    status
-    action_id
-    
-    link {
-      ...UserInfo
+query Relations ($filter: String) {
+  relations (filter: $filter ){
+    count
+    relations {
+      id
+      status
+      action_id
       
-      memberOf {
-        id
-        name
-        avatar
-
-        channels {
+      link {
+        ...UserInfo
+        
+        memberOf {
           id
-          children {
+          name
+          avatar
+
+          channels {
             id
+            children {
+              id
+            }
+          }
+        }
+        
+        dmChannels {
+          id
+          recipients {
+            id
+            username
           }
         }
       }
-      
-      dmChannels {
-        id
-        recipients {
-          id
-          username
-        }
-      }
     }
+
   }
 }
