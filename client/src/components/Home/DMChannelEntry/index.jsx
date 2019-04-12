@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { withApollo, Mutation } from 'react-apollo';
 import { propType } from 'graphql-anywhere';
-import gql from 'graphql-tag';
-
 
 import REMOVE_DM_CHANNEL_MUTATION from '../../../graphQL/mutations/RemoveDMChannel.graphql';
 import DM_CHANNEL_LIST_QUERY from '../../../graphQL/queries/DMChannelList.graphql'
-
 
 import MemberEntry from '../MemberEntry';
 import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
@@ -37,6 +34,7 @@ class DMChannelEntry extends Component {
     
     const path = `${match.path}/${id}`;
     const member = recipients.find( user => ( user.id !== localStorage._id ));
+    
     const DM = id ? (
       <Mutation 
         mutation={REMOVE_DM_CHANNEL_MUTATION} 
@@ -50,14 +48,19 @@ class DMChannelEntry extends Component {
 
           store.writeQuery({ query: DM_CHANNEL_LIST_QUERY, data });
 
-          this.props.history.push(`/channels/@me/`);
+
+          if ( this.props.history.location.pathname === `/channels/@me/${removeDMChannel.id}`) {
+            this.props.history.push(`/channels/@me/`); 
+          }
+          
         }}
       >
         {(removeDMChannelMutation) => ( <div className="remove__dms" onClick={(e) =>{ e.preventDefault(); removeDMChannelMutation()}}>x</div> )}
       </Mutation>
     ) : null;
-  
+
     return (
+      
       <div key={id}>
         <NavLink to={path} className="dm__entry" activeClassName="dm-active" onMouseOver={this.prefetchMessages}>
           <MemberEntry member={member} dm={id}/>

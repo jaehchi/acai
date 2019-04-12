@@ -67,8 +67,6 @@ class FriendList extends Component {
 
                   if ( error ) { return <div>{error}</div> }
 
-                  console.log(relations)
-
                   return (
                     <div> 
                       { relations.relations.map( relation => ( <FriendEntry key={relation.id} relation={relation}/> )) }

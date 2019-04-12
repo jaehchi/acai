@@ -51,9 +51,7 @@ class CreateRelation extends Component {
               const data = store.readQuery({
                 query: FRIEND_LIST_QUERY,
                 variables: { filter: 'Pending' },
-              })
-
-              console.log('hey', data, createRelation, data.relations.count.length + 1,)
+              });
               
               store.writeQuery({
                 query: FRIEND_LIST_QUERY,
