@@ -25,8 +25,6 @@ class ChannelListPage extends Component {
             return <Loading/>;
           }
 
-          
-
           return (
             <div id="channels__content">
               <div className="channel__nav">

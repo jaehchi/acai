@@ -40,7 +40,7 @@ class FriendList extends Component {
     return (         
       <div id="friend__list">
         <div className="friend__list__nav">
-          <AddFriend/>
+          <AddFriend updateStoreAfterCreatingRelation={this.props.updateStoreAfterCreatingRelation}/>
           <div className="vert-separator"></div>
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="All">All</div>
           <div className="friendlist__navItem" onClick={this.handleSortingFriends} name="Online">Online</div>
@@ -69,7 +69,15 @@ class FriendList extends Component {
 
                   return (
                     <div> 
-                      { relations.relations.map( relation => ( <FriendEntry key={relation.id} relation={relation}/> )) }
+                      { relations.relations.map( relation => ( 
+                        <FriendEntry 
+                          key={relation.id} 
+                          relation={relation} 
+                          updateStoreAfterUpdatingRelation={this.props.updateStoreAfterUpdatingRelation}
+                          updateStoreAfterAddingActiveDM={this.props.updateStoreAfterAddingActiveDM}
+                        />
+                        )) 
+                      }
                     </div>
                   )
                 }

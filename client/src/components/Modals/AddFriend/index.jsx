@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import Modal from '../../globals/Modal';
 import CreateRelation from '../CreateRelation';
 
@@ -32,7 +33,7 @@ class AddFriend extends Component {
       <Modal>
         <div className="add-friend-wrapper" onClick={this.toggleModal}>
           <div className="add-friend-container" ref={ node => { this.node = node; }}>
-            <CreateRelation toggleModal={this.toggleModal}/>
+            <CreateRelation toggleModal={this.toggleModal} updateStoreAfterCreatingRelation={this.props.updateStoreAfterCreatingRelation}/>
           </div>
         </div>
       </Modal>

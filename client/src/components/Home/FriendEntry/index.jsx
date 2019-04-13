@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
-import { Mutation, withApollo } from 'react-apollo';
+import { Mutation  } from 'react-apollo';
 
 import SVG from '../../globals/SVG';
 
-import DM_CHANNEL_LIST_QUERY from '../../../graphQL/queries/DMChannelList.graphql';
-import FRIEND_LIST_QUERY from '../../../graphQL/queries/FriendList.graphql';
 import ADD_DM_CHANNEL_MUTATION from '../../../graphQL/mutations/addDMChannel.graphql';
 import UPDATE_RELATION_MUTATION from '../../../graphQL/mutations/updateRelation.graphql';
 
@@ -16,8 +14,14 @@ class FriendEntry extends Component {
     super(props);
 
     this.handleServerClick = this.handleServerClick.bind(this);
+    this._handlePendingActionsClick = this._handlePendingActionsClick.bind(this);
   }
 
+  _handlePendingActionsClick (e, mutation) {
+    e.preventDefault();
+    e.stopPropagation();
+    mutation();
+  }
 
   handleServerClick (e, guild) {
     e.preventDefault();
@@ -25,75 +29,69 @@ class FriendEntry extends Component {
   }
 
   render() {
-  
     const { relation: { id, status, link, action_id }, match } = this.props;
 
     const path = `${match.path}/${link[0].dmChannels[0].id}`
     const stat = (status === 'Pending') ? ( (action_id === localStorage._id) ? 'Outgoing Friend Request' : 'Incoming Friend Request' ) : status;
 
-    
-    const friendActions = (status === 'Pending' && action_id !== localStorage._id) ? (
-      <div>
-        <Mutation mutation={UPDATE_RELATION_MUTATION} variables={{ id, action: 3 }} update={ (store, { data: { updateRelation} }) => {
-          const data = store.readQuery({
-            query: FRIEND_LIST_QUERY,
-            variables: { filter: 'Pending' }    
-          });
+    const avatar = link[0].avatar[0] !== '#' ? (
+      <img src={`http://localhost:3100/${link[0].avatar}`}/> 
+    ) : (
+      <div className="friend-default-avatar">
+        <SVG height={"35px"} width={"35px"} viewBox={"0 -15 512 512"} style={{ backgroundColor: link[0].avatar, borderRadius: "50%" }}/>
+      </div>
+    );
 
-          const result = data.relations.relations.filter( rel => ( rel.id !== updateRelation.id ));
-
-          store.writeQuery({
-            query: FRIEND_LIST_QUERY,
-            data: {
-              relations: {
-                relations: result,
-                count: result.length,
-                __typename: "RelationPayload" 
-              },
-            },
-            variables: { filter: 'Pending' }    
-          });
-        }}>
-          {(updateRelationMutation) => ( <button onClick={updateRelationMutation}>x</button>)}
-        </Mutation>
+    const friendActions = (status === 'Pending' && action_id !== localStorage._id) ? ( 
+      <div className="pending__actions">
+        <div className="pending__action pending__accept">
+          <Mutation 
+            mutation={UPDATE_RELATION_MUTATION} 
+            variables={{ id, action: 1 }} 
+            update={ (store, { data: { updateRelation } }) => {
+              this.props.updateStoreAfterUpdatingRelation( store, updateRelation );
+            }}
+          >
+            { (updateRelationMutation) => ( 
+              <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
+                <SVG name="checkmark" height={"24px"} weight={"24px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
+              </div>
+            )}
+          </Mutation>
+        </div>
+        <div className="pending__action pending__decline">
+          <Mutation 
+            mutation={UPDATE_RELATION_MUTATION} 
+            variables={{ id, action: 3 }} 
+            update={ (store, { data: { updateRelation } }) => {
+              this.props.updateStoreAfterUpdatingRelation( store, updateRelation );
+            }}
+          >
+            { (updateRelationMutation) => ( 
+              <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
+                <SVG name="cross" height={"20px"} weight={"20px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
+              </div>) }
+          </Mutation>
+        </div>
+          
       </div>
     ) : null;
 
     const friendRelation = (
       <Mutation
-          mutation={ADD_DM_CHANNEL_MUTATION} 
-          variables={{ id: link[0].dmChannels[0].id}}
-          update={(store, { data: { addDMChannel } }) => {
-            const data = store.readQuery({ 
-              query: DM_CHANNEL_LIST_QUERY
-            });
-
-            const isDMAlreadyActive = data.user.activeDMs.find( DM => ( DM.id === addDMChannel.id ));
-
-            if ( !isDMAlreadyActive ) {
-              data.user.activeDMs.push(addDMChannel);
-
-              store.writeData({
-                query: DM_CHANNEL_LIST_QUERY,
-                data
-              });
-            }
-          }}
-        >
-          { (addDMChannelMutation) => (
-            <div>
-              { friendActions }
-            
-              <NavLink to={path}>
-                    
+        mutation={ADD_DM_CHANNEL_MUTATION} 
+        variables={{ id: link[0].dmChannels[0].id}}
+        update={(store, { data: { addDMChannel } }) => {
+          this.props.updateStoreAfterAddingActiveDM( store, addDMChannel )
+        }}
+      >
+        { (addDMChannelMutation) => (
+          <div>
+            <NavLink to={path}>
               <div onClick={addDMChannelMutation}>
                 <div className="friend__content">
                   <div className="friend__username"> 
-                    {
-                      link[0].avatar[0] !== '#' ? <img src={`http://localhost:3100/${link[0].avatar}`} /> : <div className="friend-default-avatar" style={{ backgroundColor: link[0].avatar }}>
-                       <SVG height={"35px"} width={"35px"} viewBox={"0 -15 512 512"}/>
-                      </div>
-                    }
+                    { avatar }
                     <div>{link[0].username}</div>
                   </div>
                   <div className={`friend__status__icon ${ stat !== 'Accepted' ? 'Offline' : link[0].status}`}></div>
@@ -109,15 +107,15 @@ class FriendEntry extends Component {
                       })
                     }
                   </div>
-          
+                  { friendActions }
                 </div>
               </div>
-          </NavLink> 
-            </div>
-            )
-          }
-        </Mutation>
-    )
+            </NavLink> 
+          </div>
+          )
+        }
+      </Mutation>
+    );
 
   
   
@@ -129,4 +127,4 @@ class FriendEntry extends Component {
   }
 }
 
-export default withApollo(withRouter(FriendEntry));
+export default withRouter(FriendEntry);

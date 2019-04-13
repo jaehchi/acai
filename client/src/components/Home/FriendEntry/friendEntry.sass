@@ -5,8 +5,6 @@
   position: relative
   z-index: 1
 
-
-
   .friend__content
     display: flex
     flex-direction: row
@@ -78,15 +76,50 @@
       z-index: 999
       position: relative
 
-
       img 
         width: 35px
         height: 35px
         margin-right: 9px
         border-radius: 50%
 
+    .pending__actions 
+      color: #fff 
+      display: flex
+      justify-content: flex-end
+      flex-direction: row
+      align-items: center
+      width: 250px
+
+      .pending__action
+        background-color: #2f3136
+        margin: 0
+        color: white
+        height: 36px
+        width: 36px
+        margin: 5px
+        border-radius: 3px
+        
+        div
+          display: flex
+          height: 36px
+          width: 36px
+          justify-content: center 
+          align-items: center
+          margin: 0
+          padding: 0
+      
+      .pending__accept
+        &:hover 
+          background-color: #43b581
+
+      .pending__decline
+        &:hover
+          background-color: #4f545c
+        
+
   &:hover 
     background-color: rgba(79,84,92,.4)
     box-shadow: 1px 2px rgba(0,0,0,.2), 1px 2px 0 rgba(0,0,0,.01)
     border-radius: 3px
+
 

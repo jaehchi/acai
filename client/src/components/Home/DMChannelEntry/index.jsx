@@ -5,9 +5,11 @@ import { propType } from 'graphql-anywhere';
 
 import REMOVE_DM_CHANNEL_MUTATION from '../../../graphQL/mutations/RemoveDMChannel.graphql';
 import DM_CHANNEL_LIST_QUERY from '../../../graphQL/queries/DMChannelList.graphql'
-
-import MemberEntry from '../MemberEntry';
 import MESSAGE_LIST_QUERY from '../../../graphQL/queries/MessageList.graphql';
+
+import SVG from '../../globals/SVG';
+import MemberEntry from '../MemberEntry';
+
 
 import './dmChannelEntry.sass';
 
@@ -55,7 +57,11 @@ class DMChannelEntry extends Component {
           
         }}
       >
-        {(removeDMChannelMutation) => ( <div className="remove__dms" onClick={(e) =>{ e.preventDefault(); removeDMChannelMutation()}}>x</div> )}
+        {(removeDMChannelMutation) => ( 
+          <div className="remove__dms" onClick={(e) =>{ e.preventDefault(); removeDMChannelMutation()}}>
+            <SVG name={"cross"} height={"10"} width={"10"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
+          </div> 
+        )}
       </Mutation>
     ) : null;
 
