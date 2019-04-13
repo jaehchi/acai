@@ -1,6 +1,4 @@
 import { getUserID } from '../../../../utils/jwt';
-import { SSL_OP_CRYPTOPRO_TLSEXT_BUG } from 'constants';
-
 
 const actions = { 
   0: 'Pending',
@@ -29,17 +27,31 @@ export const createRelation = async (parent, { friend_username, action }, ctx, i
         }
       ]
     }
-  })
+  }, info);
+
+  console.log(doesRelationAlreadyExist)
 
   if (!isValidAction) {
     throw new Error('Please select a new action');
   }
 
-  if (doesRelationAlreadyExist) {
-    throw new Error (' There already relation between the two users');
+  if ( doesRelationAlreadyExist.length !== 0 ) {
+    const existingRel = doesRelationAlreadyExist[0];
+    if ( existingRel.status === 'Pending' ) {
+      throw new Error (`there's already a pending request`);
+    } else if ( existingRel.status === 'Accepted' ) {
+      throw new Error (`Already friends, bro`);
+    } else if ( existingRel.status === 'Declined' ) {
+      return await ctx.db.mutation.updateRelation({
+        where: { id: existingRel.id },
+        data: {
+          status: 'Pending'
+        }
+      }, info)
+    }
   }
 
-  if ( isValidAction && !doesRelationAlreadyExist ) {
+  if ( isValidAction && doesRelationAlreadyExist.length === 0 ) {
     await ctx.db.mutation.createChannel({ 
       data: {
         type: 1,
