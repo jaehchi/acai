@@ -3,9 +3,11 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { Mutation  } from 'react-apollo';
 
 import SVG from '../../globals/SVG';
+import RemoveFriend from '../../Modals/RemoveFriend';
 
 import ADD_DM_CHANNEL_MUTATION from '../../../graphQL/mutations/addDMChannel.graphql';
 import UPDATE_RELATION_MUTATION from '../../../graphQL/mutations/updateRelation.graphql';
+
 
 import './friendEntry.sass';
 
@@ -14,6 +16,7 @@ class FriendEntry extends Component {
     super(props);
 
     this.handleServerClick = this.handleServerClick.bind(this);
+    this.__createFriendAction = this._createFriendAction.bind(this);
     this._handlePendingActionsClick = this._handlePendingActionsClick.bind(this);
   }
 
@@ -26,6 +29,73 @@ class FriendEntry extends Component {
   handleServerClick (e, guild) {
     e.preventDefault();
     this.props.history.push(`/channels/${guild.id}/${guild.channels[0].children[0].id}`);
+  }
+
+  _createFriendAction (id, status, action_id, link) {
+    if ( status === 'Pending' ) {
+      return (
+        <div className="pending__actions">
+          { 
+            action_id !== localStorage._id ? <div className="pending__action pending__accept">
+              <Mutation 
+                mutation={UPDATE_RELATION_MUTATION} 
+                variables={{ id, action: 1 }} 
+                update={ (store, { data: { updateRelation } }) => {
+                  this.props.updateStoreAfterUpdatingRelation( store, updateRelation );
+                  this.props.refetch({ filter: 'All'});
+                }}
+              >
+                { (updateRelationMutation) => ( 
+                  <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
+                    <SVG name="checkmark" height={"24px"} weight={"24px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
+                  </div>
+                )}
+              </Mutation>
+            </div> : null
+          }
+          <div className="pending__action pending__decline">
+            <Mutation 
+              mutation={UPDATE_RELATION_MUTATION} 
+              variables={{ id, action: 3 }} 
+              update={ (store, { data: { updateRelation } }) => {
+                this.props.updateStoreAfterUpdatingRelation( store, updateRelation );
+              }}
+            >
+              { (updateRelationMutation) => ( 
+                <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
+                  <SVG name="cross" height={"20px"} weight={"20px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
+                </div>) }
+            </Mutation>
+          </div>  
+        </div>
+      )
+    } else if ( status === 'Accepted' ) {
+      const payload = {
+        id, 
+        status,
+        link: link[0]
+      }
+      return (
+        <div className="pending__actions">
+          <div className="pending__action pending__remove">
+            <RemoveFriend relation={payload} updateStoreAfterDeletingRelation={this.props.updateStoreAfterDeletingRelation}/>
+          </div>
+        </div>
+      );
+    } else if ( status === 'Blocked') {
+      const payload = {
+        id, 
+        status,
+        link: link[0]
+      }
+      return ( 
+        <div className="pending__actions">
+          <div className="pending__action pending__remove">
+            <RemoveFriend relation={payload} updateStoreAfterDeletingRelation={this.props.updateStoreAfterDeletingRelation}/>
+          </div>
+        </div>
+      );
+    }
   }
 
   render() {
@@ -42,41 +112,7 @@ class FriendEntry extends Component {
       </div>
     );
 
-    const friendActions = (status === 'Pending' && action_id !== localStorage._id) ? ( 
-      <div className="pending__actions">
-        <div className="pending__action pending__accept">
-          <Mutation 
-            mutation={UPDATE_RELATION_MUTATION} 
-            variables={{ id, action: 1 }} 
-            update={ (store, { data: { updateRelation } }) => {
-              this.props.updateStoreAfterUpdatingRelation( store, updateRelation );
-            }}
-          >
-            { (updateRelationMutation) => ( 
-              <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
-                <SVG name="checkmark" height={"24px"} weight={"24px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
-              </div>
-            )}
-          </Mutation>
-        </div>
-        <div className="pending__action pending__decline">
-          <Mutation 
-            mutation={UPDATE_RELATION_MUTATION} 
-            variables={{ id, action: 3 }} 
-            update={ (store, { data: { updateRelation } }) => {
-              this.props.updateStoreAfterUpdatingRelation( store, updateRelation );
-            }}
-          >
-            { (updateRelationMutation) => ( 
-              <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
-                <SVG name="cross" height={"20px"} weight={"20px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
-              </div>) }
-          </Mutation>
-        </div>
-          
-      </div>
-    ) : null;
-
+    
     const friendRelation = (
       <Mutation
         mutation={ADD_DM_CHANNEL_MUTATION} 
@@ -107,7 +143,7 @@ class FriendEntry extends Component {
                       })
                     }
                   </div>
-                  { friendActions }
+                  { this.__createFriendAction(id, status, action_id, link) }
                 </div>
               </div>
             </NavLink> 

@@ -73,8 +73,10 @@ class FriendList extends Component {
                         <FriendEntry 
                           key={relation.id} 
                           relation={relation} 
+                          refetch={refetch}
                           updateStoreAfterUpdatingRelation={this.props.updateStoreAfterUpdatingRelation}
                           updateStoreAfterAddingActiveDM={this.props.updateStoreAfterAddingActiveDM}
+                          updateStoreAfterDeletingRelation={this.props.updateStoreAfterDeletingRelation}
                         />
                         )) 
                       }

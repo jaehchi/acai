@@ -42,6 +42,7 @@ type Mutation {
   # Relation
   createRelation( friend_username: String!, action: Int!): Relation
   updateRelation( id: ID!, action: Int!): Relation
+  deleteRelation( id: ID! ): Relation
 
   # Guilds
   createGuild(name: String!, avatar: String): Guild

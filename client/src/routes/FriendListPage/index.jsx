@@ -13,6 +13,7 @@ class FriendListPage extends Component {
 
     this._updateStoreAfterCreatingRelation = this._updateStoreAfterCreatingRelation.bind(this);
     this._updateStoreAfterUpdatingRelation = this._updateStoreAfterUpdatingRelation.bind(this);
+    this._updateStoreAfterDeletingRelation = this._updateStoreAfterDeletingRelation.bind(this);
     this._updateStoreAfterAddingActiveDM = this._updateStoreAfterAddingActiveDM.bind(this);
   }
 
@@ -60,6 +61,27 @@ class FriendListPage extends Component {
     });
   }
 
+  _updateStoreAfterDeletingRelation (store, deleteRelation, toggle ) {
+    const data = store.readQuery({
+      query: FRIEND_LIST_QUERY,
+      variables: { filter: 'All' },
+    });
+    
+    store.writeQuery({
+      query: FRIEND_LIST_QUERY,
+      data: {
+        relations: {
+          relations: data.relations.relations.filter( rel => rel.id !== deleteRelation.id ),
+          count: data.relations.count,
+          __typename: "RelationPayload" 
+        },
+      },
+      variables: { filter: 'All' }    
+    });
+
+    toggle();
+  }
+
   _updateStoreAfterAddingActiveDM ( store, addDMChannel ) {
     const data = store.readQuery({ 
       query: DM_CHANNEL_LIST_QUERY
@@ -95,6 +117,7 @@ class FriendListPage extends Component {
                   count={data.relations.count} 
                   updateStoreAfterCreatingRelation={this._updateStoreAfterCreatingRelation}
                   updateStoreAfterUpdatingRelation={this._updateStoreAfterUpdatingRelation}
+                  updateStoreAfterDeletingRelation={this._updateStoreAfterDeletingRelation}
                   updateStoreAfterAddingActiveDM={this._updateStoreAfterAddingActiveDM}
                 />
               </div>

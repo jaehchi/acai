@@ -1,0 +1,77 @@
+@import '../../globals/global.sass'
+
+#delete__relation
+  display: grid
+  background-color: #2f3136
+  grid-template-columns: auto
+  grid-template-rows: 125px  75px
+  grid-template-areas: "dr-header" "dr-footer"
+  position: relative
+  height: 200px
+  align-self: center
+  position: relative
+  z-index: 1
+
+  .dr-header
+    grid-area: dr-header
+    text-align: center
+    padding: 0
+    margin-top: 10px
+
+    h1 
+      color: #f04747
+      text-transform: uppercase
+      font-weight: 600
+      font-size: 18px
+      margin: 15px 20px
+
+    p 
+      font-size: 16px
+      margin: 15px
+      color: #99aab5
+      font-weight: 300
+
+      strong 
+        color: #f04747
+
+  .dr-footer
+    grid-area: dr-footer
+    display: flex
+    justify-content: flex-end
+    padding: 0 20px
+    background-color: #36393f
+    border-bottom-left-radius: 5px
+    border-bottom-right-radius: 5px
+    outline: none
+
+    .dr-cancel
+      height: 30px
+      margin: auto 20px
+      border: 1px solid #36393f
+      background-color: #36393f
+      
+      span
+        color: #99aab5
+        padding: 0
+        text-transform: uppercase
+        font-size: 12px
+        font-weight: 500
+        // margin-left: 20px
+
+      &:hover 
+        border-bottom: 1px solid #99aab5
+  
+  .dr-delete
+    height: 40px
+    width: 124px
+    margin: auto 0
+    background-color: #f04747
+    color: $white
+    border-color: #f04747
+
+    font-size: 12px
+    border-radius: 3px
+
+    &:hover 
+      background-color: #d84040
+      
