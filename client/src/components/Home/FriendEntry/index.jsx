@@ -6,7 +6,8 @@ import SVG from '../../globals/SVG';
 import RemoveFriend from '../../Modals/RemoveFriend';
 
 import ADD_DM_CHANNEL_MUTATION from '../../../graphQL/mutations/addDMChannel.graphql';
-import UPDATE_RELATION_MUTATION from '../../../graphQL/mutations/updateRelation.graphql';
+import UPDATE_RELATION_MUTATION from '../../../graphQL/mutations/UpdateRelation.graphql';
+import DELETE_RELATION_MUTATION from '../../../graphQL/mutations/DeleteRelation.graphql';
 
 
 import './friendEntry.sass';
@@ -21,6 +22,7 @@ class FriendEntry extends Component {
   }
 
   _handlePendingActionsClick (e, mutation) {
+  
     e.preventDefault();
     e.stopPropagation();
     mutation();
@@ -63,7 +65,7 @@ class FriendEntry extends Component {
             >
               { (updateRelationMutation) => ( 
                 <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
-                  <SVG name="cross" height={"20px"} weight={"20px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
+                  <SVG name="cross" height={"20px"} weight={"20px"} viewBox={"0 0 328 328"} fill={"currentColor"}/>
                 </div>) }
             </Mutation>
           </div>  
@@ -91,7 +93,19 @@ class FriendEntry extends Component {
       return ( 
         <div className="pending__actions">
           <div className="pending__action pending__remove">
-            <RemoveFriend relation={payload} updateStoreAfterDeletingRelation={this.props.updateStoreAfterDeletingRelation}/>
+            <Mutation 
+              mutation={DELETE_RELATION_MUTATION} 
+              variables={{ id, action: 3 }} 
+              update={ (store, { data: { deleteRelation } }) => {
+                this.props.updateStoreAfterDeletingRelation( store, deleteRelation, null );
+              }}
+            >
+              { (deleteRelationMutation) => ( 
+                <div onClick={(e) => { this._handlePendingActionsClick(e, deleteRelationMutation)}}>
+                  <SVG name="removeUser" height={"20px"} weight={"20px"} viewBox={"0 0 328 328"} fill={"currentColor"}/>
+                </div>) }
+            </Mutation>
+
           </div>
         </div>
       );

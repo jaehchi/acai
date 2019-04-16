@@ -8,21 +8,16 @@ import './deleteRelation.sass';
 class DeleteRelation extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      username: null
-    };
   }
 
   render() {
-    const { id, status, link } = this.props.relation;
+    const { id, link } = this.props.relation;
 
     const deleteRelation = (
       <Mutation 
         mutation={DELETE_RELATION_MUTATION} 
         variables={{ id, }}
         update={(store, { data: { deleteRelation } }) => {
-          console.log(deleteRelation)
           this.props.updateStoreAfterDeletingRelation(store, deleteRelation, this.props.toggleModal);
         }}
       >

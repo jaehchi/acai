@@ -1,5 +1,11 @@
 import { getUserID } from '../../../../utils/jwt';
 
+const transformData = async (relation, userID) => {
+  relation.link = relation.link.filter( user => { return user.id !== userID }); 
+  relation.link[0].dmChannels = [relation.link[0].dmChannels.find( channel => { return channel.recipients.find( recipient => { return recipient.id === userID })})];
+  relation.link[0].memberOf = relation.link[0].memberOf.filter(guild => JSON.stringify(relation.link[0].memberOf).includes(JSON.stringify(guild)));
+}
+
 const actions = { 
   0: 'Pending',
   2: 'Blocked',
@@ -7,6 +13,7 @@ const actions = {
 
 // On create Friend relation, an user cannot accepted nor decline a person, but they are able to block a user 
 // even if they are not friends
+
 export const createRelation = async (parent, { friend_username, action }, ctx, info) => {
   const userID = await getUserID(ctx.request);
 
@@ -42,12 +49,15 @@ export const createRelation = async (parent, { friend_username, action }, ctx, i
     } else if ( existingRel.status === 'Accepted' ) {
       throw new Error (`Already friends, bro`);
     } else if ( existingRel.status === 'Declined' ) {
-      return await ctx.db.mutation.updateRelation({
+      const relation =  await ctx.db.mutation.updateRelation({
         where: { id: existingRel.id },
         data: {
           status: 'Pending'
         }
       }, info)
+
+      await transformData(relation, userID);
+      return relation;
     }
   }
 
@@ -71,9 +81,7 @@ export const createRelation = async (parent, { friend_username, action }, ctx, i
       }
     }, info);
 
-    relation.link = relation.link.filter( user => { return user.id !== userID }); 
-    relation.link[0].dmChannels = [relation.link[0].dmChannels.find( channel => { return channel.recipients.find( recipient => { return recipient.id === userID })})];
-    relation.link[0].memberOf = relation.link[0].memberOf.filter(guild => JSON.stringify(relation.link[0].memberOf).includes(JSON.stringify(guild)));
+    await transformData(relation, userID);
 
     return relation;
   }

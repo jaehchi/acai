@@ -14,9 +14,9 @@ export const updateRelation = async (parent, { id, action }, ctx, info) => {
   const userID = await getUserID(ctx.request);
 
   let isValidAction = actions[action] || false; 
-  
+
   if ( isValidAction ) {
-    return await ctx.db.mutation.updateRelation({
+    const relation = await ctx.db.mutation.updateRelation({
       where: {
         id, 
       },
@@ -24,7 +24,9 @@ export const updateRelation = async (parent, { id, action }, ctx, info) => {
         status: isValidAction,
         action_id: userID
       }
-    }, info)
+    }, info);
+
+    return relation;
   };
 };
 

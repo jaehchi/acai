@@ -22,7 +22,7 @@ class FriendListPage extends Component {
       query: FRIEND_LIST_QUERY,
       variables: { filter: 'Pending' },
     });
-    
+  
     store.writeQuery({
       query: FRIEND_LIST_QUERY,
       data: {
@@ -61,10 +61,12 @@ class FriendListPage extends Component {
     });
   }
 
-  _updateStoreAfterDeletingRelation (store, deleteRelation, toggle ) {
+  _updateStoreAfterDeletingRelation ( store, deleteRelation, toggle ) {
+    const filter = toggle ? 'All' : 'Blocked';
+    
     const data = store.readQuery({
       query: FRIEND_LIST_QUERY,
-      variables: { filter: 'All' },
+      variables: { filter, },
     });
     
     store.writeQuery({
@@ -76,10 +78,13 @@ class FriendListPage extends Component {
           __typename: "RelationPayload" 
         },
       },
-      variables: { filter: 'All' }    
+      variables: { filter, }    
     });
 
-    toggle();
+    if (toggle) {
+      toggle();
+    }
+
   }
 
   _updateStoreAfterAddingActiveDM ( store, addDMChannel ) {
