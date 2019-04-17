@@ -32,6 +32,7 @@
       text-align: center
       transition: border-radius linear .25s
 
+
     &:hover 
       background-color: $discordBlue
       border-radius: 15px
@@ -66,3 +67,14 @@
     span
       border-radius: 15px
       margin: auto 0
+
+.guild__tooltip
+  opacity: 1 !important
+  color: #fff !important
+  background-color: #000 !important
+  &.place-right 
+    &:after 
+      border-right-color: #000 !important
+      border-right-style: solid !important
+      border-right-width: 6px !important
+      

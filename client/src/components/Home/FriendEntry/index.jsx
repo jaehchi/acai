@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { Mutation  } from 'react-apollo';
+import ReactTooltip from 'react-tooltip';
 
 import SVG from '../../globals/SVG';
 import RemoveFriend from '../../Modals/RemoveFriend';
@@ -38,37 +39,46 @@ class FriendEntry extends Component {
       return (
         <div className="pending__actions">
           { 
-            action_id !== localStorage._id ? <div className="pending__action pending__accept">
+            action_id !== localStorage._id ? 
+            <div className="pending__action pending__accept" >
+              <div data-tip="Accept">
+                <Mutation 
+                  mutation={UPDATE_RELATION_MUTATION} 
+                  variables={{ id, action: 1 }} 
+                  update={ (store, { data: { updateRelation } }) => {
+                    this.props.updateStoreAfterUpdatingRelation( store, updateRelation );
+                    this.props.refetch({ filter: 'All'});
+                  }}
+                >
+                  { (updateRelationMutation) => ( 
+                    <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
+                      <SVG name="checkmark" height={"24px"} weight={"24px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
+                    </div>
+                  )}
+                </Mutation>
+              </div>
+              <ReactTooltip id="acceptSvg" place="top" effect="solid" className="friends__tooltip"/>  
+            </div> : null
+          }
+          <div className="pending__action pending__decline">
+            <div data-tip="Decline">
+
               <Mutation 
                 mutation={UPDATE_RELATION_MUTATION} 
-                variables={{ id, action: 1 }} 
+                variables={{ id, action: 3 }} 
                 update={ (store, { data: { updateRelation } }) => {
                   this.props.updateStoreAfterUpdatingRelation( store, updateRelation );
-                  this.props.refetch({ filter: 'All'});
                 }}
               >
                 { (updateRelationMutation) => ( 
                   <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
-                    <SVG name="checkmark" height={"24px"} weight={"24px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
+                    <SVG name="cross" height={"20px"} weight={"20px"} viewBox={"0 0 24 24"} fill={"currentColor"}/>
                   </div>
                 )}
               </Mutation>
-            </div> : null
-          }
-          <div className="pending__action pending__decline">
-            <Mutation 
-              mutation={UPDATE_RELATION_MUTATION} 
-              variables={{ id, action: 3 }} 
-              update={ (store, { data: { updateRelation } }) => {
-                this.props.updateStoreAfterUpdatingRelation( store, updateRelation );
-              }}
-            >
-              { (updateRelationMutation) => ( 
-                <div onClick={(e) => { this._handlePendingActionsClick(e, updateRelationMutation)}}>
-                  <SVG name="cross" height={"20px"} weight={"20px"} viewBox={"0 0 328 328"} fill={"currentColor"}/>
-                </div>) }
-            </Mutation>
+            </div>
           </div>  
+          <ReactTooltip place="top" effect="solid" className="friends__tooltip"/>  
         </div>
       )
     } else if ( status === 'Accepted' ) {
@@ -79,9 +89,10 @@ class FriendEntry extends Component {
       }
       return (
         <div className="pending__actions">
-          <div className="pending__action pending__remove">
+          <div className="pending__action pending__remove" data-tip="Remove Friend" data-for="removeFriend">
             <RemoveFriend relation={payload} updateStoreAfterDeletingRelation={this.props.updateStoreAfterDeletingRelation}/>
           </div>
+          <ReactTooltip id="removeFriend"  place="top" effect="solid" className="friends__tooltip"/>  
         </div>
       );
     } else if ( status === 'Blocked') {
@@ -92,7 +103,7 @@ class FriendEntry extends Component {
       }
       return ( 
         <div className="pending__actions">
-          <div className="pending__action pending__remove">
+          <div className="pending__action pending__remove" data-tip="Block">
             <Mutation 
               mutation={DELETE_RELATION_MUTATION} 
               variables={{ id, action: 3 }} 
@@ -103,10 +114,11 @@ class FriendEntry extends Component {
               { (deleteRelationMutation) => ( 
                 <div onClick={(e) => { this._handlePendingActionsClick(e, deleteRelationMutation)}}>
                   <SVG name="removeUser" height={"20px"} weight={"20px"} viewBox={"0 0 328 328"} fill={"currentColor"}/>
-                </div>) }
+                </div>
+              )}
             </Mutation>
-
           </div>
+          <ReactTooltip place="top" effect="solid" className="friends__tooltip"/>  
         </div>
       );
     }
@@ -150,9 +162,13 @@ class FriendEntry extends Component {
                     {
                       link[0].memberOf.map( guild => { 
                         return (
-                          <div key={`mutualGuild/${guild.id}`} onClick={(e) => { this.handleServerClick(e, guild)}}>
-                            <img src={`http://localhost:3100/${guild.avatar}`}/>    
+                          <div>
+                            <div key={`mutualGuild/${guild.id}`} onClick={(e) => { this.handleServerClick(e, guild)}} data-tip={guild.name}>
+                              <img src={`http://localhost:3100/${guild.avatar}`}/>    
+                            </div>
+                            <ReactTooltip place="top" effect="solid" className="friends__tooltip"/>  
                           </div>
+                          
                         )
                       })
                     }

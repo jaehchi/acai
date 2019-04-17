@@ -40,11 +40,7 @@ class ChannelListPage extends Component {
           );
         }}
       </Query>
-    ) : (
-      <div id="channels__content">
-        hey
-      </div>
-    );
+    ) : null;
     
     return (
       <div>

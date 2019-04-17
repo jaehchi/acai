@@ -76,11 +76,14 @@
       z-index: 999
       position: relative
 
-      img 
-        width: 35px
-        height: 35px
+      div
         margin-right: 9px
-        border-radius: 50%
+
+        img 
+          width: 35px
+          height: 35px
+          
+          border-radius: 50%
 
     .pending__actions 
       color: #fff 
@@ -88,8 +91,8 @@
       justify-content: flex-end
       flex-direction: row
       align-items: center
-      width: 250px
-
+      width: 225px
+      
       .pending__action
         background-color: #2f3136
         margin: 0
@@ -107,7 +110,7 @@
           align-items: center
           margin: 0
           padding: 0
-      
+    
       .pending__accept
         &:hover 
           background-color: #43b581
@@ -125,5 +128,17 @@
     background-color: rgba(79,84,92,.4)
     box-shadow: 1px 2px rgba(0,0,0,.2), 1px 2px 0 rgba(0,0,0,.01)
     border-radius: 3px
+
+.friends__tooltip
+    opacity: 1 !important
+    color: #fff !important
+    background-color: #000 !important
+    padding: 10px
+    &.place-top
+      &:after 
+        border-top-color: #000 !important
+        border-top-style: solid !important
+        border-top-width: 6px !important
+    
 
 

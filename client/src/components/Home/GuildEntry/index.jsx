@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { withApollo } from 'react-apollo';
 import ApolloClient from 'apollo-client';
+import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import { propType } from 'graphql-anywhere';
 import gql from 'graphql-tag';
@@ -41,15 +42,27 @@ class GuildEntry extends Component {
 
     return (
       <div className="guildItem">
-        <NavLink to={path} className="g-avatar" activeClassName="g-active" onMouseOver={this.prefetchChannels} isActive={ () => ( this.props.location.pathname.includes(id) )} >
+        <NavLink 
+          to={path} 
+          className="g-avatar" 
+          activeClassName="g-active" 
+          onMouseOver={this.prefetchChannels} isActive={ () => ( this.props.location.pathname.includes(id) )} 
+          data-tip={name}
+          data-for={`gtip-${id}`}
+        >
           {
             this.state.avatar ? 
               <img 
                 src={`http://localhost:3100/${avatar}`} 
                 onError={this.onBrokenImage} 
-              /> : <div>{name[0]}</div>
+              /> : 
+              <div
+              >
+                {name[0]}
+              </div>
           }
         </NavLink>
+        <ReactTooltip id={`gtip-${id}`} place="right" effect="solid" className="guild__tooltip"/>  
         <div className="g-selector"></div>
       </div>
     );
