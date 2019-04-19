@@ -43,8 +43,11 @@ class Register extends Component {
   }
 
   async _saveUserData ({ token, user }) {
+    localStorage._id = user.id
     localStorage.access_token = token;
-    localStorage.user = user;
+    localStorage.username = user.username;
+    localStorage.avatar = user.avatar;
+    localStorage.status = user.status;
   }
 
   render() {

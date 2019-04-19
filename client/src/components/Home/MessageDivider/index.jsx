@@ -6,14 +6,17 @@ import TimeDivider from '../TimeDivider';
 
 import './messageDivider.sass';
 
-const MessageDivider = ({ messages = [], match, date }) =>  {
+const MessageDivider = ({ messages = [], match, date, lastPage }) =>  {
+
   return (
     <div>
-      <h1 className='md-container'>
+      { 
+        !lastPage ?  <h1 className='md-container'>
         <span className="md-title">
           {moment(date).format('MMMM Do, YYYY')}
         </span>
-      </h1>
+       </h1> : null
+      }
       { messages && messages.map( (messages) => ( <TimeDivider key={`${match.url}/${messages[0].id}`} messages={messages} /> )) }
     </div>
   );

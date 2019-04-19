@@ -50,6 +50,7 @@ class FeedPage extends Component {
                         refetch={refetch}
                         fetchMore={fetchMore}
                         channel_id={channel.id}
+                        channel_name={channel.name}
                       />
                       <AddMessage channel_id={match.params.channel_id} channel_name={channel.name} />
                     </div>

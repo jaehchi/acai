@@ -49,6 +49,8 @@ class Login extends Component {
     localStorage._id = user.id
     localStorage.access_token = token;
     localStorage.username = user.username;
+    localStorage.avatar = user.avatar;
+    localStorage.status = user.status;
   }
 
   render() {

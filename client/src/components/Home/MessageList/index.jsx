@@ -115,6 +115,7 @@ class MessageList extends Component {
   }
 
   _fetchMoreMessages () {    
+  
     if ( this.props.pageInfo.hasPreviousPage ) {
       this.props.fetchMore({
         query: MESSAGE_LIST_QUERY,
@@ -186,14 +187,22 @@ class MessageList extends Component {
   }
 
   render() {
-    const { messages } = this.props;
+    const { messages, channel_name, username } = this.props;
 
     return (
       <div id="messageList" onScroll={this._onScrollHandler} ref={this.list}>
+        { !this.props.pageInfo.hasPreviousPage && channel_name ? <div className="beginning__message">Welcome to the beginning of the <strong>#{channel_name}</strong> channel.</div> : null }
+        { !this.props.pageInfo.hasPreviousPage && username ? <div className="beginning__message">This is the beginning of your direct message history with <strong>@{username}</strong>.</div> : null }
         { 
-          messages && transformMessages(messages).map( ( messagesByDate, index ) => ( 
-            <MessageDivider key={index} messages={messagesByDate} date={messagesByDate[0][0].createdAt}/>
-          )) 
+          messages && transformMessages(messages).map( ( messagesByDate, index ) => {
+
+            if ( index === 0 && this.props.pageInfo.hasPreviousPage === false) {
+              return <MessageDivider key={index} messages={messagesByDate} date={messagesByDate[0][0].createdAt} lastPage={true}/>
+            } else {
+              return <MessageDivider key={index} messages={messagesByDate} date={messagesByDate[0][0].createdAt}/>
+            }
+          })
+
         }
       </div>
     );
