@@ -1,0 +1,149 @@
+@import '../../globals/global.sass'
+
+#userSettings
+  color: #b9bbbe
+  height: 30px
+  width: 30px
+  border-width: 1px
+  border-radius: 3px
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+
+  
+  &:hover
+    color: $white
+    background-color:  #2f3136
+
+.user-settings-wrapper
+  background-color: rgba(0,0,0,0.5)
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 200
+
+  .user-settings-container
+    background-color: $white 
+    display: grid
+    grid-template-rows: auto
+    grid-template-columns: 33% 67%
+    grid-template-areas: "us__settings us__options"
+    align-self: center
+    border-radius: 5px
+    width: 100vw
+    height: 100vh
+    position: relative
+
+    .us__tablist
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: flex-end
+      margin: 0
+      background-color: #202225
+
+      .tabs
+        margin: 80px 40px 20px 40px
+        width: 200px
+        height: 500px
+
+        .tab__entry
+          color: white
+          padding: 8px 12px
+          margin: 0 10px
+          font-size: 16px
+          margin: 1px 0
+
+          &:hover
+            background-color: grey
+            border-radius: 3px
+        
+        .tab__selected
+          background-color: $discordBlue
+          border-radius: 3px
+
+          &:hover
+            background-color: $discordBlue
+
+        .tab__seperator
+          background-color: rgba(114,118,125,.3)
+          height: 1px
+          margin: 8px 10px
+          width: 90%
+        
+        .tab__setting 
+          color: #99aab5
+          line-height: 25px
+          height: 25px
+          text-transform: uppercase
+          font-size: 12px
+          font-weight: 500
+          letter-spacing: .5px
+          padding: 8px 12px 
+          margin: 1px 0
+                
+    .us__tabcontent
+      display: flex
+      flex-direction: row
+      justify-content: flex-start
+      // align-items: center
+      margin: 0
+      background-color: #2f3136
+
+      .panels
+        width: 660px
+
+        height: 600px
+        // margin: 100px 40px 20px
+        padding: 0 40px
+    
+        .panel__title 
+          width: 300px
+          color: $white
+          font-size: 20px
+          text-transform: uppercase
+          margin-top: 140px
+
+        .coming__soon 
+          margin-top: 20px
+          display: flex
+          justify-content: center
+          align-items: center
+          flex-direction: column
+          height: 525px
+       
+          border-radius: 3px
+          background-color: $discordBlue
+          color: $white
+
+          h1 
+            padding-top: 30px
+            letter-spacing: 1px
+            text-transform: uppercase
+
+      .exit__button
+        margin-top: 140px
+        width: 50px
+        height: 50px
+        color: #72767d
+        z-index: 222
+        position: relative
+
+        .exit__svg
+          border-radius: 50%
+          width: 14px
+          height: 14px
+          padding: 10px
+          border: 1px solid #72767d
+
+          &:hover
+            background-color: rgba(114,118,125,.3)
+        
+        .esc 
+          color: #72767d
+          margin: 6px 0 0 6px
+          font-size: 12px
+
+      
+      

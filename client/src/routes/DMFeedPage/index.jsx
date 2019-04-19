@@ -18,12 +18,13 @@ class DMFeedPage extends Component {
 
   render() {
     return (
-        <Query query={MESSAGE_LIST_QUERY} variables={{ id: this.props.match.params.channel_id }} fetchPolicy='cache-first'>
+      <Query query={MESSAGE_LIST_QUERY} variables={{ id: this.props.match.params.channel_id }} fetchPolicy='cache-first'>
           {
             ({ loading, error,  subscribeToMore, refetch, fetchMore, data: { messages, channel }}) => {
               if ( loading ) {
                 return <Loading/>;
               }
+              console.log(channel)
 
               const atUser = channel.recipients.find(el => ( el.id !== localStorage._id));
 
@@ -41,6 +42,7 @@ class DMFeedPage extends Component {
                       refetch={refetch}
                       fetchMore={fetchMore}
                       channel_id={channel.id}
+                      username={atUser.username}
                     />
                     <AddMessage channel_id={this.props.match.params.channel_id} username={atUser.username} />
                   </div>

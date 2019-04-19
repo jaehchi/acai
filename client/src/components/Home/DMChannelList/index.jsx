@@ -9,7 +9,6 @@ const DMChannelList = ({ channels = [], match }) => {
 
   return (
     <div>
-      <div className="dm__list">Direct Messages</div>
       {
         channels && channels.map( channel => (  
           <div key={channel.id}>

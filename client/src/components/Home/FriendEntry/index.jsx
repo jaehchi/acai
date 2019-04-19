@@ -162,8 +162,8 @@ class FriendEntry extends Component {
                     {
                       link[0].memberOf.map( guild => { 
                         return (
-                          <div>
-                            <div key={`mutualGuild/${guild.id}`} onClick={(e) => { this.handleServerClick(e, guild)}} data-tip={guild.name}>
+                          <div key={`mutualGuild/${guild.id}`}>
+                            <div onClick={(e) => { this.handleServerClick(e, guild)}} data-tip={guild.name}>
                               <img src={`http://localhost:3100/${guild.avatar}`}/>    
                             </div>
                             <ReactTooltip place="top" effect="solid" className="friends__tooltip"/>  

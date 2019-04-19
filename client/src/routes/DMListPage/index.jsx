@@ -39,6 +39,7 @@ class DMListPage extends Component {
                   <div className="c-name">Friends</div>
                 </NavLink>  
               </div>
+                <div className="dm__list">Direct Messages</div>
               <div className="DMchannel__list">
                 <DMChannelList channels={channels || []} match={this.props.match}/>
               </div>

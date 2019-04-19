@@ -1,6 +1,8 @@
 
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
+import { Query, withApollo } from 'react-apollo';
+
+import USER_INFO_FRAGMENT from '../../graphQL/fragments/UserInfo.graphql';
 
 import CHANNEL_LIST_QUERY from '../../graphQL/queries/ChannelList.graphql';
 
@@ -13,6 +15,19 @@ import './channelListPage.sass';
 class ChannelListPage extends Component {
   constructor(props) {
     super(props);
+
+    this.prefetchUserInfo = this.prefetchUserInfo.bind(this);
+  }
+
+  async prefetchUserInfo () {
+    this.user = await this.props.client.readFragment({
+      id: localStorage._id,
+      fragment: USER_INFO_FRAGMENT
+    });
+  }
+
+  componentWillMount() {
+    this.prefetchUserInfo();
   }
 
   render() {
@@ -34,7 +49,7 @@ class ChannelListPage extends Component {
                 <ChannelList channels={channels || []} match={match}/>
               </div>
               <div>
-                <UserControl/>
+                <UserControl />
               </div>
             </div>
           );
@@ -50,4 +65,4 @@ class ChannelListPage extends Component {
   }
 };
 
-export default ChannelListPage;
+export default withApollo(ChannelListPage);
